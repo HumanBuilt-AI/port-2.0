@@ -68,7 +68,7 @@ export function startStory(gsap, ScrollTrigger) {
   cta.addEventListener('keyup', holdEnd);
   cta.addEventListener('dblclick', function () { if (screen.classList.contains('comps') && opened) { setOpen(false); brandFrame(prog(brand)); } });
   function brandFrame(p) {
-    var k = reduce ? 5 : Math.floor(seg(p, .08, .9) * 6);
+    var k = reduce ? 5 : Math.floor(seg(p, .06, .62) * 6);   // all five files on by ~60%
     files.forEach(function (li, i) { li.classList.toggle('on', i < k); });
     var on = function (key) { return files.some(function (li) { return li.dataset.k === key && li.classList.contains('on'); }); };
     screen.classList.toggle('tokens', on('tokens'));
@@ -81,7 +81,7 @@ export function startStory(gsap, ScrollTrigger) {
     $('s-room').textContent = voice ? 'Seven' : '412';
     $('s-meta').textContent = voice ? 'Late checkout, already sorted' : 'Check-out: 11:00 AM';
     if (!comps) setOpen(false);
-    else if (k >= 6 && p > .97 && !opened) setOpen(true);
+    else if (k >= 6 && p > .68 && !opened) setOpen(true);   // doors open, then the section holds so you see the room
     var open = comps && opened;
     if (open) {
       $('s-title').textContent = 'Welcome in, Ms. Hart.';

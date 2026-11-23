@@ -171,8 +171,8 @@ svg { overflow: visible; }
 .static .flow-head { top: 90px; }
 
 /* BRAND: night section, files switch on like hardware toggles */
-.brand { height: 380vh; background: var(--night); color: var(--white); }
-.brand .stage { display: flex; align-items: center; }
+.brand { height: 480vh; background: var(--night); color: var(--white); }
+.brand .stage { display: flex; align-items: center; padding-top: calc(56px + env(safe-area-inset-top, 0px)); } /* clear the sticky nav bar */
 .brand .grid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 40px 72px; align-items: center; }
 .brand h2 { margin-bottom: 20px; max-width: 12ch; }
 .brief { font: 400 17px/1.45 var(--text); color: var(--night-text); max-width: 46ch; margin: 0 0 30px; padding-left: 16px; border-left: 1.25px solid var(--sun); }
@@ -256,7 +256,7 @@ button.cta { border: 0; width: 100%; font: inherit; cursor: default; -webkit-use
 .phone .tag { position: absolute; right: -10px; top: -12px; background: var(--night); color: var(--white); }
 .brand-foot { margin-top: 26px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; font-size: 14px; color: var(--night-text); }
 @media (max-width: 820px) {
-  .brand .grid { grid-template-columns: minmax(0, 1fr); gap: 18px; padding-top: 56px; }
+  .brand .grid { grid-template-columns: minmax(0, 1fr); gap: 18px; padding-top: 8px; }
   .brand h2 { font-size: 36px; margin-bottom: 12px; }
   .brief { margin-bottom: 14px; font-size: 14px; }
   .folders { grid-template-columns: minmax(0, 1fr); }
