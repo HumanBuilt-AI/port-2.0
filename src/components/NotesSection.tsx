@@ -5,7 +5,7 @@ export function NotesSection() {
       {/* NOTES: latest-style column */}
         <section className="notes" id="notes" aria-labelledby="notes-h">
           <div className="in col">
-            <header className="notes-head"><h2 id="notes-h">notes on now</h2><time className="sig" dateTime="2026-11">November 2026</time></header>
+            <header className="notes-head"><span className="pill">Section 05</span><h2 id="notes-h">notes on now</h2><time className="sig" dateTime="2026-11">November 2026</time></header>
             <figure className="notes-hero"><svg viewBox="0 0 1200 520" aria-hidden="true"><use href="#a-console" /></svg></figure>
             <article className="note"><time className="sig" dateTime="2026-11">Nov 2026</time><p>The tools are changing, but the imagination behind them matters more than ever.</p></article>
             <figure className="aside"><div className="pic ember"><svg viewBox="0 0 120 120" aria-hidden="true"><g className="ln">
