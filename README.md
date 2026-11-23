@@ -17,22 +17,24 @@ npm run lint
 
 | What | Where |
 | --- | --- |
-| All copy (headlines, steps, notes, links) | `src/content/site.ts` |
 | Section order | `src/app/page.tsx` |
-| Colours, type scale, section styles | `src/app/globals.css` (tokens at the top) |
+| Sections and their copy | `src/components/` (one file per section: `Hero`, `flow/FlowSection`, `BrandSection`, `SpecsSection`, `WorkSection`, `NotesSection`, `ContactSection`; menu in `SiteIndex`, sticky bar in `StickyBar`, product sheets in `WorkSheets`) |
+| Colours, type scale, section styles | `src/app/globals.css` (base tokens at the top; the mono editorial look and the `--pop` accent are in the override block near the end) |
 | Fonts (SF Pro Display / Text) | `src/app/fonts/`, loaded in `src/app/layout.tsx` |
-| Scroll engine (pinned progress, easing) | `src/lib/scroll.ts` |
-| Sections | `src/components/` (one file per pinned section, simple ones in `StaticSections.tsx`) |
-| Placeholder line art | `src/components/illustrations/` |
+| Scroll animation (hero, flow, brand demo, sticky bar) | `src/lib/story-motion.js`, started by `StoryMotion` |
+| Storyboard art (traced SVG) | `src/components/flow/scene.ts` (generated, do not hand-edit) |
+| Gold robot logo (WebGL) | `src/lib/robot.js` |
+| The Alibi photo | `public/alibi/room.jpg` |
 
-### How a pinned section works
+The page was ported from the HTML prototype (`prototypes/story-sf4.src.html` in the project files), so the markup, styles and motion match it one to one. GSAP 3.13 and ScrollTrigger drive the storyboard flow.
 
-A pinned section is a tall `<section className="pin">` with a sticky `.stage` inside it. `usePinnedProgress(ref, onFrame)` reports progress from 0 to 1 while the stage is held, and `onFrame` writes styles straight to the DOM, so React doesn't re-render on scroll. Make a section hold longer by raising its height in `globals.css`.
+### How the motion works
 
-With reduced motion turned on, nothing pins and every section shows its finished state.
+Pinned sections are a tall `<section className="pin">` with a sticky `.stage` inside. `story-motion.js` reads scroll progress through each one and writes styles straight to the DOM, so React never re-renders on scroll. Make a section hold longer by raising its height in `globals.css`.
+
+With reduced motion turned on, nothing pins, every section shows its finished state, and the robot stays still.
 
 ## Working agreement
 
 - One small PR per section or idea. Each PR gets a Netlify deploy preview to review.
-- Copy changes only touch `src/content/site.ts`.
-- Artwork in `illustrations/` is placeholder until the final style is ready.
+- Copy lives next to its markup in each section component.
