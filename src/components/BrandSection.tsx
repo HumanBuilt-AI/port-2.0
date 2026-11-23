@@ -7,7 +7,8 @@ export function BrandSection() {
           <div className="stage">
             <div className="in grid">
               <div>
-                <h2 id="brand-h" className="h2">Same prompt.<br />Better brief.</h2>
+                <span className="pill on-dark">Section 02 · The brief</span>
+                <h2 id="brand-h" className="h2">Same prompt.<br /><span className="soft">Better brief.</span></h2>
                 <p className="brief">Watch an AI design the same screen, over and over. The prompt never changes. Each brand file it reads adds a little more taste, until generic turns into something that feels like it belongs.</p>
                 <div className="folders">
                   <div className="folder people">

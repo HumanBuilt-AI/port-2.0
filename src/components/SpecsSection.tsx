@@ -6,7 +6,7 @@ export function SpecsSection() {
         <section className="specs" id="specs" aria-labelledby="specs-h">
           <div className="in">
             <div className="specs-head">
-              <h2 id="specs-h" className="h2">So I built the working version.</h2>
+              <div className="head-l"><span className="pill">Section 04 · Specs</span><h2 id="specs-h" className="h2">So I built the <span className="soft">working version.</span></h2></div>
               <div className="specs-lede">
                 <p className="lede">It’s called Specs. It turns a logo, a website, a PDF and some photos into a brand kit an AI can read, then art-directs posts from it and explains every choice.</p>
                 <a className="btn fill" href="https://specs.humanbuiltai.work" target="_blank" rel="noopener">Try Specs <span className="tag" style={{ borderColor: "currentColor" }}>beta</span></a>
