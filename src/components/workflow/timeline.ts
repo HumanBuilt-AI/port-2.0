@@ -50,5 +50,16 @@ export function buildWorkflowTimeline(scene: HTMLElement) {
   });
 
   timeline.addLabel("resolved").to(hold, { progress: 2, duration: 1.2, ease: "none" });
+  timeline
+    .addLabel("inspect")
+    .to(select("[data-source-scene]"), { opacity: 0, duration: 0.55 }, "inspect")
+    .to(select("[data-gap-scene]"), { opacity: 1, duration: 0.55 }, "inspect+=0.12")
+    .to(captions[1], { opacity: 0, duration: 0.34 }, "inspect+=0.18")
+    .to(captions[2], { opacity: 1, duration: 0.34 }, "inspect+=0.18")
+    .to(select("[data-gap-lens]"), { x: 36, y: 54, duration: 0.74, ease: "power2.inOut" }, "inspect+=0.45")
+    .to(select("[data-gap-target]"), { attr: { fill: "#f5d77f" }, duration: 0.35 }, "inspect+=0.92")
+    .addLabel("find-gaps")
+    .to(hold, { progress: 3, duration: 1.05, ease: "none" });
+
   return timeline;
 }

@@ -1,6 +1,7 @@
 export const workflowStages = [
   { number: "01", title: "The Mess", description: "Unstructured inputs from everywhere." },
   { number: "02", title: "Make It Usable", description: "Turn it into clean, structured Markdown that maximizes context." },
+  { number: "03", title: "Find the Gaps", description: "Spot what the brief still needs before you start making." },
 ] as const;
 
 export const papers = [

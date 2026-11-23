@@ -62,7 +62,7 @@
   grid-area: 1 / 1;
 }
 
-.workflow-scene[data-animated] [data-workflow-caption]:last-child {
+.workflow-scene[data-animated] [data-workflow-caption]:not(:first-child) {
   opacity: 0;
 }
 

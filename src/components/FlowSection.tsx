@@ -22,6 +22,7 @@ export function FlowSection() {
                 <button type="button" data-workflow-jump="mess">The Mess</button>
                 <button type="button" data-workflow-jump="gather">Gather</button>
                 <button type="button" data-workflow-jump="resolved">Make It Usable</button>
+                <button type="button" data-workflow-jump="find-gaps">Find the Gaps</button>
               </div>
               <div data-workflow-tools />
             </div>
@@ -30,8 +31,8 @@ export function FlowSection() {
           <div className="workflow-captions">
             {workflowStages.map((stage, index) => (
               <article key={stage.number} data-workflow-caption>
-                {index === 1 && (
-                  <div className="workflow-static-end"><WorkflowArt resolved /></div>
+                {index > 0 && (
+                  <div className="workflow-static-end"><WorkflowArt resolved={index === 1} gaps={index === 2} /></div>
                 )}
                 <div className="workflow-copy">
                   <span className="workflow-number">{stage.number}</span>

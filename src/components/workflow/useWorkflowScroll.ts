@@ -34,7 +34,7 @@ export function useWorkflowScroll(ref: RefObject<HTMLDivElement | null>) {
         trigger: scene,
         pin: true,
         start: "top top",
-        end: () => "+=" + Math.round(window.innerHeight * (window.innerWidth < 700 ? 2.25 : 2.8)),
+        end: () => "+=" + Math.round(window.innerHeight * (window.innerWidth < 700 ? 3.1 : 3.8)),
         scrub: 0.35,
       });
 
