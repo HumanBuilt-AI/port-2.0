@@ -1,0 +1,84 @@
+.workflow {
+  background: #f6f4ec;
+  color: #171715;
+}
+
+.workflow-inner {
+  display: grid;
+  align-content: center;
+  gap: clamp(14px, 3svh, 34px);
+  padding-block: 88px 30px;
+}
+
+.workflow-scene[data-animated] .workflow-inner {
+  min-height: 100svh;
+}
+
+.workflow-visual, .workflow-static-end {
+  width: min(100%, 930px);
+  margin-inline: auto;
+}
+
+.workflow-art {
+  display: block;
+  width: 100%;
+  max-height: min(51svh, 520px);
+  overflow: hidden;
+}
+
+.workflow-copy {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(14px, 3vw, 34px);
+  border-top: 1px solid #171715;
+  padding-block: 12px;
+}
+
+.workflow-copy h3 {
+  margin: 0 0 4px;
+  font-size: clamp(26px, 4vw, 54px);
+  line-height: 1.05;
+}
+
+.workflow-copy p {
+  margin: 0;
+}
+
+.workflow-number {
+  font: 600 0.85rem/1 monospace;
+}
+
+.workflow-scene[data-animated] .workflow-captions {
+  display: grid;
+}
+
+.workflow-scene[data-animated] [data-workflow-caption] {
+  grid-area: 1 / 1;
+}
+
+.workflow-scene[data-animated] [data-workflow-caption]:last-child {
+  opacity: 0;
+}
+
+.workflow-scene[data-animated] .workflow-static-end {
+  display: none;
+}
+
+.workflow-scene:not([data-animated]) .workflow-static-end {
+  margin-block: 36px 18px;
+}
+
+@media (max-height: 520px) {
+  .workflow-inner {
+    padding-block: 62px 12px;
+    gap: 8px;
+  }
+
+  .workflow-art {
+    max-height: 38svh;
+  }
+
+  .workflow-copy {
+    padding-block: 6px;
+  }
+}
