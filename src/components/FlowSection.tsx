@@ -16,6 +16,16 @@ export function FlowSection() {
       <div ref={scene} className="workflow-scene">
         <div className="in workflow-inner">
           <h2 id="flow-h" className="h-l">{flow.title}</h2>
+          {process.env.NODE_ENV === "development" && (
+            <div className="workflow-review" data-workflow-review hidden>
+              <div className="workflow-review-jumps" role="group" aria-label="Jump to an animation beat">
+                <button type="button" data-workflow-jump="mess">The Mess</button>
+                <button type="button" data-workflow-jump="gather">Gather</button>
+                <button type="button" data-workflow-jump="resolved">Make It Usable</button>
+              </div>
+              <div data-workflow-tools />
+            </div>
+          )}
           <div className="workflow-visual"><WorkflowArt /></div>
           <div className="workflow-captions">
             {workflowStages.map((stage, index) => (

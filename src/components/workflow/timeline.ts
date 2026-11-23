@@ -11,6 +11,7 @@ export function buildWorkflowTimeline(scene: HTMLElement) {
   const hold = { progress: 0 };
 
   timeline
+    .addLabel("mess", 0)
     .to(hold, { progress: 1, duration: 1.35, ease: "none" })
     .addLabel("gather")
     .to(select("[data-reaching-arm]"), {

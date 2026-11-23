@@ -88,3 +88,43 @@
     padding-block: 6px;
   }
 }
+
+.workflow-review {
+  position: sticky;
+  top: 62px;
+  z-index: 3;
+  padding: 8px;
+  background: #f6f4ec;
+  border: 1px solid #171715;
+}
+
+.workflow-review-jumps {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.workflow-review-jumps button {
+  border: 1px solid #171715;
+  border-radius: 999px;
+  padding: 5px 10px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.workflow-scene[data-review] .workflow-inner {
+  align-content: start;
+}
+
+.workflow-review [data-workflow-tools] {
+  position: relative;
+  min-height: 44px;
+}
+
+.workflow-review [data-workflow-tools] .gs-dev-tools {
+  top: 0 !important;
+  bottom: auto;
+}

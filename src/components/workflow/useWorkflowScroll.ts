@@ -10,6 +10,21 @@ export function useWorkflowScroll(ref: RefObject<HTMLDivElement | null>) {
     if (!scene) return;
 
     gsap.registerPlugin(ScrollTrigger, MorphSVGPlugin);
+    if (process.env.NODE_ENV === "development" &&
+        new URLSearchParams(window.location.search).get("workflow-review") === "1") {
+      let disposed = false;
+      let teardown: (() => void) | undefined;
+      void import("./workflowReview").then(({ mountWorkflowReview }) => {
+        if (!disposed) teardown = mountWorkflowReview(scene);
+      }).catch((error: unknown) => {
+        console.error("Could not start workflow review", error);
+      });
+      return () => {
+        disposed = true;
+        teardown?.();
+      };
+    }
+
     const media = gsap.matchMedia(scene);
     media.add("(prefers-reduced-motion: no-preference)", () => {
       scene.dataset.animated = "true";
