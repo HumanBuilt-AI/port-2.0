@@ -23,22 +23,35 @@ export function WorkflowArt({ resolved = false }: { resolved?: boolean }) {
 
       <g stroke="#171715" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
         <g data-character stroke="none">
-          {/* Cut-paper figure: an offset cap, a single eye and a movable ribbon arm. */}
-          <ellipse cx="140" cy="354" rx="102" ry="13" fill={`url(#${hatch})`} opacity=".52" />
-          <path d="M101 296v52h-32m92-53 21 53h30" fill="none" stroke="#1e1c19" strokeWidth="6" />
-          <path d="M60 304 85 188q11-51 64-55l48 8-19 165Z" fill="#235c82" />
-          <path d="M60 304h63l-18-41Z" fill="#19445f" />
-          <path d="M89 180q-15-79 37-96 44-15 65 27l25 33-24 6q-6 39-44 40Z" fill="#efb4ae" />
-          <path d="M77 127q-12-50 24-70 43-24 83 13l32 7-18 24-67-12q-19 28-54 38Z" fill="#e65836" />
-          <path d="M77 127q27-11 54-38l67 12" fill="none" stroke="#1e1c19" strokeWidth="4" />
-          <ellipse cx="163" cy="130" rx="17" ry="13" fill="#faf8f0" />
-          <circle cx="170" cy="130" r="7" fill="#1e1c19" />
-          <path d="M156 158q11 8 23-1" fill="none" stroke="#1e1c19" strokeWidth="4" />
-          <circle cx="115" cy="150" r="7" fill="#e65836" />
-          <path d="M93 212q-26 3-49 34l21 13q22-23 38-17" fill="none" stroke="#1e1c19" strokeWidth="5" />
-          <path d="m90 196 15-13 13 18-16 10Z" fill="#ffd34c" />
-          <path data-reaching-arm d={resolved ? armShapes.resolved : armShapes.initial} fill="#e65836" />
-          <path d="M47 144v19m-10-10h20m172-55 9-12m-3 28 15-3" fill="none" stroke="#235c82" strokeWidth="3" />
+          <ellipse cx="144" cy="359" rx="108" ry="10" fill="#d7c6aa" />
+          <path d="M112 233 137 244 108 296 66 325 56 308 87 280Z" fill="#302d29" />
+          <path d="M126 231q21-7 34 12l23 32 23 57-23 11-28-47-37-28Z" fill="#242321" />
+          <path d="m56 303 19 17-13 26q-5 10-18 9H34q-8-4-4-16Z" fill="#3d385b" />
+          <path d="M30 339q0 16 13 16h19l-5 8H38q-18-3-13-19Z" fill="#f2dfb8" />
+          <path d="m179 336 23-11 11 13q28 0 34 15v5h-71q-5-8 3-22Z" fill="#423e65" />
+          <path d="M175 354h72v9h-70Z" fill="#f2dfb8" />
+          <path d="m184 338 12-4m-8 11 12-4m-151-23 10 5m-15 2 10 5" fill="none" stroke="#f2dfb8" strokeWidth="3" />
+          <path d="M121 158q19-6 31 17l14 70q-21 16-47 11L99 238l7-62Z" fill="#292825" />
+          <path d="m107 177 17 70 13 6-15-87Z" fill="#3d3a35" />
+          <path d="m116 190 16 44" fill="none" stroke="#d0b99d" strokeWidth="2.3" />
+          <path data-reaching-arm d={resolved ? armShapes.resolved : armShapes.initial} fill="#292825" />
+          <path d="M107 190q-24 28-13 44 13 12 51-9l-6-10-31 10 12-23Z" fill="#292825" />
+          <path d="M138 214q9-7 17-4 5 3 2 8l-12 9Z" fill="#688f89" />
+          <path d="m110 175 8-8 7 10-9 7Z" fill="#f3dfb5" />
+          <circle cx="118" cy="175" r="1.8" fill="#292825" />
+
+          {/* The face uses opaque paper facets instead of outline strokes. */}
+          <path d="m113 62 32 41 48 22-35 21-25 35-18-31-47-16 36-25Z" fill="#709b95" />
+          <path d="m113 62 32 41-23 14-18-8Z" fill="#4a7779" />
+          <path d="m122 117 36 29-25 35-18-31Z" fill="#4d7774" />
+          <path d="m145 103 48 22-35 21-20-17Z" fill="#9cb5a5" />
+          <ellipse cx="124" cy="117" rx="11" ry="15" transform="rotate(-22 124 117)" fill="#faf0d4" />
+          <ellipse cx="151" cy="111" rx="12" ry="16" transform="rotate(-19 151 111)" fill="#faf0d4" />
+          <ellipse cx="129" cy="115" rx="4.3" ry="8" transform="rotate(-17 129 115)" fill="#252420" />
+          <ellipse cx="157" cy="109" rx="4.7" ry="8.5" transform="rotate(-17 157 109)" fill="#252420" />
+          <path d="M111 97q4-8 11-7m24-5q7-5 13 0m-20 44 9 3-4 4m-12 5q9 7 17-1" fill="none" stroke="#252420" strokeWidth="2.8" />
+          <path d="M74 66q3 13 14 15-11 3-14 16-3-13-14-16 11-2 14-15Z" fill="#e6a53b" />
+          <path d="M193 65q2 9 11 12-9 3-11 12-3-9-12-12 9-3 12-12Z" fill="#e6a53b" />
         </g>
 
         <g data-document transform="translate(339 35)" opacity={resolved ? 1 : 0}>
