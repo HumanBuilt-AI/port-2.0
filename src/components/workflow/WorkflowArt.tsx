@@ -1,5 +1,5 @@
 import { useId } from "react";
-import { papers, scatteredDots } from "./content";
+import { armShapes, papers, scatteredDots } from "./content";
 
 export const paperOutline = "M1 1H64L86 22V79H1Z";
 export const markdownOutline = "M1 1H263L298 36V330H1Z";
@@ -21,26 +21,24 @@ export function WorkflowArt({ resolved = false }: { resolved?: boolean }) {
         ))}
       </g>
 
-      <g stroke="#171715" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M27 357Q107 349 230 357L286 364Q196 384 68 372Z" fill={`url(#${hatch})`} stroke="none" />
-        <g data-character>
-          <path d="M86 347l13-91 53-19 27 25 16 82-37 13-18-55-12 51Z" fill="#171715" />
-          <path d="M86 346q22-4 44 5l-2 13H68q-8-10 18-18Zm73 4q22-12 38-7l24 10q8 10-6 11h-51Z" fill="#faf8f0" />
-          <path d="M95 257q-31-12-25-46l10-39 41-31 54 15 30 36-19 18-20-18 4 57q-29 23-75 8Z" fill="#faf8f0" />
-          <path d="M93 249q28 16 77-5l-4 13q-28 15-71 0Z" fill={`url(#${hatch})`} />
-          <path d="M108 143 106 125l37-5 4 27-10 16-21-3Z" fill="#faf8f0" />
-          <path d="M92 130q-15-21-4-43 10-23 35-21 31-5 46 20l5 18-6 17q-4 22-25 25-16 2-30-10l-13 2Z" fill="#faf8f0" />
-          <path d="M92 130q-11-10-12-31-2-28 19-40 19-12 44-4 21 6 28 27-15 6-32-6-9 23-34 26l4 19q-9-6-17 9Z" fill="#171715" />
-          <path d="M88 117q3-11 11-9m26 6 28-3m4-2 9-2m-21 19q7 5 13 0" fill="none" />
-          <circle cx="137" cy="112" r="10" fill="#faf8f0" />
-          <ellipse cx="164" cy="109" rx="7" ry="9" fill="#faf8f0" />
-          <path d="M147 111q5-5 10-2m-1 2 8 11-9 2m-26 12q9 7 18 3" fill="none" />
-          <circle cx="140" cy="113" r="1.7" fill="#171715" stroke="none" />
-          <circle cx="165" cy="110" r="1.4" fill="#171715" stroke="none" />
-          <path d="M110 152q12 23 34 13l10-14m-65 40q24 15 78 4m-79 11q27 16 78 4m-77 14q31 16 79 1" fill="none" />
-          <path data-reaching-arm d={resolved ? "M179 190q38 3 65-30l15-9 10 4-5 9-16 12q-28 37-61 35Z" : "M179 190q21-18 19-49l3-17 8-5 6 8-1 18q10 42-27 66Z"} fill="#faf8f0" />
-          <path d="M79 194q-25 25-8 45 16 21 54 1l14-13-7-9-17 7-29 1" fill="#faf8f0" />
-          <path d="M46 106l13 9m-24 9 18 3m139-53 11-13m-3 28 19-4" fill="none" />
+      <g stroke="#171715" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+        <g data-character stroke="none">
+          {/* Cut-paper figure: an offset cap, a single eye and a movable ribbon arm. */}
+          <ellipse cx="140" cy="354" rx="102" ry="13" fill={`url(#${hatch})`} opacity=".52" />
+          <path d="M101 296v52h-32m92-53 21 53h30" fill="none" stroke="#1e1c19" strokeWidth="6" />
+          <path d="M60 304 85 188q11-51 64-55l48 8-19 165Z" fill="#235c82" />
+          <path d="M60 304h63l-18-41Z" fill="#19445f" />
+          <path d="M89 180q-15-79 37-96 44-15 65 27l25 33-24 6q-6 39-44 40Z" fill="#efb4ae" />
+          <path d="M77 127q-12-50 24-70 43-24 83 13l32 7-18 24-67-12q-19 28-54 38Z" fill="#e65836" />
+          <path d="M77 127q27-11 54-38l67 12" fill="none" stroke="#1e1c19" strokeWidth="4" />
+          <ellipse cx="163" cy="130" rx="17" ry="13" fill="#faf8f0" />
+          <circle cx="170" cy="130" r="7" fill="#1e1c19" />
+          <path d="M156 158q11 8 23-1" fill="none" stroke="#1e1c19" strokeWidth="4" />
+          <circle cx="115" cy="150" r="7" fill="#e65836" />
+          <path d="M93 212q-26 3-49 34l21 13q22-23 38-17" fill="none" stroke="#1e1c19" strokeWidth="5" />
+          <path d="m90 196 15-13 13 18-16 10Z" fill="#ffd34c" />
+          <path data-reaching-arm d={resolved ? armShapes.resolved : armShapes.initial} fill="#e65836" />
+          <path d="M47 144v19m-10-10h20m172-55 9-12m-3 28 15-3" fill="none" stroke="#235c82" strokeWidth="3" />
         </g>
 
         <g data-document transform="translate(339 35)" opacity={resolved ? 1 : 0}>
@@ -62,11 +60,11 @@ export function WorkflowArt({ resolved = false }: { resolved?: boolean }) {
           <g key={paper.id} data-paper={paper.id} transform={resolved ? `translate(365 ${paper.row})` : `translate(${paper.x}, ${paper.y}) rotate(${paper.angle})`}>
             <g data-paper-shell opacity={resolved ? 0 : 1}>
               <path d="M6 6H70L91 25V84H6Z" fill={`url(#${hatch})`} />
-              <path d={paperOutline} fill={paper.id === "notes" ? "#ffd34c" : "#faf8f0"} />
+              <path d={paperOutline} fill={paper.tint} />
               <path d="M64 1v21h22" fill="none" />
               <text x="13" y="19" fill="#171715" stroke="none" fontFamily="monospace" fontWeight="700" fontSize="11">{paper.id === "spreadsheet" ? "XLS" : paper.id === "transcript" ? "AUDIO" : paper.id.toUpperCase()}</text>
             </g>
-            <path data-paper-mark d={resolved ? paper.target : paper.mark} fill="none" strokeWidth={resolved ? 1.7 : 2} />
+            <path data-paper-mark d={resolved ? paper.target : paper.mark} fill="none" strokeWidth={resolved ? 1.7 : 1.8} />
           </g>
         ))}
       </g>

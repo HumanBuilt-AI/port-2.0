@@ -1,5 +1,5 @@
 import gsap from "gsap";
-import { papers, scatteredDots } from "./content";
+import { armShapes, papers, scatteredDots } from "./content";
 import { markdownOutline, paperOutline } from "./WorkflowArt";
 
 export function buildWorkflowTimeline(scene: HTMLElement) {
@@ -14,7 +14,7 @@ export function buildWorkflowTimeline(scene: HTMLElement) {
     .to(hold, { progress: 1, duration: 1.35, ease: "none" })
     .addLabel("gather")
     .to(select("[data-reaching-arm]"), {
-      morphSVG: "M179 190q38 3 65-30l15-9 10 4-5 9-16 12q-28 37-61 35Z",
+      morphSVG: armShapes.resolved,
       duration: 1.35,
       ease: "power2.inOut",
     }, "gather")
