@@ -45,11 +45,17 @@
 }
 
 .workflow-number {
+  flex: 0 0 2ch;
   font: 600 0.85rem/1 monospace;
 }
 
 .workflow-scene[data-animated] .workflow-captions {
   display: grid;
+  border-top: 1px solid #171715;
+}
+
+.workflow-scene[data-animated] .workflow-copy {
+  border-top: 0;
 }
 
 .workflow-scene[data-animated] [data-workflow-caption] {

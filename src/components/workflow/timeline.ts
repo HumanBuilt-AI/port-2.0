@@ -20,8 +20,8 @@ export function buildWorkflowTimeline(scene: HTMLElement) {
     }, "gather")
     .fromTo(select("[data-document-outline]"), { attr: { d: paperOutline } }, { morphSVG: markdownOutline, duration: 0.75 }, "gather+=0.46")
     .to(select("[data-document]"), { opacity: 1, duration: 1.1, ease: "power2.inOut" }, "gather+=0.66")
-    .to(captions[0], { opacity: 0, y: -12, duration: 0.32 }, "gather+=0.92")
-    .fromTo(captions[1], { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.45 }, "gather+=1.25");
+    .to(captions[0], { opacity: 0, duration: 0.38 }, "gather+=1")
+    .fromTo(captions[1], { opacity: 0 }, { opacity: 1, duration: 0.38 }, "gather+=1");
 
   select("[data-stipple]").forEach((dot, index) => {
     const { organizedX, organizedY } = scatteredDots[index];
