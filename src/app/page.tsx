@@ -5,10 +5,9 @@ import { Hero } from "@/components/Hero";
 import { FlowSection } from "@/components/flow/FlowSection";
 import { BrandSection } from "@/components/BrandSection";
 import { SpecsSection } from "@/components/SpecsSection";
-import { WorkSection } from "@/components/WorkSection";
+import { CaseStudies } from "@/components/CaseStudies";
 import { NotesSection } from "@/components/NotesSection";
 import { ContactSection } from "@/components/ContactSection";
-import { WorkSheets } from "@/components/WorkSheets";
 import { StoryMotion } from "@/components/StoryMotion";
 
 // The story, in order. Reorder sections here.
@@ -22,12 +21,11 @@ export default function Home() {
         <Hero />
         <FlowSection />
         <BrandSection />
+        <CaseStudies />
         <SpecsSection />
-        <WorkSection />
         <NotesSection />
         <ContactSection />
       </main>
-      <WorkSheets />
       <StoryMotion />
     </>
   );
