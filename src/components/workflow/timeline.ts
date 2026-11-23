@@ -61,5 +61,40 @@ export function buildWorkflowTimeline(scene: HTMLElement) {
     .addLabel("find-gaps")
     .to(hold, { progress: 3, duration: 1.05, ease: "none" });
 
+  const laterBeats = ["fill", "draft", "refine", "ship"] as const;
+  let previousScene = select("[data-gap-scene]");
+
+  laterBeats.forEach((beat, index) => {
+    const transition = `enter-${beat}`;
+    const incoming = select(`[data-later-scene="${beat}"]`);
+    const [layer] = incoming;
+    const moving = layer.querySelector("[data-later-motion]");
+    const accent = layer.querySelector("[data-later-accent]");
+
+    timeline
+      .addLabel(transition)
+      .to(previousScene, { opacity: 0, duration: 0.5 }, transition)
+      .to(incoming, { opacity: 1, duration: 0.5 }, `${transition}+=0.08`)
+      .to(captions[index + 2], { opacity: 0, duration: 0.35 }, `${transition}+=0.12`)
+      .to(captions[index + 3], { opacity: 1, duration: 0.35 }, `${transition}+=0.12`)
+      .to(moving, {
+        attr: { transform: beat === "fill" ? "translate(0 0) rotate(0 418 247)" :
+          beat === "ship" ? "translate(0 0) rotate(0 544 179)" : "translate(0 0)" },
+        duration: 0.83,
+        ease: "power2.inOut",
+      }, `${transition}+=0.29`)
+      .to(accent, { opacity: 1, duration: 0.32 }, `${transition}+=0.88`);
+
+    if (beat === "refine" || beat === "ship") {
+      timeline.to(scene, {
+        backgroundColor: beat === "refine" ? "#f3d68c" : "#f6f4ec",
+        duration: 0.58,
+      }, transition);
+    }
+
+    timeline.addLabel(beat).to(hold, { progress: index + 4, duration: 0.95, ease: "none" });
+    previousScene = incoming;
+  });
+
   return timeline;
 }

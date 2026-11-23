@@ -19,10 +19,12 @@ export function FlowSection() {
           {process.env.NODE_ENV === "development" && (
             <div className="workflow-review" data-workflow-review hidden>
               <div className="workflow-review-jumps" role="group" aria-label="Jump to an animation beat">
-                <button type="button" data-workflow-jump="mess">The Mess</button>
+                {workflowStages.map((stage) => (
+                  <button key={stage.label} type="button" data-workflow-jump={stage.label}>
+                    {stage.number} {stage.title}
+                  </button>
+                ))}
                 <button type="button" data-workflow-jump="gather">Gather</button>
-                <button type="button" data-workflow-jump="resolved">Make It Usable</button>
-                <button type="button" data-workflow-jump="find-gaps">Find the Gaps</button>
               </div>
               <div data-workflow-tools />
             </div>
@@ -32,7 +34,9 @@ export function FlowSection() {
             {workflowStages.map((stage, index) => (
               <article key={stage.number} data-workflow-caption>
                 {index > 0 && (
-                  <div className="workflow-static-end"><WorkflowArt resolved={index === 1} gaps={index === 2} /></div>
+                  <div className="workflow-static-end">{stage.label === "resolved" ? <WorkflowArt resolved /> :
+                      stage.label === "find-gaps" ? <WorkflowArt gaps /> :
+                      stage.label !== "mess" && <WorkflowArt later={stage.label} />}</div>
                 )}
                 <div className="workflow-copy">
                   <span className="workflow-number">{stage.number}</span>

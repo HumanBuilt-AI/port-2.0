@@ -1,3 +1,4 @@
+import { LaterScene, type LaterBeat } from "./LaterScenes";
 import { GapScene } from "./GapScene";
 import { useId } from "react";
 import { armShapes, papers, scatteredDots } from "./content";
@@ -5,7 +6,7 @@ import { armShapes, papers, scatteredDots } from "./content";
 export const paperOutline = "M1 1H64L86 22V79H1Z";
 export const markdownOutline = "M1 1H263L298 36V330H1Z";
 
-export function WorkflowArt({ resolved = false, gaps = false }: { resolved?: boolean; gaps?: boolean }) {
+export function WorkflowArt({ resolved = false, gaps = false, later }: { resolved?: boolean; gaps?: boolean; later?: LaterBeat }) {
   const hatch = useId();
 
   return (
@@ -16,7 +17,7 @@ export function WorkflowArt({ resolved = false, gaps = false }: { resolved?: boo
         </pattern>
       </defs>
 
-      {!gaps && <g data-source-scene>
+      {!gaps && !later && <g data-source-scene>
       <g fill="#242422" opacity=".42">
         {scatteredDots.map((dot, i) => (
           <circle key={i} data-stipple cx={resolved ? dot.organizedX : dot.x} cy={resolved ? dot.organizedY : dot.y} r={dot.radius} />
@@ -84,7 +85,12 @@ export function WorkflowArt({ resolved = false, gaps = false }: { resolved?: boo
         ))}
       </g>
       </g>}
-      <g data-gap-scene opacity={gaps ? 1 : 0}><GapScene settled={gaps} /></g>
+      {!later && <g data-gap-scene opacity={gaps ? 1 : 0}><GapScene settled={gaps} /></g>}
+      {!resolved && !gaps && (later ? [later] : (["fill", "draft", "refine", "ship"] as const)).map((beat) => (
+        <g key={beat} data-later-scene={beat} opacity={later ? 1 : 0}>
+          <LaterScene beat={beat} settled={Boolean(later)} />
+        </g>
+      ))}
     </svg>
   );
 }

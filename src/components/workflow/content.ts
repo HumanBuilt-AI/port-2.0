@@ -1,7 +1,11 @@
 export const workflowStages = [
-  { number: "01", title: "The Mess", description: "Unstructured inputs from everywhere." },
-  { number: "02", title: "Make It Usable", description: "Turn it into clean, structured Markdown that maximizes context." },
-  { number: "03", title: "Find the Gaps", description: "Spot what the brief still needs before you start making." },
+  { number: "01", title: "The Mess", label: "mess", description: "Unstructured inputs from everywhere." },
+  { number: "02", title: "Make It Usable", label: "resolved", description: "Turn it into clean, structured Markdown that maximizes context." },
+  { number: "03", title: "Find the Gaps", label: "find-gaps", description: "Spot what the brief still needs before you start making." },
+  { number: "04", title: "Fill Them In", label: "fill", description: "Bring in the missing details so the brief can guide real decisions." },
+  { number: "05", title: "Make a First Pass", label: "draft", description: "Use the brief to explore a few directions you can react to." },
+  { number: "06", title: "Review and Refine", label: "refine", description: "Compare the work against the brief and sharpen what matters." },
+  { number: "07", title: "Ship It", label: "ship", description: "Send the finished work out with the decisions behind it." },
 ] as const;
 
 export const papers = [
