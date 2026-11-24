@@ -794,3 +794,39 @@ a.a2-to:hover { color: var(--white); }
 .b-wander .wander-pics { margin-top: auto; padding-top: 18px; }
 .b-stop .btn-text { white-space: nowrap; }
 @media (max-width: 680px) { .bc-foot { flex-direction: column-reverse; align-items: flex-start; } .b-stop .btn-text { text-align: left; } }
+
+/* Case study header art (Scott's animated SVGs). Builds in layer by layer, then idles. */
+.cs-art { display: block; width: clamp(240px, 26vw, 380px); height: auto; overflow: visible; }
+.cs-hero-mid:has(.has-art) { align-items: center; }
+.cs-art .L, .cs-art .L > * { transform-box: fill-box; }
+.cs-art .L { animation: art-rise .9s cubic-bezier(.2,.7,.2,1) both; }
+.cs-art .map-surface { animation-delay: .1s; }
+.cs-art .time-horizons { animation-delay: .3s; }
+.cs-art .geospatial-cells { animation: none; }
+.cs-art .geospatial-cells path { transform-origin: center; animation: art-pop .5s cubic-bezier(.3,1.5,.5,1) both; animation-delay: calc(.45s + var(--i) * 22ms); }
+.cs-art .geospatial-cells path[fill="#DDCCFD"] { animation: art-pop .5s cubic-bezier(.3,1.5,.5,1) both, art-glow 4.5s ease-in-out infinite; animation-delay: calc(.45s + var(--i) * 22ms), calc(2.4s + var(--i) * 90ms); }
+.cs-art .climate-disc { animation-delay: .9s; }
+.cs-art .climate-disc path:nth-child(n+3) { transform-origin: left center; animation: art-draw .5s cubic-bezier(.2,.7,.2,1) both; animation-delay: calc(1s + var(--i) * 40ms); }
+.cs-art .atmospheric-flow { animation: none; }
+.cs-art .atmospheric-flow path { stroke-dasharray: 260; animation: art-line 1.1s cubic-bezier(.3,.6,.2,1) calc(1.2s + var(--i) * 90ms) both; }
+.cs-art .selected-site { animation: art-drop .8s cubic-bezier(.3,1.4,.5,1) 1.5s both; }
+.cs-art .selected-site path[fill-rule] { animation: art-bob 3.2s ease-in-out 2.4s infinite; }
+.cs-art .selected-site ellipse:first-of-type { transform-origin: center; animation: art-ping 3.2s ease-out 2.4s infinite; }
+.cs-art .registration-points { animation-delay: 1.8s; }
+
+@keyframes art-rise { from { opacity: 0; transform: translateY(14px); } }
+@keyframes art-pop { from { opacity: 0; transform: scale(.4); } }
+@keyframes art-draw { from { transform: scaleX(0); } }
+@keyframes art-line { from { stroke-dashoffset: 260; } to { stroke-dashoffset: 0; } }
+@keyframes art-drop { from { opacity: 0; transform: translateY(-40px); } }
+@keyframes art-bob { 50% { transform: translateY(-6px); } }
+@keyframes art-ping { 0% { transform: scale(1); opacity: 1; } 70%, 100% { transform: scale(1.9); opacity: 0; } }
+@keyframes art-glow { 0%, 100% { fill-opacity: 1; } 50% { fill-opacity: .35; } }
+
+@media (max-width: 640px) {
+  .cs-hero-side.has-art { justify-items: center; }
+  .cs-art { width: min(100%, 300px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cs-art *, .cs-art .L { animation: none !important; }
+}
