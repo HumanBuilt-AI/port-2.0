@@ -21,7 +21,7 @@ export function Hero() {
               </div>
               <div className="hero-meta">
                 <div className="lockup"><span>Scott Galetto</span><span>AI-fluent design technologist</span><span>Chicago</span></div>
-                <p className="who" id="hb-who">I help teams figure out what to build, then bring it to life through design, prototyping, and AI.</p>
+                <p className="who" id="hb-who">Half designer, half technologist. I find the idea worth building, then prototype it into something real, with AI in the loop.</p>
                 <span className="sig" id="hb-hint"><svg aria-hidden="true"><use href="#i-down" /></svg>scroll</span>
               </div>
             </div>
