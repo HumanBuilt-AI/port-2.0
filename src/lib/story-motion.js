@@ -34,14 +34,33 @@ export function startStory(gsap, ScrollTrigger) {
   var lastSeg = {};
   function setSeg(id, str) { if (lastSeg[id] !== str) { lastSeg[id] = str; $(id).innerHTML = seg7(str); } }
   var hero = $('hero'), flow = $('flow'), brand = $('brand'), bar = $('bar'), index = $('index');
-  var promptText = 'Write a portfolio homepage for Scott Galetto.';
+  // Lazy asks that earn the generic draft below them. One plays per pass; scroll back to the top and the next one types.
+  var PROMPTS = [
+    'Write a portfolio homepage for Scott. Make it pop.',
+    'Make me sound impressive.',
+    'Write my bio. Like everyone else’s, but better.',
+    'Describe me in three buzzwords.',
+    'Write a homepage that gets me hired.',
+    'Make my portfolio stand out. Go.'
+  ];
+  var pi = 0;
+  if (!reduce) { try { var last = sessionStorage.getItem('hb-prompt'); pi = last === null ? 0 : (+last + 1) % PROMPTS.length || 0; } catch (e) { pi = 0; } }
+  var promptText = PROMPTS[pi], played = false;
+  function setPrompt(i) {
+    pi = i; promptText = PROMPTS[i];
+    $('hb-prompt').setAttribute('aria-label', 'A prompt that reads: ' + promptText);
+    try { sessionStorage.setItem('hb-prompt', i); } catch (e) {}
+  }
+  setPrompt(pi);
   var files = Array.prototype.slice.call(document.querySelectorAll('#files li'));
   var screen = $('screen');
 
   function heroFrame(p) {
+    // once the draft has been struck out, the next pass (back at an empty box) gets a new prompt
+    if (p > .5) played = true;
+    else if (played && p < .02) { played = false; setPrompt((pi + 1) % PROMPTS.length); }
     var typed = promptText.slice(0, Math.round(promptText.length * seg(p, .02, .26)));
     $('hb-typed').textContent = typed; $('hb-ph').style.display = typed ? 'none' : '';
-    setSeg('hb-count', ('0' + typed.length).slice(-2) + '/' + promptText.length);
     var g = $('hb-generic');
     g.style.opacity = seg(p, .28, .36);
     g.style.setProperty('--s', ease(seg(p, .44, .58)));
