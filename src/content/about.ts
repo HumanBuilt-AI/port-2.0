@@ -96,15 +96,15 @@ export const comic = {
   ] as { text: string; photo?: Photo }[],
 };
 
-/** Provisional. PLACEHOLDER picks only. */
+/** Scott's picks (Nov 24). */
 export const rotation = {
   show: true,
   title: "Currently in rotation",
-  updated: "", // e.g. "Nov 2026"
+  updated: "Nov 2026",
   tabs: [
-    { key: "reading", label: "Reading", picks: [{ title: "PLACEHOLDER title", by: "PLACEHOLDER author" }] },
-    { key: "watching", label: "Watching", picks: [{ title: "PLACEHOLDER title", by: "" }] },
-    { key: "listening", label: "Listening", picks: [{ title: "PLACEHOLDER title", by: "PLACEHOLDER artist" }] },
+    { key: "reading", label: "Reading", picks: [{ title: "The AGI Race", by: "Kevin Roose" }] },
+    { key: "watching", label: "Watching", picks: [{ title: "War", by: "HBO Max" }] },
+    { key: "listening", label: "Listening", picks: [{ title: "Good Hang", by: "Amy Poehler’s podcast" }] },
   ],
 };
 
