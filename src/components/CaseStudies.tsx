@@ -6,6 +6,7 @@ import { ArrowCircle } from "@/components/ArrowCircle";
  * Selected work: six case studies, copy from humanbuiltai.work.
  * Thumbs are clean placeholders until the new case study artwork is ready;
  * set `art` on a study in src/content/cases.ts to replace one.
+ * Frames are 2:1 to match the artwork.
  */
 export function CaseStudies() {
   return (
@@ -32,7 +33,16 @@ export function CaseStudies() {
                 <span className="case-art">
                   {s.art ? (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={s.art} alt="" />
+                    <img
+                      src={`${s.art}-1024.webp`}
+                      srcSet={`${s.art}-640.webp 640w, ${s.art}-1024.webp 1024w`}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1000px) 50vw, 33vw"
+                      width={1024}
+                      height={512}
+                      loading="lazy"
+                      decoding="async"
+                      alt=""
+                    />
                   ) : (
                     <span className="case-ph" aria-hidden="true">
                       <span className="cap">artwork {s.num}</span>
