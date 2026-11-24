@@ -349,7 +349,6 @@ dialog.sheet::backdrop { background: color-mix(in srgb, var(--plate) 70%, transp
 .contact { padding-block: clamp(70px, 10vw, 140px) 0; background: var(--panel); border-radius: clamp(24px, 3vw, 40px) clamp(24px, 3vw, 40px) 0 0; }
 .contact .row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 32px; align-items: end; }
 .contact h2 { font-size: clamp(52px, 8vw, 128px); line-height: .95; letter-spacing: -0.03em; max-width: 13ch; }
-.contact .links { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 36px; }
 .contact .big-ico { width: clamp(120px, 16vw, 220px); height: auto; color: var(--ink); }
 footer { display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; margin-top: clamp(70px, 10vw, 130px); padding-block: 22px calc(22px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid #CFCFCB; color: var(--steel); }
 @media (max-width: 700px) { .contact .row { grid-template-columns: minmax(0, 1fr); } .contact .big-ico { width: 110px; } }
@@ -789,7 +788,13 @@ a.a2-to:hover { color: var(--white); }
 .contact .row { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); align-items: center; gap: clamp(24px, 4vw, 64px); }
 .contact h2 { font-size: clamp(44px, 6vw, 92px); line-height: .96; letter-spacing: -0.035em; max-width: 11ch; }
 .contact-lede { margin-top: 22px; max-width: 34ch; }
-.contact .links { margin-top: 30px; }
+.contact-icons { list-style: none; display: flex; gap: 6px; margin: 30px 0 0 -10px; padding: 0; }
+.contact-icons a, .contact-icons .is-soon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; color: #3D3D3B; transition: color .2s, background .2s, transform .2s; }
+.contact-icons svg { width: 24px; height: 24px; display: block; }
+.contact-icons a:hover { color: var(--ink); background: rgba(0,0,0,.06); transform: translateY(-2px); }
+.contact-icons a:focus-visible { outline: 1.5px solid var(--ink); outline-offset: 2px; border-radius: 50%; color: var(--ink); }
+.contact-icons .is-soon { color: var(--faint, #B4B3AF); cursor: default; }
+@media (prefers-reduced-motion: reduce) { .contact-icons a { transition: none; } .contact-icons a:hover { transform: none; } }
 .contact-clock { display: flex; align-items: center; gap: 10px; margin-top: 26px; font-size: 14px; color: var(--steel); }
 .contact-clock b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
 .contact-clock i { width: 8px; height: 8px; border-radius: 50%; background: #3DDC97; box-shadow: 0 0 0 4px rgba(61,220,151,.18); animation: clockpulse 2.4s ease-in-out infinite; }

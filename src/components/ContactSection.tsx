@@ -8,6 +8,8 @@ import { Typewriter } from "./Typewriter";
 /** Which illustration the contact section shows. Preview the other with ?art=typewriter or ?art=phone. */
 const CONTACT_ART: "phone" | "typewriter" = "phone";
 import { ArrowCircle } from "./ArrowCircle";
+import { ContactIcons } from "./ContactIcons";
+import { EMAIL } from "@/content/contact";
 
 const noop = () => () => {};
 const readArt = () => {
@@ -61,14 +63,10 @@ export function ContactSection() {
             <SectionBadge num="05" label="Contact" />
             <h2 id="contact-h">The line is open. <span className="soft">Drop me a line.</span></h2>
             <p className="lede contact-lede">Half-formed idea, messy brief, a product that should exist and doesn’t yet. Those are my favorite emails to open.</p>
-            <div className="links">
-              <button className="btn fill" type="button" id="copy">scottgaletto@gmail.com <span id="copy-l" style={{ opacity: ".6" }}>copy</span></button>
-              <a className="btn" href="https://www.linkedin.com/in/scottgaletto" target="_blank" rel="noopener">LinkedIn</a>
-              <span className="btn dim">Résumé soon</span>
-            </div>
+            <ContactIcons />
             <p className="contact-clock"><i aria-hidden="true" /><span>It’s <b suppressHydrationWarning>{time || "—"}</b> in Chicago</span></p>
           </div>
-          <a className="contact-art" href="mailto:scottgaletto@gmail.com" aria-label="Email Scott">
+          <a className="contact-art" href={`mailto:${EMAIL}`} aria-label="Email Scott">
             <span className="splash" aria-hidden="true"><i className="s1" /><i className="s2" /><i className="s3" /></span>
             {art === "typewriter" ? <Typewriter className="rp-svg" /> : <RingingPhone className="rp-svg" />}
           </a>

@@ -254,9 +254,4 @@ export function startStory(gsap, ScrollTrigger) {
     d.querySelector('.close').addEventListener('click', function () { d.close(); });
     d.addEventListener('click', function (e) { if (e.target === d) d.close(); });
   });
-
-  $('copy').addEventListener('click', function () {
-    var l = $('copy-l');
-    if (navigator.clipboard) navigator.clipboard.writeText('scottgaletto@gmail.com').then(function () { l.textContent = 'copied'; setTimeout(function () { l.textContent = 'copy'; }, 1600); }, function () {});
-  });
 }
