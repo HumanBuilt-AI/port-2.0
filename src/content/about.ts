@@ -1,5 +1,5 @@
 /**
- * About me (Section 05): eight cards about Scott's life, not his work.
+ * About me (Section 04): eight cards about Scott's life, not his work.
  * Copy marked as quoted below comes from Scott's brief. Anything marked PLACEHOLDER is a
  * stand-in to be replaced (or the card hidden) before launch. Never fill these with invented
  * anecdotes, picks or biography.

@@ -5,8 +5,8 @@
 const LI = "https://www.linkedin.com/in/scottgaletto";
 const sections: { icon: string; label: string; href: string; subs: [string, string][] }[] = [
   { icon: "approach", label: "approach", href: "#flow", subs: [["the flow", "#flow"], ["the brief", "#brand"]] },
-  { icon: "specs", label: "specs", href: "#specs", subs: [["early beta", "#specs"], ["try it", "https://specs.humanbuiltai.work"]] },
-  { icon: "work", label: "work", href: "#work", subs: [["specs", "#specs"], ["aon", "#work"], ["creditninja", "#work"], ["verizon", "#work"], ["chipotle", "#work"]] },
+  { icon: "specs", label: "specs", href: "/work/specs", subs: [["case study", "/work/specs"], ["try it", "https://specs.humanbuiltai.work"]] },
+  { icon: "work", label: "work", href: "#work", subs: [["specs", "/work/specs"], ["aon", "#work"], ["creditninja", "#work"], ["verizon", "#work"], ["chipotle", "#work"]] },
   { icon: "studio", label: "studio", href: "#work", subs: [["side projects", "#work"], ["experiments", "#work"]] },
   { icon: "about", label: "about", href: "#about", subs: [["who i am", "#about"], ["toolkit", "#about"]] },
   { icon: "contact", label: "contact", href: "#contact", subs: [["email", "#contact"], ["linkedin", LI], ["résumé", "#contact"]] },

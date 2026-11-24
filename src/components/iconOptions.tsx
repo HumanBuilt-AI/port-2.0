@@ -20,11 +20,12 @@ export const ICON_OPTIONS: Record<"approach" | "about" | "contact", Record<"a" |
     b: {
       note: "Gauge: a dial with ticks and one needle (judgment)",
       draw: (<>
-        <path d="M6 52 A22 22 0 0 1 50 52" />
-        <path d="M8.9 41 L12.4 43 M17 32.9 L19 36.4 M28 30 V34 M39 32.9 L37 36.4 M47.1 41 L43.6 43" />
-        <path d="M28 52 L38 36" />
-        <circle cx="28" cy="52" r="3" />
-        <path d="M4 60 H52" />
+        {/* 240° dial centred in the 56 × 72 box so it reads the same size as the other icons */}
+        <path d="M8.95 49 A22 22 0 1 1 47.05 49" />
+        <path d="M9 38 H13 M14.6 24.6 L17.4 27.4 M28 19 V23 M41.4 24.6 L38.6 27.4 M47 38 H43" />
+        <path d="M28 38 L35 25.9" />
+        <circle cx="28" cy="38" r="3" />
+        <path d="M17 58 H39" />
       </>),
     },
     c: {

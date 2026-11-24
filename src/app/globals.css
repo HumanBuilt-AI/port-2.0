@@ -577,7 +577,7 @@ h3 { font-weight: 600; font-size: clamp(18px, 1.5vw, 21px); letter-spacing: -0.0
   .cs-points { grid-template-columns: minmax(0, 1fr); }
 }
 
-/* ABOUT (Section 05): eight cards about life outside work. Light cards + dark A2UI cards from the Specs catalog. */
+/* ABOUT (Section 04): eight cards about life outside work. Light cards + dark A2UI cards from the Specs catalog. */
 .about-head { display: grid; justify-items: center; text-align: center; padding-top: clamp(64px, 8vw, 120px); margin-bottom: clamp(36px, 4.5vw, 64px); }
 .about-head .h2 { max-width: 16ch; }
 .bento { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 14px; max-width: 1120px; margin: 0 auto; grid-auto-flow: dense; }
@@ -829,3 +829,47 @@ a.a2-to:hover { color: var(--white); }
 @media (prefers-reduced-motion: reduce) {
   .cs-art *, .cs-art .L { animation: none !important; }
 }
+
+/* NOV 24 POLISH ---------------------------------------------------------------- */
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* Section badge: dark rounded widget, dot-matrix number, section name beside it */
+.sbadge { --bg: var(--night); --on: var(--white); --off: #3A3A38; --k: #8F8E8A; --t: var(--white);
+  display: inline-flex; align-items: center; gap: 12px; height: 48px; padding: 0 20px 0 6px; margin-bottom: 22px;
+  background: var(--bg); color: var(--t); border-radius: 999px; vertical-align: top; }
+.sbadge.on-dark { --bg: var(--white); --on: var(--ink); --off: #D9D8D3; --k: var(--steel); --t: var(--ink); }
+.sb-num { display: grid; place-items: center; height: 36px; padding: 0 12px; border-radius: 999px; background: color-mix(in srgb, var(--on) 6%, var(--bg)); }
+.sb-num svg { display: block; width: auto; height: 24px; overflow: visible; }
+.sb-num .off { fill: var(--off); }
+.sb-num .on { fill: var(--on); transition: opacity .25s ease var(--d, 0ms), transform .35s cubic-bezier(.2,.7,.2,1) var(--d, 0ms); transform-box: fill-box; transform-origin: center; }
+.sbadge.arm .sb-num .on { opacity: 0; transform: scale(.3); }
+.sbadge.arm.lit .sb-num .on { opacity: 1; transform: none; }
+.sb-text { display: grid; gap: 3px; line-height: 1; }
+.sb-kind { font: 600 9px/1 var(--text); letter-spacing: .16em; text-transform: uppercase; color: var(--k); }
+.sb-label { font: 500 14px/1 var(--text); letter-spacing: -0.005em; white-space: nowrap; }
+.cs-hero-top .sbadge { margin: 0; }
+@media (max-width: 640px) { .sbadge { height: 42px; gap: 10px; padding-right: 16px; } .sb-num { height: 30px; padding: 0 10px; } .sb-num svg { height: 18px; } }
+@media (prefers-reduced-motion: reduce) { .sb-num .on { transition: none; } }
+
+/* Index: shorter and tighter. Sections sit on one row with even gaps instead of six wide columns. */
+.index .in { gap: clamp(18px, 2.6vw, 40px); padding-block: 12px; }
+.index .wordmark.robot { width: 44px; height: 44px; margin: -4px 0 -4px -8px; }
+.idx-row { display: flex; flex-wrap: nowrap; justify-content: flex-start; gap: clamp(20px, 3.4vw, 52px); }
+.idx { grid-template-columns: 24px auto; gap: 0 8px; align-items: center; }
+.idx .ico { width: 24px; height: 30px; margin: 0; }
+.idx b { display: block; font-size: clamp(16px, 1.3vw, 19px); line-height: 1; }
+.idx ul { left: 0; top: calc(100% + 18px); }
+@media (max-width: 900px) {
+  .idx-row { justify-content: space-between; gap: 4px; }
+  .idx { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  .idx .ico { width: 22px; height: 28px; }
+  .idx b { font-size: 13px; }
+}
+@media (max-width: 760px) { .index .in { padding-block: 10px; } .index .wordmark.robot { width: 40px; height: 40px; margin: -2px 0 -2px -4px; } .idx b { font-size: 12px; } }
+
+/* Case cards: every card fills its grid row, and the tags + arrow row sits on the bottom edge,
+   so the six arrows line up whatever the description length. */
+.cases-grid > li { display: flex; }
+.case { flex: 1; }
+.case-foot { margin-top: auto; padding-top: 4px; }
+

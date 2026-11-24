@@ -4,7 +4,6 @@ import { StickyBar } from "@/components/StickyBar";
 import { Hero } from "@/components/Hero";
 import { FlowSection } from "@/components/flow/FlowSection";
 import { BrandSection } from "@/components/BrandSection";
-import { SpecsSection } from "@/components/SpecsSection";
 import { CaseStudies } from "@/components/CaseStudies";
 import { AboutSection } from "@/components/AboutSection";
 import { ContactSection } from "@/components/ContactSection";
@@ -22,7 +21,6 @@ export default function Home() {
         <FlowSection />
         <BrandSection />
         <CaseStudies />
-        <SpecsSection />
         <AboutSection />
         <ContactSection />
       </main>
