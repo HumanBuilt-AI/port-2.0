@@ -98,4 +98,4 @@ export const ICON_OPTIONS: Record<"approach" | "about" | "contact", Record<"a" |
 };
 
 /** The option each icon uses on the site. Change a letter to swap it. */
-export const ICON_CHOICE = { approach: "b", about: "b", contact: "b" } as const;
+export const ICON_CHOICE = { approach: "b", about: "c", contact: "b" } as const;
