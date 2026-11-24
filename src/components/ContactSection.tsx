@@ -1,8 +1,18 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { RingingPhone } from "./RingingPhone";
+import { Typewriter } from "./Typewriter";
+
+/** Which illustration the contact section shows. Preview the other with ?art=typewriter or ?art=phone. */
+const CONTACT_ART: "phone" | "typewriter" = "phone";
 import { ArrowCircle } from "./ArrowCircle";
+
+const noop = () => () => {};
+const readArt = () => {
+  const q = new URLSearchParams(window.location.search).get("art");
+  return q === "phone" || q === "typewriter" ? q : CONTACT_ART;
+};
 
 const LINKS: [string, string][] = [["approach", "#flow"], ["specs", "#specs"], ["work", "#work"], ["about", "#about"]];
 
@@ -10,6 +20,7 @@ const LINKS: [string, string][] = [["approach", "#flow"], ["specs", "#specs"], [
 export function ContactSection() {
   const ref = useRef<HTMLElement>(null);
   const [time, setTime] = useState("");
+  const art = useSyncExternalStore(noop, readArt, () => CONTACT_ART);
 
   // splash: --p goes 0 → 1 as the section scrolls into view
   useEffect(() => {
@@ -58,7 +69,7 @@ export function ContactSection() {
           </div>
           <a className="contact-art" href="mailto:scottgaletto@gmail.com" aria-label="Email Scott">
             <span className="splash" aria-hidden="true"><i className="s1" /><i className="s2" /><i className="s3" /></span>
-            <RingingPhone className="rp-svg" />
+            {art === "typewriter" ? <Typewriter className="rp-svg" /> : <RingingPhone className="rp-svg" />}
           </a>
         </div>
         <footer className="foot">

@@ -729,3 +729,23 @@ a.a2-to:hover { color: var(--white); }
   .foot nav { grid-column: 1 / -1; }
 }
 @media (prefers-reduced-motion: reduce) { .contact.ringing .rp-handset, .contact-art:hover .rp-handset, .contact-clock i { animation: none; } .splash i, .rp-letter, .rp-handset { transition: none; } }
+/* typewriter (alternate contact art) */
+.tw-rule { fill: none; stroke: var(--ink); stroke-width: 1.4; opacity: .18; }
+.tw-type { font: 600 15px/1 ui-monospace, "SF Mono", Menlo, monospace; fill: var(--ink); clip-path: inset(0 100% 0 0); }
+.tw-bars { fill: none; stroke: var(--ink); stroke-width: 2.4; stroke-linecap: round; }
+.tw-lever { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+.tw-paper { transform-box: view-box; transform: translateY(40px); transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+.tw-carriage { transform-box: view-box; transition: transform .2s; }
+.tw-key { transform-box: fill-box; transform-origin: center; }
+.contact.ringing .tw-paper { transform: none; }
+.contact.ringing .tw-l1 { animation: twtype .9s steps(9) .4s forwards; }
+.contact.ringing .tw-l2 { animation: twtype 1s steps(10) 1.4s forwards; }
+.contact.ringing .tw-l3 { animation: twtype 1s steps(10) 2.5s forwards; }
+.contact.ringing .tw-carriage { animation: twcarry 3.1s steps(29) .4s forwards; }
+.contact.ringing .tw-key.k0 { animation: twkey .24s ease-in-out .5s 12 alternate; }
+.contact.ringing .tw-key.k2 { animation: twkey .24s ease-in-out .62s 11 alternate; }
+.contact.ringing .tw-key.k4 { animation: twkey .24s ease-in-out .74s 10 alternate; }
+@keyframes twtype { to { clip-path: inset(0 0 0 0); } }
+@keyframes twcarry { from { transform: translateX(18px); } to { transform: translateX(-18px); } }
+@keyframes twkey { to { transform: translateY(3px) scale(.86); } }
+@media (prefers-reduced-motion: reduce) { .tw-type { clip-path: none; } .tw-paper { transform: none; } .contact.ringing .tw-l1, .contact.ringing .tw-l2, .contact.ringing .tw-l3, .contact.ringing .tw-carriage, .contact.ringing .tw-key { animation: none; } }
