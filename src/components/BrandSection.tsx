@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { SectionBadge } from "@/components/SectionBadge";
 /** Same prompt, better brief: brand files switch on and a generic hotel app becomes The Alibi. */
 export function BrandSection() {
@@ -10,7 +11,7 @@ export function BrandSection() {
               <div>
                 <SectionBadge num="02" label="The brief" onDark />
                 <h2 id="brand-h" className="h2">Same prompt.<br /><span className="soft">Better brief.</span></h2>
-                <p className="brief">Watch an AI design the same screen, over and over. The prompt never changes. Each brand file it reads adds a little more taste, until generic turns into something that feels like it belongs.</p>
+                <p className="brief">Same prompt, same AI. The only thing that changes is what the agent can read. Each brand file adds a little more taste, until generic turns into something that feels like it belongs.</p>
                 <div className="folders">
                   <div className="folder people">
                     <h4>brand/for-people</h4>
@@ -27,7 +28,7 @@ export function BrandSection() {
                     </ul>
                   </div>
                 </div>
-                <div className="brand-foot"><span className="tag"><i></i>made-up brand</span> The Alibi is fictional. The idea isn’t.</div>
+                <div className="brand-foot"><span className="tag"><i></i>made-up brand</span> <span>The Alibi is fictional. The idea isn’t: set the system up once and every agent starts on brand. <Link href="/work/specs">Specs does that setup for small businesses.</Link></span></div>
               </div>
               <div className="phone" aria-label="Phone mockup of a hotel check-in screen" role="group">
                 <div className="screen" id="screen">
