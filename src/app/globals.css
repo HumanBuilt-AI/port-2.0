@@ -255,6 +255,8 @@ button.cta { border: 0; width: 100%; font: inherit; cursor: default; -webkit-use
 .screen.comps .cta:focus-visible { outline: 1px solid var(--sand); outline-offset: 3px; }
 .phone .tag { position: absolute; right: -10px; top: -12px; background: var(--night); color: var(--white); }
 .brand-foot { margin-top: 26px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; font-size: 14px; color: var(--night-text); }
+.brand-foot a { color: inherit; text-decoration: underline; text-decoration-color: var(--sun); text-underline-offset: 3px; }
+.brand-foot a:hover { color: var(--sun); }
 @media (max-width: 820px) {
   .brand .grid { grid-template-columns: minmax(0, 1fr); gap: 18px; padding-top: 8px; }
   .brand h2 { font-size: 36px; margin-bottom: 12px; }
@@ -471,6 +473,7 @@ h3 { font-weight: 600; font-size: clamp(18px, 1.5vw, 21px); letter-spacing: -0.0
 /* Selected work head: title left, big count right */
 .cases-head { align-items: end; }
 .cases-head .h2 { font-size: clamp(48px, 6.4vw, 96px); line-height: .95; letter-spacing: -0.04em; }
+.cases-lede { font: 400 clamp(15px, 1.3vw, 18px)/1.45 var(--text); color: var(--steel); max-width: 52ch; margin: 18px 0 0; }
 .cases-side { display: grid; justify-items: end; gap: 14px; text-align: right; }
 .case-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 4px; }
 .case .arc { width: 34px; height: 34px; color: var(--steel); }

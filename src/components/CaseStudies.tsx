@@ -18,6 +18,9 @@ export function CaseStudies() {
             <h2 id="cases-h" className="h2">
               Selected <span className="soft">work</span>
             </h2>
+            <p className="cases-lede">
+              Print to digital, desktop to mobile, native apps to the web, and now AI. Every shift asked the same thing: figure out what the new technology makes possible, then make it useful.
+            </p>
           </div>
           <div className="cases-side">
             <span className="numeral" aria-hidden="true">
