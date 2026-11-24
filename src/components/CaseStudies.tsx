@@ -23,7 +23,7 @@ export function CaseStudies() {
             <span className="numeral" aria-hidden="true">
               {String(studies.length).padStart(2, "0")}
             </span>
-            <p className="fine">Case studies, 2014 to 2026</p>
+            <p className="fine">Case studies</p>
           </div>
         </header>
         <ul className="cases-grid">
@@ -36,9 +36,7 @@ export function CaseStudies() {
                   <span className="case-name">{s.name}</span>
                 </span>
                 <span className="case-meta">
-                  <span>
-                    {s.num} · {s.year}
-                  </span>
+                  <span>{s.num}</span>
                 </span>
                 <h3>{s.title}</h3>
                 <p>{s.blurb}</p>

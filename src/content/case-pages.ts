@@ -44,7 +44,7 @@ export const casePages: CasePage[] = [
   {
     slug: "specs",
     client: "Specs",
-    tags: ["AI product", "Brand systems", "2026"],
+    tags: ["AI product", "Brand systems"],
     title: "A brand kit",
     soft: "for AI.",
     lede: "Small businesses have a logo, a rough PDF and a few phone photos. AI tools need rules. Specs reads the messy files, writes them up as a brand kit an AI can follow, then art-directs Instagram posts that explain every choice they make.",
@@ -52,7 +52,6 @@ export const casePages: CasePage[] = [
       ["Role", "Product, design and engineering (solo)"],
       ["Focus", "AI product design, prompt and pipeline design, generative UI"],
       ["Built with", "Next.js, TypeScript, Claude API, Netlify"],
-      ["Year", "2026"],
     ],
     short: {
       problem: "Ask an AI for a small business’s Instagram post and you get something generic. Brand guidelines are written for people to browse, not for a model to follow.",
@@ -148,7 +147,7 @@ export const casePages: CasePage[] = [
   {
     slug: "aon-horizon",
     client: "Aon / Horizon",
-    tags: ["Product design", "Data visualization", "2018"],
+    tags: ["Product design", "Data visualization"],
     title: "Rethinking how",
     soft: "we see risk.",
     lede: "For Aon, I redesigned a dense climate risk tool around a map, with every bit of the data still underneath. Climate models are complicated enough. The interface didn’t need to be.",
@@ -266,10 +265,10 @@ export const casePages: CasePage[] = [
   {
     slug: "chipotle-raincheck",
     client: "Chipotle / RAINCHECK",
-    tags: ["Vibes", "SMS + Mobile Wallet", "2016"],
+    tags: ["Vibes", "SMS + Mobile Wallet"],
     title: "A closed door,",
     soft: "turned into a free burrito.",
-    lede: "On February 8, 2016, Chipotle closed every U.S. restaurant for an afternoon and asked customers to text for a free burrito. At Vibes, I designed what they saw next: a landing page where a stop-motion burrito unwrapped itself on the way to their coupon.",
+    lede: "One day in February, Chipotle closed every U.S. restaurant for an afternoon and asked customers to text for a free burrito. At Vibes, I designed what they saw next: a landing page where a stop-motion burrito unwrapped itself on the way to their coupon.",
     meta: [
       ["Role", "Experience design, animation and production assets"],
       ["Team", "Vibes Mobile Solutions Group"],
@@ -313,7 +312,7 @@ export const casePages: CasePage[] = [
         title: "Stop motion,",
         soft: "without a video.",
         body: ["Video would have been heavy and slow to start at the exact moment millions of people tapped the link. So the burrito was a sequence of small images, animated in the browser with GSAP. It played on every phone that tapped the link, and nothing heavy loaded before the coupon."],
-        media: [{ src: "burrito-anim.mp4", poster: "burrito-poster.jpg", alt: "The burrito animation", cap: "A recording made for this case study. In 2016 it ran live in the browser.", video: true }],
+        media: [{ src: "burrito-anim.mp4", poster: "burrito-poster.jpg", alt: "The burrito animation", cap: "A recording made for this case study. The original ran live in the browser.", video: true }],
         layout: "phones",
       },
       {
@@ -355,7 +354,7 @@ export const casePages: CasePage[] = [
   {
     slug: "creditninja",
     client: "CreditNinja",
-    tags: ["UI & UX", "Loan eligibility", "2021"],
+    tags: ["UI & UX", "Loan eligibility"],
     title: "From 15 minutes",
     soft: "to under five.",
     lede: "I led the redesign of a dated, confusing loan eligibility form. The same questions now arrive one at a time in a chat, answered with a tap, a slider or a short field.",
@@ -458,7 +457,7 @@ export const casePages: CasePage[] = [
   {
     slug: "sauza-lasso",
     client: "Sauza / Lasso Up With A Cowboy",
-    tags: ["Creative technology", "In-store activation", "2014"],
+    tags: ["Creative technology", "In-store activation"],
     title: "One throw,",
     soft: "two screens.",
     lede: "A shopper texts a keyword and their phone pairs with an in-store iPad. They flick a lasso off the phone and it lands on the iPad, one continuous throw across two screens.",
@@ -466,7 +465,6 @@ export const casePages: CasePage[] = [
       ["Role", "Creative tech lead"],
       ["Team", "Front-end developers, graphic designers"],
       ["Platform", "Mobile web, iPad kiosk, SMS, WebSockets"],
-      ["Year", "2014"],
     ],
     short: {
       problem: "Sauza wanted an in-store moment for Sparkling Margarita that shoppers would actually stop for.",
@@ -535,7 +533,7 @@ export const casePages: CasePage[] = [
   {
     slug: "verizon-indycar",
     client: "Verizon / IndyCar",
-    tags: ["Experiential design", "Mobile web + VR", "2014"],
+    tags: ["Experiential design", "Mobile web + VR"],
     title: "Putting race day",
     soft: "in fans’ hands.",
     lede: "Verizon wanted IndyCar fans to do more than wander through its tent. I led art direction and the front-end build of a mobile web race-day companion with a VR seat in the cockpit.",
