@@ -688,7 +688,7 @@ a.a2-to:hover { color: var(--white); }
 .contact-clock b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
 .contact-clock i { width: 8px; height: 8px; border-radius: 50%; background: #3DDC97; box-shadow: 0 0 0 4px rgba(61,220,151,.18); animation: clockpulse 2.4s ease-in-out infinite; }
 @keyframes clockpulse { 50% { box-shadow: 0 0 0 7px rgba(61,220,151,0); } }
-.contact-art { position: relative; aspect-ratio: 1; max-width: 560px; justify-self: end; width: 100%; }
+.contact-art { display: block; cursor: pointer; position: relative; aspect-ratio: 1; max-width: 560px; justify-self: end; width: 100%; }
 .contact-art .rp-svg { position: relative; z-index: 1; width: 100%; height: 100%; display: block; }
 /* splash: the same coral as the flow's flood, plus the pink and gold from its art */
 .splash { position: absolute; inset: 0; pointer-events: none; }

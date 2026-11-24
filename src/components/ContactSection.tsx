@@ -47,8 +47,8 @@ export function ContactSection() {
         <div className="row">
           <div className="contact-copy">
             <span className="pill">Section 06 · Contact</span>
-            <h2 id="contact-h">The line is open. <span className="soft">Ring me.</span></h2>
-            <p className="lede contact-lede">Half-formed idea, messy brief, a product that should exist and doesn’t yet. Those are my favorite calls.</p>
+            <h2 id="contact-h">The line is open. <span className="soft">Drop me a line.</span></h2>
+            <p className="lede contact-lede">Half-formed idea, messy brief, a product that should exist and doesn’t yet. Those are my favorite emails to open.</p>
             <div className="links">
               <button className="btn fill" type="button" id="copy">scottgaletto@gmail.com <span id="copy-l" style={{ opacity: ".6" }}>copy</span></button>
               <a className="btn" href="https://www.linkedin.com/in/scottgaletto" target="_blank" rel="noopener">LinkedIn</a>
@@ -56,10 +56,10 @@ export function ContactSection() {
             </div>
             <p className="contact-clock"><i aria-hidden="true" /><span>It’s <b suppressHydrationWarning>{time || "—"}</b> in Chicago</span></p>
           </div>
-          <div className="contact-art" aria-hidden="false">
+          <a className="contact-art" href="mailto:scottgaletto@gmail.com" aria-label="Email Scott">
             <span className="splash" aria-hidden="true"><i className="s1" /><i className="s2" /><i className="s3" /></span>
             <RingingPhone className="rp-svg" />
-          </div>
+          </a>
         </div>
         <footer className="foot">
           <nav aria-label="Footer">{LINKS.map(([t, h]) => <a key={t} href={h}>{t}</a>)}</nav>
