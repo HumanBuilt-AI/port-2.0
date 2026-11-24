@@ -108,7 +108,7 @@ export function AboutSection() {
                 <span className="stop-fit" style={{ aspectRatio: sp.ratio ?? 4 / 3 }}><Pic p={sp} key={stop} className="fade" fit="contain" /></span>
               </button>
               <div className="bc-foot">
-                <span className="bc-cap">{sp.caption ?? ""}</span>
+                <span className="bc-cap">{sp.caption ?? `${stop + 1} of ${stopFor.photos.length}`}</span>
                 <button type="button" className="btn-text" onClick={() => setStop((stop + 1) % stopFor.photos.length)}>Another thing I stopped for →</button>
               </div>
             </article>
