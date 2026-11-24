@@ -1,12 +1,13 @@
 "use client";
 import { SectionBadge } from "@/components/SectionBadge";
 import { BellaDeck } from "@/components/BellaDeck";
+import { WanderGallery } from "@/components/WanderGallery";
 
 import { useEffect, useRef, useState } from "react";
-import { intro, stopFor, bella, wander, comic, rotation, rabbitHole, spiritAnimal, type Photo } from "@/content/about";
+import { intro, bella, wander, comic, rotation, rabbitHole, spiritAnimal, type Photo } from "@/content/about";
 
 /**
- * About me (Section 04): eight cards about life outside work. Light cards and dark
+ * About me (Section 04): seven cards about life outside work. Light cards and dark
  * A2UI-style cards from the Specs catalog. Every control is a real button (touch and
  * keyboard), nothing depends on hover, and motion stops under reduced motion.
  */
@@ -58,14 +59,10 @@ function Tabs<T extends { key: string; label: string }>({ items, value, onChange
 export function AboutSection() {
   const [big, setBig] = useState<Photo | null>(null);
   const [portrait, setPortrait] = useState(0);
-  const [stop, setStop] = useState(0);
-  const [place, setPlace] = useState(wander.places[0].key);
   const [joke, setJoke] = useState(0);
   const [tab, setTab] = useState(rotation.tabs[0].key);
 
   const pt = intro.portraits[portrait];
-  const sp = stopFor.photos[stop];
-  const pl = wander.places.find((s) => s.key === place) ?? wander.places[0];
   const rt = rotation.tabs.find((t) => t.key === tab) ?? rotation.tabs[0];
   const jk = comic.examples[joke];
 
@@ -99,53 +96,22 @@ export function AboutSection() {
             </article>
           )}
 
-          {/* 2 · things I stop for */}
-          {stopFor.show && (
-            <article className="bc b-stop">
-              <h3>{stopFor.title}</h3>
-              <p className="bc-line">{stopFor.line}</p>
-              <button type="button" className="pic-btn stop-frame" onClick={() => setBig(sp)} aria-label={`Enlarge: ${sp.alt}`}>
-                <span className="stop-fit" style={{ aspectRatio: sp.ratio ?? 4 / 3 }}><Pic p={sp} key={stop} className="fade" fit="contain" /></span>
-              </button>
-              <div className="bc-foot">
-                <span className="bc-cap">{sp.caption ?? `${stop + 1} of ${stopFor.photos.length}`}</span>
-                <button type="button" className="btn-text" onClick={() => setStop((stop + 1) % stopFor.photos.length)}>Another thing I stopped for →</button>
-              </div>
-            </article>
-          )}
-
-          {/* 3 · the Bella report (dark, because Bella is): a stacked photo deck */}
+          {/* 2 · the Bella report (dark, because Bella is): a stacked photo deck */}
           {bella.show && <BellaDeck onEnlarge={setBig} />}
 
-          {/* 4 · where I wander */}
-          {wander.show && (
-            <article className="bc b-wander">
-              <div className="bc-row"><h3>{wander.title}</h3><Tabs items={wander.places} value={place} onChange={setPlace} label="Place" /></div>
-              <div className="xfade" key={place}>
-                <p className="bc-line big">{pl.line}</p>
-                <div className="wander-pics">
-                  {pl.photos.map((p, i) => (
-                    <button key={i} type="button" className="pic-btn" onClick={() => setBig(p)} aria-label={`Enlarge: ${p.alt}`}><Pic p={p} /></button>
-                  ))}
-                </div>
+          {/* 3 · my spirit animal: a gentle idle float, still under reduced motion */}
+          {spiritAnimal.show && (
+            <article className="bc b-just b-spirit">
+              <h3>{spiritAnimal.title}</h3>
+              <p className="just-p">{spiritAnimal.name}</p>
+              <div className="spirit">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img className="spirit-img" src={spiritAnimal.photo.src} alt={spiritAnimal.photo.alt} width={402} height={480} loading="lazy" decoding="async" />
+                <span className="spirit-shadow" aria-hidden="true" />
               </div>
             </article>
           )}
-
-          {/* 5 · some comic relief */}
-          {comic.show && (
-            <article className="a2 b-comic">
-              <header className="a2-top"><span className="a2-name">{comic.title}</span><span className="a2-to">{joke + 1}/{comic.examples.length}</span></header>
-              <p className="a2-q">{comic.line}</p>
-              <div className="joke" key={joke} aria-live="polite">
-                {jk.photo && <button type="button" className="pic-btn" onClick={() => setBig(jk.photo!)} aria-label={`Enlarge: ${jk.photo.alt}`}><Pic p={jk.photo} /></button>}
-                <p className="a2-line">{jk.text}</p>
-              </div>
-              <button type="button" className="btn-pill" onClick={() => setJoke((joke + 1) % comic.examples.length)}>There’s more</button>
-            </article>
-          )}
-
-          {/* 6 · currently in rotation (provisional) */}
+          {/* 4 · currently in rotation (provisional) */}
           {rotation.show && (
             <article className="bc b-rot">
               <h3>{rotation.title}</h3>
@@ -156,6 +122,22 @@ export function AboutSection() {
                 ))}
               </ul>
               {rotation.updated && <p className="bc-cap">Updated {rotation.updated}</p>}
+            </article>
+          )}
+
+          {/* 5 · where I wander: Scott's Chicago photos (merged with "Things I stop for", Nov 24) */}
+          {wander.show && <WanderGallery onEnlarge={setBig} />}
+
+          {/* 6 · some comic relief */}
+          {comic.show && (
+            <article className="a2 b-comic">
+              <header className="a2-top"><span className="a2-name">{comic.title}</span><span className="a2-to">{joke + 1}/{comic.examples.length}</span></header>
+              <p className="a2-q">{comic.line}</p>
+              <div className="joke" key={joke} aria-live="polite">
+                {jk.photo && <button type="button" className="pic-btn" onClick={() => setBig(jk.photo!)} aria-label={`Enlarge: ${jk.photo.alt}`}><Pic p={jk.photo} /></button>}
+                <p className="a2-line">{jk.text}</p>
+              </div>
+              <button type="button" className="btn-pill" onClick={() => setJoke((joke + 1) % comic.examples.length)}>There’s more</button>
             </article>
           )}
 
@@ -172,18 +154,6 @@ export function AboutSection() {
             </article>
           )}
 
-          {/* 8 · my spirit animal: a gentle idle float, still under reduced motion */}
-          {spiritAnimal.show && (
-            <article className="bc b-just b-spirit">
-              <h3>{spiritAnimal.title}</h3>
-              <p className="just-p">{spiritAnimal.name}</p>
-              <div className="spirit">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img className="spirit-img" src={spiritAnimal.photo.src} alt={spiritAnimal.photo.alt} width={402} height={480} loading="lazy" decoding="async" />
-                <span className="spirit-shadow" aria-hidden="true" />
-              </div>
-            </article>
-          )}
         </div>
       </div>
       <div className="in"><p className="cap">About · life outside work</p></div>
