@@ -10,7 +10,7 @@ export function StickyBar() {
             <a href="#specs" tabIndex={-1}><svg aria-hidden="true"><use href="#i-specs" /></svg><span>specs</span></a>
             <a href="#work" tabIndex={-1}><svg aria-hidden="true"><use href="#i-work" /></svg><span>work</span></a>
             <a href="#work" tabIndex={-1}><svg aria-hidden="true"><use href="#i-studio" /></svg><span>studio</span></a>
-            <a href="#notes" tabIndex={-1}><svg aria-hidden="true"><use href="#i-notes" /></svg><span>notes</span></a>
+            <a href="#about" tabIndex={-1}><svg aria-hidden="true"><use href="#i-notes" /></svg><span>about</span></a>
             <a href="#contact" tabIndex={-1}><svg aria-hidden="true"><use href="#i-contact" /></svg><span>contact</span></a>
           </nav>
         </div>

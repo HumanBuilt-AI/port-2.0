@@ -6,7 +6,7 @@ import { FlowSection } from "@/components/flow/FlowSection";
 import { BrandSection } from "@/components/BrandSection";
 import { SpecsSection } from "@/components/SpecsSection";
 import { CaseStudies } from "@/components/CaseStudies";
-import { NotesSection } from "@/components/NotesSection";
+import { AboutSection } from "@/components/AboutSection";
 import { ContactSection } from "@/components/ContactSection";
 import { StoryMotion } from "@/components/StoryMotion";
 
@@ -23,7 +23,7 @@ export default function Home() {
         <BrandSection />
         <CaseStudies />
         <SpecsSection />
-        <NotesSection />
+        <AboutSection />
         <ContactSection />
       </main>
       <StoryMotion />
