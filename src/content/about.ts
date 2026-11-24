@@ -7,7 +7,7 @@
  * Photos: put files in /public/about/ and set `src` (e.g. "/about/bella-01.jpg"). `ratio` is
  * width / height so the frame keeps the photo's original proportions before it loads.
  */
-export type Photo = { src?: string; alt: string; caption?: string; ratio?: number };
+export type Photo = { src?: string; /** larger file for the enlarged view */ big?: string; alt: string; caption?: string; ratio?: number };
 
 /** Set a card's `show` to false to hide it until its content is ready. */
 export const intro = {
@@ -32,13 +32,31 @@ export const stopFor = {
   ] as Photo[],
 };
 
+/**
+ * The Bella report: a stacked photo deck. Tap or swipe the top photo to shuffle it to the back.
+ * Labels and notes are built from Scott's own descriptions (Nov 24). Photos are square WebP,
+ * 640px for the card and 1200px for the enlarged view.
+ */
 export const bella = {
   show: true,
   title: "The Bella report",
   line: "Bella. Black Labradoodle. Strong feelings about upholstery.",
   states: [
-    { key: "beard", label: "Beard maintenance", note: "The furniture is also a napkin. This is apparently thrilling.", photo: { alt: "PLACEHOLDER: Bella wiping her beard on the couch", ratio: 1 } as Photo },
-    { key: "head", label: "Head: down", note: "A statement has been made. Its meaning remains unclear.", photo: { alt: "PLACEHOLDER: Bella with her head down", ratio: 1 } as Photo },
+    {
+      key: "chill", label: "Post-ball chill",
+      note: "This used to be her favorite chill pose after playing ball. Flat out, ball still in sight.",
+      photo: { src: "/about/bella-chill-640.webp", big: "/about/bella-chill-1200.webp", alt: "Bella, a black Labradoodle, lying flat on a green and blue patterned floor with an orange ball near her nose", ratio: 1 } as Photo,
+    },
+    {
+      key: "pose", label: "On assignment",
+      note: "I’m always making her pose somewhere around Chicago for an Insta post. She’s a good sport about it.",
+      photo: { src: "/about/bella-car-640.webp", big: "/about/bella-car-1200.webp", alt: "Bella sitting on a Chicago sidewalk in front of an old black car, looking off to the side", ratio: 1 } as Photo,
+    },
+    {
+      key: "walk", label: "The daily walk",
+      note: "Bella and me on one of our daily walks around the city.",
+      photo: { src: "/about/bella-walk-640.webp", big: "/about/bella-walk-1200.webp", alt: "Selfie of Scott in sunglasses and a knit hat with Bella beside him, on a walk past brick buildings and bare trees", ratio: 1 } as Photo,
+    },
   ],
 };
 

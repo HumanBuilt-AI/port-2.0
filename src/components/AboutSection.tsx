@@ -1,5 +1,6 @@
 "use client";
 import { SectionBadge } from "@/components/SectionBadge";
+import { BellaDeck } from "@/components/BellaDeck";
 
 import { useEffect, useRef, useState } from "react";
 import { intro, stopFor, bella, wander, comic, rotation, rabbitHole, justBecause, type Photo } from "@/content/about";
@@ -35,7 +36,7 @@ function Lightbox({ p, onClose }: { p: Photo | null; onClose: () => void }) {
     <dialog ref={ref} className="lightbox" onClose={onClose} onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
       {p && (
         <figure style={{ aspectRatio: p.ratio ?? 4 / 3, "--r": p.ratio ?? 4 / 3 } as React.CSSProperties}>
-          <Pic p={p} fit="contain" />
+          <Pic p={p.big ? { ...p, src: p.big } : p} fit="contain" />
           {p.caption && <figcaption>{p.caption}</figcaption>}
         </figure>
       )}
@@ -58,14 +59,12 @@ export function AboutSection() {
   const [big, setBig] = useState<Photo | null>(null);
   const [portrait, setPortrait] = useState(0);
   const [stop, setStop] = useState(0);
-  const [mood, setMood] = useState(bella.states[0].key);
   const [place, setPlace] = useState(wander.places[0].key);
   const [joke, setJoke] = useState(0);
   const [tab, setTab] = useState(rotation.tabs[0].key);
 
   const pt = intro.portraits[portrait];
   const sp = stopFor.photos[stop];
-  const bs = bella.states.find((s) => s.key === mood) ?? bella.states[0];
   const pl = wander.places.find((s) => s.key === place) ?? wander.places[0];
   const rt = rotation.tabs.find((t) => t.key === tab) ?? rotation.tabs[0];
   const jk = comic.examples[joke];
@@ -115,18 +114,8 @@ export function AboutSection() {
             </article>
           )}
 
-          {/* 3 · the Bella report (dark, because Bella is) */}
-          {bella.show && (
-            <article className="a2 b-bella">
-              <header className="a2-top"><span className="a2-name">{bella.title}</span><span className="a2-to">→ status</span></header>
-              <p className="a2-q">{bella.line}</p>
-              <button type="button" className="pic-btn bella-pic" onClick={() => setBig(bs.photo)} aria-label={`Enlarge: ${bs.photo.alt}`}>
-                <Pic p={bs.photo} key={mood} className="fade" />
-              </button>
-              <Tabs items={bella.states} value={mood} onChange={setMood} label="Bella’s current state" dark />
-              <p className="a2-note" key={`n${mood}`} aria-live="polite">{bs.note}</p>
-            </article>
-          )}
+          {/* 3 · the Bella report (dark, because Bella is): a stacked photo deck */}
+          {bella.show && <BellaDeck onEnlarge={setBig} />}
 
           {/* 4 · where I wander */}
           {wander.show && (
