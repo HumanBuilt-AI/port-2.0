@@ -122,11 +122,10 @@ export const rabbitHole = {
   link: null as null | { label: string; href: string },
 };
 
-/** Provisional. A playful project; preview + link until there is a working try-it. */
-export const justBecause = {
+/** Replaces the old "Just because I wanted to" card (Nov 24). Image supplied by Scott. */
+export const spiritAnimal = {
   show: true,
-  title: "Just because I wanted to",
-  project: "Six Degrees of Kevin Bacon",
-  note: "PLACEHOLDER: one line on what it does.",
-  link: null as null | { label: string; href: string },
+  title: "My spirit animal",
+  name: "Raccoon Mario.",
+  photo: { src: "/about/spirit-animal-480.webp", alt: "Raccoon Mario in his brown raccoon suit, arms out, mid-wave" } as Photo,
 };

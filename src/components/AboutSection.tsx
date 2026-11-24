@@ -3,7 +3,7 @@ import { SectionBadge } from "@/components/SectionBadge";
 import { BellaDeck } from "@/components/BellaDeck";
 
 import { useEffect, useRef, useState } from "react";
-import { intro, stopFor, bella, wander, comic, rotation, rabbitHole, justBecause, type Photo } from "@/content/about";
+import { intro, stopFor, bella, wander, comic, rotation, rabbitHole, spiritAnimal, type Photo } from "@/content/about";
 
 /**
  * About me (Section 04): eight cards about life outside work. Light cards and dark
@@ -172,16 +172,16 @@ export function AboutSection() {
             </article>
           )}
 
-          {/* 8 · just because I wanted to (provisional) */}
-          {justBecause.show && (
-            <article className="bc b-just">
-              <h3>{justBecause.title}</h3>
-              <p className="just-p">{justBecause.project}</p>
-              <div className="degrees" aria-hidden="true">
-                {["K", "", "", "", "", "", "?"].map((t, i) => <i key={i} className={t ? "end" : undefined}>{t}</i>)}
+          {/* 8 · my spirit animal: a gentle idle float, still under reduced motion */}
+          {spiritAnimal.show && (
+            <article className="bc b-just b-spirit">
+              <h3>{spiritAnimal.title}</h3>
+              <p className="just-p">{spiritAnimal.name}</p>
+              <div className="spirit">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img className="spirit-img" src={spiritAnimal.photo.src} alt={spiritAnimal.photo.alt} width={402} height={480} loading="lazy" decoding="async" />
+                <span className="spirit-shadow" aria-hidden="true" />
               </div>
-              <p className="bc-cap">{justBecause.note}</p>
-              {justBecause.link ? <a className="btn-text" href={justBecause.link.href}>{justBecause.link.label} →</a> : <span className="btn-text dim">Try it, soon</span>}
             </article>
           )}
         </div>
