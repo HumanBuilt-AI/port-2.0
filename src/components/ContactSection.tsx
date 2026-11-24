@@ -1,4 +1,5 @@
 "use client";
+import { SectionBadge } from "@/components/SectionBadge";
 
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { RingingPhone } from "./RingingPhone";
@@ -14,7 +15,7 @@ const readArt = () => {
   return q === "phone" || q === "typewriter" ? q : CONTACT_ART;
 };
 
-const LINKS: [string, string][] = [["approach", "#flow"], ["specs", "#specs"], ["work", "#work"], ["about", "#about"]];
+const LINKS: [string, string][] = [["approach", "#flow"], ["specs", "/work/specs"], ["work", "#work"], ["about", "#about"]];
 
 /** Contact: a ringing phone on a coral splash that grows with scroll, plus the footer. */
 export function ContactSection() {
@@ -57,7 +58,7 @@ export function ContactSection() {
       <div className="in">
         <div className="row">
           <div className="contact-copy">
-            <span className="pill">Section 06 · Contact</span>
+            <SectionBadge num="05" label="Contact" />
             <h2 id="contact-h">The line is open. <span className="soft">Drop me a line.</span></h2>
             <p className="lede contact-lede">Half-formed idea, messy brief, a product that should exist and doesn’t yet. Those are my favorite emails to open.</p>
             <div className="links">

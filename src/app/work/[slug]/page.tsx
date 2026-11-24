@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { studies } from "@/content/cases";
 import { casePage, casePages, type Block, type Media } from "@/content/case-pages";
 import { ArrowCircle } from "@/components/ArrowCircle";
+import { SectionBadge } from "@/components/SectionBadge";
 import { CaseIcon } from "@/components/CaseIcon";
 import { CaseHeroArt, hasCaseHeroArt } from "@/components/CaseHeroArt";
 import { RobotInit } from "@/components/RobotInit";
@@ -135,7 +136,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
         <div className="in">
           <section className="cs-hero on-dark" aria-labelledby="cs-h">
             <div className="cs-hero-top">
-              <span className="pill on-dark">Case study {s.num}</span>
+              <SectionBadge num={s.num} kind="Case study" label={s.name} onDark />
               <span className="fine">{p.tags.join(" · ")}</span>
             </div>
             <div className="cs-hero-mid">

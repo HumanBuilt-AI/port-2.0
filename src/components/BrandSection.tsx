@@ -1,3 +1,4 @@
+import { SectionBadge } from "@/components/SectionBadge";
 /** Same prompt, better brief: brand files switch on and a generic hotel app becomes The Alibi. */
 export function BrandSection() {
   return (
@@ -7,7 +8,7 @@ export function BrandSection() {
           <div className="stage">
             <div className="in grid">
               <div>
-                <span className="pill on-dark">Section 02 · The brief</span>
+                <SectionBadge num="02" label="The brief" onDark />
                 <h2 id="brand-h" className="h2">Same prompt.<br /><span className="soft">Better brief.</span></h2>
                 <p className="brief">Watch an AI design the same screen, over and over. The prompt never changes. Each brand file it reads adds a little more taste, until generic turns into something that feels like it belongs.</p>
                 <div className="folders">

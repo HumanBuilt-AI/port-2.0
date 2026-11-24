@@ -150,8 +150,10 @@ export function startStory(gsap, ScrollTrigger) {
     function layout() {
       // size the drawing to the room left under the heading
       var head = document.querySelector('.flow-head').getBoundingClientRect(), stTop = ft.parentNode.getBoundingClientRect().top;
-      var room = window.innerHeight - (head.bottom - stTop) - Math.max(18, window.innerHeight * .03) - 26;
-      var ratio = 1 + (vw0() < 641 ? 205 : 185) / 496;
+      // keep 40px between the intro copy and the top of the step titles
+      var fs = ft.querySelector('.fsteps'), mb = parseFloat(getComputedStyle(fs).marginBottom) || 0, bot = parseFloat(getComputedStyle(ft).bottom) || 0;
+      var room = window.innerHeight - (head.bottom - stTop) - bot - mb - 40;
+      var ratio = 1 + (vw0() < 641 ? 190 : 170) / 496;
       if (!reduce) ft.style.setProperty('--H', Math.max(220, Math.min(560, window.innerWidth * 1.18, room / ratio)).toFixed(1) + 'px');
       vw = window.innerWidth; s = art.getBoundingClientRect().height / 496;
       start = vw / 2 - (PR[0] - PL[0]) * s / 2 - 20 * s;                 // first step centred
@@ -214,8 +216,8 @@ export function startStory(gsap, ScrollTrigger) {
   frame();
 
 
-  // Specs components: tick rows
-  (function () {
+  // Specs components: tick rows (the Specs section is not on the page right now)
+  if ($('kp-ticks') && $('ts-scale')) (function () {
     var t = '', n = 60, lit = 42;
     for (var i = 0; i < n; i++) { var x = 1 + i * (298 / (n - 1)); t += '<line x1="' + x + '" x2="' + x + '" y1="1" y2="17" stroke="' + (i < lit ? '#FBFBFA' : '#3A3A37') + '" stroke-width="1.25"/>'; }
     $('kp-ticks').innerHTML = t;

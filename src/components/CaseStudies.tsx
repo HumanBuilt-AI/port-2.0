@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { studies } from "@/content/cases";
 import { ArrowCircle } from "@/components/ArrowCircle";
+import { SectionBadge } from "@/components/SectionBadge";
 
 /**
  * Selected work: six case studies, copy from humanbuiltai.work.
@@ -13,7 +14,7 @@ export function CaseStudies() {
       <div className="in">
         <header className="cases-head">
           <div className="cases-title">
-            <span className="pill">Section 03 · Work</span>
+            <SectionBadge num="03" label="Work" />
             <h2 id="cases-h" className="h2">
               Selected <span className="soft">work</span>
             </h2>
