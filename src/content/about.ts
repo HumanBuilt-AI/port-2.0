@@ -23,7 +23,7 @@ export const intro = {
 
 /**
  * The Bella report: a stacked photo deck. Tap or swipe the top photo to shuffle it to the back.
- * Labels and notes are built from Scott's own descriptions (Nov 24). Photos are square WebP,
+ * Labels and notes are built from Scott's own descriptions (Nov 24). Photos are square WebP (non-square originals cropped),
  * 640px for the card and 1200px for the enlarged view.
  */
 export const bella = {
@@ -45,6 +45,41 @@ export const bella = {
       key: "walk", label: "The daily walk",
       note: "Bella and me on one of our daily walks around the city.",
       photo: { src: "/about/bella-walk-640.webp", big: "/about/bella-walk-1200.webp", alt: "Selfie of Scott in sunglasses and a knit hat with Bella beside him, on a walk past brick buildings and bare trees", ratio: 1 } as Photo,
+    },
+    {
+      key: "night", label: "Night walk",
+      note: "Out after dark, posing by a brick wall under the streetlights.",
+      photo: { src: "/about/bella-night-640.webp", big: "/about/bella-night-1200.webp", alt: "Bella sitting on a sidewalk at night beside a brick wall, streetlights glowing behind her", ratio: 1 } as Photo,
+    },
+    {
+      key: "bw", label: "Black and white",
+      note: "Tongue out, curls everywhere.",
+      photo: { src: "/about/bella-bw-640.webp", big: "/about/bella-bw-1200.webp", alt: "Black and white close-up of Bella with her tongue out and her curls catching the light", ratio: 1 } as Photo,
+    },
+    {
+      key: "mural", label: "Blep",
+      note: "Tongue out, mural behind. Accidental art.",
+      photo: { src: "/about/bella-mural-640.webp", big: "/about/bella-mural-1200.webp", alt: "Bella with the tip of her tongue out in front of a colorful painted mural", ratio: 1 } as Photo,
+    },
+    {
+      key: "serious", label: "Serious face",
+      note: "Straight to camera. Very serious.",
+      photo: { src: "/about/bella-serious-640.webp", big: "/about/bella-serious-1200.webp", alt: "Bella looking straight at the camera on a sunny path, leather collar and leash clip showing", ratio: 1 } as Photo,
+    },
+    {
+      key: "home", label: "At home",
+      note: "All smiles at home.",
+      photo: { src: "/about/bella-home-640.webp", big: "/about/bella-home-1200.webp", alt: "Bella sitting on a wood floor indoors, looking up with a happy open mouth", ratio: 1 } as Photo,
+    },
+    {
+      key: "park", label: "Park break",
+      note: "Stretched out in the park grass, tongue out.",
+      photo: { src: "/about/bella-park-640.webp", big: "/about/bella-park-1200.webp", alt: "Bella lying in the grass at a park with her tongue out, trees and buildings behind", ratio: 1 } as Photo,
+    },
+    {
+      key: "closeup", label: "Close-up",
+      note: "Up close, mouth open, curls a little wild.",
+      photo: { src: "/about/bella-closeup-640.webp", big: "/about/bella-closeup-1200.webp", alt: "Close-up of Bella indoors, mouth open, curly fur sticking up on top", ratio: 1 } as Photo,
     },
   ],
 };

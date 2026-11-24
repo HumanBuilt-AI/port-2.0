@@ -73,8 +73,9 @@ export function BellaDeck({ onEnlarge }: { onEnlarge: (p: Photo) => void }) {
               aria-hidden={pos !== 0}
               style={pos === 0 && dx ? ({ "--dx": `${dx}px`, "--dr": `${dx / 14}deg` } as React.CSSProperties) : undefined}
             >
+              {/* Only the top three and the previous photo load; the rest wait until they come near the top. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={s.photo.src} alt={pos === 0 ? s.photo.alt : ""} width={640} height={640} loading={i === 0 ? undefined : "lazy"} decoding="async" draggable={false} />
+              {(pos < 3 || pos === n - 1) && <img src={s.photo.src} alt={pos === 0 ? s.photo.alt : ""} width={640} height={640} decoding="async" draggable={false} />}
             </div>
           );
         })}
