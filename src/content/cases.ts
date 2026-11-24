@@ -8,7 +8,6 @@ export type Study = {
   slug: string;
   name: string;
   num: string;
-  year: string;
   tags: string;
   title: string;
   blurb: string;
@@ -19,7 +18,6 @@ export const studies: Study[] = [
     slug: "specs",
     name: "Specs",
     num: "01",
-    year: "2026",
     tags: "AI product · Brand systems",
     title: "A brand kit for AI.",
     blurb:
@@ -29,7 +27,6 @@ export const studies: Study[] = [
     slug: "aon-horizon",
     name: "Aon / Horizon",
     num: "02",
-    year: "2018",
     tags: "Product design · Data viz · AI",
     title: "Complex data, made explorable.",
     blurb:
@@ -39,7 +36,6 @@ export const studies: Study[] = [
     slug: "chipotle-raincheck",
     name: "Chipotle / RAINCHECK",
     num: "03",
-    year: "2016",
     tags: "SMS · Mobile Wallet · Animation",
     title: "A closed door, turned into a free burrito.",
     blurb: "The text-to-Wallet campaign that drew 5.3 million requests in about five hours.",
@@ -48,7 +44,6 @@ export const studies: Study[] = [
     slug: "creditninja",
     name: "CreditNinja",
     num: "04",
-    year: "2021",
     tags: "UX · Conversational form",
     title: "A 15-minute form, now under five.",
     blurb: "A loan eligibility flow redesigned as a conversation, with a 40% lift in completion.",
@@ -57,7 +52,6 @@ export const studies: Study[] = [
     slug: "sauza-lasso",
     name: "Sauza / Lasso Up With A Cowboy",
     num: "05",
-    year: "2014",
     tags: "Interactive kiosk · Game",
     title: "One throw, two screens.",
     blurb:
@@ -67,7 +61,6 @@ export const studies: Study[] = [
     slug: "verizon-indycar",
     name: "Verizon / IndyCar",
     num: "06",
-    year: "2014",
     tags: "Mobile web · VR",
     title: "Race day, in fans’ hands.",
     blurb:
