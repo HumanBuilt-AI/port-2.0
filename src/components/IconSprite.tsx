@@ -1,3 +1,5 @@
+import { ICON_OPTIONS, ICON_CHOICE } from "./iconOptions";
+
 /** Line icons used across the page, referenced with <use href="#i-…">. */
 export function IconSprite() {
   return (
@@ -5,14 +7,13 @@ export function IconSprite() {
       {/* Icon set: original, single-weight line drawings about Scott's own work. */}
       <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
         <defs>
-          {/* approach: a prompt field with a send button */}
-          <symbol id="i-approach" viewBox="0 0 56 72"><g className="ln">
-            <rect x="2" y="22" width="52" height="26" rx="5" />
-            <path d="M10 28 V42" />
-            <circle cx="43" cy="35" r="7" />
-            <path d="M43 38.5 V31.5 M40 34 L43 31 L46 34" />
-            <path d="M8 14 H30 M8 58 H22" />
-          </g></symbol>
+          {/* approach, about, contact: drawn from iconOptions.tsx (chosen one + every option for comparison) */}
+          {(Object.keys(ICON_OPTIONS) as (keyof typeof ICON_OPTIONS)[]).flatMap((name) => [
+            <symbol key={name} id={`i-${name}`} viewBox="0 0 56 72"><g className="ln">{ICON_OPTIONS[name][ICON_CHOICE[name]].draw}</g></symbol>,
+            ...(["a", "b", "c"] as const).map((k) => (
+              <symbol key={`${name}-${k}`} id={`i-${name}-${k}`} viewBox="0 0 56 72"><g className="ln">{ICON_OPTIONS[name][k].draw}</g></symbol>
+            )),
+          ])}
           {/* specs: a card measured with dimension lines */}
           <symbol id="i-specs" viewBox="0 0 56 72"><g className="ln">
             <rect x="6" y="16" width="34" height="48" rx="2" />
@@ -35,21 +36,6 @@ export function IconSprite() {
             <path d="M6 25 L28 38 L50 25 M28 38 V64" />
             <path d="M17 18.5 L39 31.5 M39 18.5 L17 31.5" style={{ opacity: ".45" }} />
             <circle cx="28" cy="38" r="2.6" />
-          </g></symbol>
-          {/* notes: a dated sheet with a folded corner */}
-          <symbol id="i-notes" viewBox="0 0 56 72"><g className="ln">
-            <path d="M6 8 H38 L50 20 V66 H6 Z" />
-            <path d="M38 8 V20 H50" />
-            <path d="M13 30 H42 M13 37 H42 M13 44 H34" />
-            <rect x="13" y="13" width="14" height="9" rx="1.5" />
-          </g></symbol>
-          {/* contact: a speaker grille with a sound arc */}
-          <symbol id="i-contact" viewBox="0 0 56 72"><g className="ln">
-            <circle cx="24" cy="36" r="21" />
-            <circle cx="16" cy="28" r="1.6" /><circle cx="24" cy="28" r="1.6" /><circle cx="32" cy="28" r="1.6" />
-            <circle cx="16" cy="36" r="1.6" /><circle cx="24" cy="36" r="1.6" /><circle cx="32" cy="36" r="1.6" />
-            <circle cx="16" cy="44" r="1.6" /><circle cx="24" cy="44" r="1.6" /><circle cx="32" cy="44" r="1.6" />
-            <path d="M50 24 A16 16 0 0 1 50 48" />
           </g></symbol>
           {/* mark: the prompt, ›_ drawn as outlined solids */}
           <symbol id="i-mark" viewBox="0 0 92 72"><g className="ln">
