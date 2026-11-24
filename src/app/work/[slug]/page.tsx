@@ -5,6 +5,7 @@ import { studies } from "@/content/cases";
 import { casePage, casePages, type Block, type Media } from "@/content/case-pages";
 import { ArrowCircle } from "@/components/ArrowCircle";
 import { CaseIcon } from "@/components/CaseIcon";
+import { CaseHeroArt, hasCaseHeroArt } from "@/components/CaseHeroArt";
 import { RobotInit } from "@/components/RobotInit";
 
 export function generateStaticParams() {
@@ -144,12 +145,18 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
                   {p.title} <span className="soft">{p.soft}</span>
                 </h1>
               </div>
-              <div className="cs-hero-side">
-                <CaseIcon slug={slug} />
-                <span className="numeral" aria-hidden="true">
-                  {s.num}
-                </span>
-              </div>
+              {hasCaseHeroArt(slug) ? (
+                <div className="cs-hero-side has-art">
+                  <CaseHeroArt slug={slug} />
+                </div>
+              ) : (
+                <div className="cs-hero-side">
+                  <CaseIcon slug={slug} />
+                  <span className="numeral" aria-hidden="true">
+                    {s.num}
+                  </span>
+                </div>
+              )}
             </div>
             <div className="cs-hero-foot">
               <p className="lede">{p.lede}</p>

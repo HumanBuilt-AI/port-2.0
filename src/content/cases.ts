@@ -1,6 +1,7 @@
 /**
  * The six case studies. Card copy comes from humanbuiltai.work.
- * `art` is the home-page thumbnail (placeholder until Scott's new artwork lands).
+ * Home-page card art lives at `/work/<slug>/card.svg` (4:3, simplified from the case page header art).
+ * The study `name` is laid over the top of the art as HTML.
  * The interior page content for each study lives in `src/content/case-pages.ts`.
  */
 export type Study = {
@@ -11,7 +12,6 @@ export type Study = {
   tags: string;
   title: string;
   blurb: string;
-  art?: string;
 };
 
 export const studies: Study[] = [
