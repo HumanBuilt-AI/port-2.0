@@ -4,9 +4,8 @@ import { ArrowCircle } from "@/components/ArrowCircle";
 
 /**
  * Selected work: six case studies, copy from humanbuiltai.work.
- * Thumbs are clean placeholders until the new case study artwork is ready;
- * set `art` on a study in src/content/cases.ts to replace one.
- * Frames are 2:1 to match the artwork.
+ * Each card shows a simplified, recoloured take on the case page header art
+ * (public/work/<slug>/card.svg, 4:3) with the study name over it in HTML.
  */
 export function CaseStudies() {
   return (
@@ -31,29 +30,14 @@ export function CaseStudies() {
             <li key={s.num}>
               <Link className="case" href={`/work/${s.slug}`}>
                 <span className="case-art">
-                  {s.art ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={`${s.art}-1024.webp`}
-                      srcSet={`${s.art}-640.webp 640w, ${s.art}-1024.webp 1024w`}
-                      sizes="(max-width: 640px) 100vw, (max-width: 1000px) 50vw, 33vw"
-                      width={1024}
-                      height={512}
-                      loading="lazy"
-                      decoding="async"
-                      alt=""
-                    />
-                  ) : (
-                    <span className="case-ph" aria-hidden="true">
-                      <span className="cap">artwork {s.num}</span>
-                    </span>
-                  )}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={`/work/${s.slug}/card.svg`} width={800} height={600} loading="lazy" decoding="async" alt="" />
+                  <span className="case-name">{s.name}</span>
                 </span>
                 <span className="case-meta">
                   <span>
                     {s.num} · {s.year}
                   </span>
-                  <span>{s.name}</span>
                 </span>
                 <h3>{s.title}</h3>
                 <p>{s.blurb}</p>
@@ -67,7 +51,7 @@ export function CaseStudies() {
         </ul>
       </div>
       <div className="in">
-        <p className="cap">Selected work · six case studies · new artwork coming</p>
+        <p className="cap">Selected work · six case studies</p>
       </div>
     </section>
   );
