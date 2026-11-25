@@ -142,8 +142,9 @@ export function startStory(gsap, ScrollTrigger) {
       if (cb) t.from(q(key('char')), k === 5 ? { scale: .2, opacity: 0, svgOrigin: org(cb, .2, 1), duration: .45 } : { scaleY: .1, scaleX: .6, opacity: 0, svgOrigin: org(cb, .5, 1), duration: .45, ease: 'back.out(2.2)' }, .4);
       tl.push(t);
     })(k);
-    var tw, hover;
+    var tw, hover, ambient = [];
     if (!reduce) {
+      var G0 = G; G = { to: function (a, b) { var t = G0.to(a, b); ambient.push(t); return t; }, timeline: function (v) { var t = G0.timeline(v); ambient.push(t); return t; } };
       for (var k = 0; k < 6; k++) {
         if (OB[k + '-char']) tw = G.to(q('[data-o="' + k + '-char"]'), k === 5 ? { x: 10, y: -14, duration: 1.4, ease: 'sine.inOut', yoyo: true, repeat: -1 } : { y: -5, duration: .9 + k * .13, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: k * .2 });
       }
@@ -160,6 +161,12 @@ export function startStory(gsap, ScrollTrigger) {
       G.to(q('[data-o="0-o157"],[data-o="0-o163"]'), { opacity: .2, duration: .3, ease: 'steps(1)', yoyo: true, repeat: -1, repeatDelay: .4 });
       G.to(q('[data-o="0-char"]'), { rotation: 4, svgOrigin: org(OB['0-char'], .5, 1), duration: 1.3, ease: 'sine.inOut', yoyo: true, repeat: -1 });
       q('.gold').forEach(function (g, i) { G.to(g, { opacity: .45, duration: .6, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: i * .21 }); });
+      G = G0;
+      // the idle wiggles repaint a very wide SVG every frame; let them sleep while the section is off-screen (iPad scroll jank)
+      if ('IntersectionObserver' in window) new IntersectionObserver(function (es) {
+        var on = es[es.length - 1].isIntersecting;
+        ambient.forEach(function (t) { if (t === hover && window.__flowFlood > 0) return; on ? t.resume() : t.pause(); });
+      }, { rootMargin: '200px 0px' }).observe(flow);
     }
     var vw0 = function () { return window.innerWidth; };
     var rkfly = art.querySelector('#rkfly');
@@ -172,7 +179,7 @@ export function startStory(gsap, ScrollTrigger) {
       var head = document.querySelector('.flow-head').getBoundingClientRect(), stTop = ft.parentNode.getBoundingClientRect().top;
       // keep 40px between the intro copy and the top of the step titles
       var fs = ft.querySelector('.fsteps'), mb = parseFloat(getComputedStyle(fs).marginBottom) || 0, bot = parseFloat(getComputedStyle(ft).bottom) || 0;
-      var room = window.innerHeight - (head.bottom - stTop) - bot - mb - 40;
+      var room = (ft.parentNode.clientHeight || window.innerHeight) - (head.bottom - stTop) - bot - mb - 40;
       var ratio = 1 + (vw0() < 641 ? 190 : 170) / 496;
       if (!reduce) ft.style.setProperty('--H', Math.max(220, Math.min(560, window.innerWidth * 1.18, room / ratio)).toFixed(1) + 'px');
       vw = window.innerWidth; s = art.getBoundingClientRect().height / 496;
@@ -214,6 +221,7 @@ export function startStory(gsap, ScrollTrigger) {
       }
       if (idx !== lastIdx) { lastIdx = idx; setSeg('flow-count', idx + '/6'); for (var b = 0; b < bars.length; b++) bars[b].classList.toggle('on', b < idx); }
     }
+    setSeg('flow-count', '1/6'); lastIdx = 1;
     layout(); render(0);
     if (!reduce) {
       tl[0].progress(0);
@@ -222,9 +230,24 @@ export function startStory(gsap, ScrollTrigger) {
       ScrollTrigger.create({ trigger: flow, start: 'top top', end: 'bottom bottom', scrub: .9, onUpdate: function (st) { render(st.progress); } });
       // step 01 builds as the section arrives
       ScrollTrigger.create({ trigger: flow, start: 'top 75%', end: 'top 5%', scrub: .6, onUpdate: function (st) { tl[0].progress(st.progress); }, onLeave: function () { tl[0].progress(1); } });
+      // re-measure when the heading changes height (web fonts landing, the counter wrapping on narrow iPads)
+      var headEl = document.querySelector('.flow-head'), headH = headEl.offsetHeight, rT;
+      var reflow = function () { var h = headEl.offsetHeight; if (h === headH) return; headH = h; clearTimeout(rT); rT = setTimeout(function () { ScrollTrigger.refresh(); }, 120); };
+      if ('ResizeObserver' in window) new ResizeObserver(reflow).observe(headEl);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { headH = -1; reflow(); });
     } else render(1);
     return { layout: layout, render: render };
   })();
+  var bStage = brand.querySelector('.stage'), bGrid = brand.querySelector('.grid');
+  function fitBrand() {
+    if (!bStage || !bGrid) return;
+    var cs = getComputedStyle(bStage), room = bStage.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom) - 24;
+    var k = Math.min(1, room / bGrid.offsetHeight);
+    bGrid.style.transform = k < .995 ? 'scale(' + k.toFixed(3) + ')' : '';
+  }
+  fitBrand();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitBrand);
+  if (!reduce) ScrollTrigger.addEventListener('refresh', fitBrand);
   var ticking = false;
   function frame() {
     ticking = false;
@@ -232,7 +255,7 @@ export function startStory(gsap, ScrollTrigger) {
   }
   function req() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
   window.addEventListener('scroll', req, { passive: true });
-  window.addEventListener('resize', req);
+  window.addEventListener('resize', function () { req(); fitBrand(); });
   frame();
 
 

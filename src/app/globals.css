@@ -173,7 +173,7 @@ svg { overflow: visible; }
 /* BRAND: night section, files switch on like hardware toggles */
 .brand { height: 480vh; background: var(--night); color: var(--white); }
 .brand .stage { display: flex; align-items: center; padding-top: calc(56px + env(safe-area-inset-top, 0px)); } /* clear the sticky nav bar */
-.brand .grid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 40px 72px; align-items: center; }
+.brand .grid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 40px 72px; align-items: center; transform-origin: 0 50%; }
 .brand h2 { margin-bottom: 20px; max-width: 12ch; }
 .brief { font: 400 17px/1.45 var(--text); color: var(--night-text); max-width: 46ch; margin: 0 0 30px; padding-left: 16px; border-left: 1.25px solid var(--sun); }
 .folders { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; max-width: 640px; }
