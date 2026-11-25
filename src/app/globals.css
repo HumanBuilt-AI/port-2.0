@@ -254,7 +254,7 @@ button.cta { border: 0; width: 100%; font: inherit; cursor: default; -webkit-use
 .screen.open .s-key .k-dot { background: #8FB08A; box-shadow: 0 0 0 .3em rgba(143,176,138,.18); }
 .screen.comps .cta:focus-visible { outline: 1px solid var(--sand); outline-offset: 3px; }
 .phone .tag { position: absolute; right: -10px; top: -12px; background: var(--night); color: var(--white); }
-.brand-foot { margin-top: 26px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; font-size: 14px; color: var(--night-text); }
+.brand-foot { margin-top: 26px; padding-bottom: clamp(32px, 4vw, 56px); display: flex; gap: 12px; align-items: center; flex-wrap: wrap; font-size: 14px; color: var(--night-text); }
 .brand-foot a { color: inherit; text-decoration: underline; text-decoration-color: var(--sun); text-underline-offset: 3px; }
 .brand-foot a:hover { color: var(--sun); }
 @media (max-width: 820px) {
@@ -925,7 +925,8 @@ a.a2-to:hover { color: var(--white); }
 /* Index: shorter and tighter. Sections sit on one row with even gaps instead of six wide columns. */
 .index .in { gap: clamp(18px, 2.6vw, 40px); padding-block: 12px; }
 .index .wordmark.robot { width: 44px; height: 44px; margin: -4px 0 -4px -8px; }
-.idx-row { display: flex; flex-wrap: nowrap; justify-content: flex-start; gap: clamp(20px, 3.4vw, 52px); }
+/* right-aligned, like the sticky bar, so the links don't jump when it takes over on scroll */
+.idx-row { display: flex; flex-wrap: nowrap; justify-content: flex-end; gap: clamp(20px, 3.4vw, 52px); }
 .idx { grid-template-columns: 24px auto; gap: 0 8px; align-items: center; }
 .idx .ico { width: 24px; height: 30px; margin: 0; }
 .idx b { display: block; font-size: clamp(16px, 1.3vw, 19px); line-height: 1; }
