@@ -616,7 +616,7 @@ h3 { font-weight: 600; font-size: clamp(18px, 1.5vw, 21px); letter-spacing: -0.0
 @keyframes a2fade { from { opacity: 0; transform: translateY(6px); } }
 @keyframes xfade { from { opacity: 0; } }
 /* 1 intro */
-.intro-pic { flex: none; width: 112px; display: grid; gap: 8px; justify-items: center; }
+.intro-pic { flex: none; width: 112px; display: grid; }
 .intro-pic .pic-btn { aspect-ratio: 4 / 5; border-radius: 16px; }
 .intro-pic .pic-ph { min-height: 0; }
 .dots { display: flex; gap: 6px; }
@@ -650,7 +650,7 @@ h3 { font-weight: 600; font-size: clamp(18px, 1.5vw, 21px); letter-spacing: -0.0
 /* 5 where I wander: featured stage + filmstrip (Scott's Chicago photos) */
 .b-wander { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); grid-template-rows: minmax(0, 1fr) auto; gap: 18px 26px; }
 .wg-text { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
-.wg-line { font: 400 19px/1.35 var(--display); letter-spacing: -0.01em; color: var(--ink); margin: 0; text-wrap: pretty; }
+.wg-line { font: 400 17px/1.45 var(--display); letter-spacing: -0.01em; color: var(--ink); margin: 0; text-wrap: pretty; }
 .wg-stop { font-size: 14px; line-height: 1.5; color: var(--steel); margin: 0; }
 .wg-stop b { font-weight: 600; color: var(--ink); }
 .wg-nav { margin-top: auto; display: flex; align-items: center; gap: 8px; padding-top: 6px; }
@@ -696,10 +696,11 @@ h3 { font-weight: 600; font-size: clamp(18px, 1.5vw, 21px); letter-spacing: -0.0
 .joke .pic-btn { max-width: 240px; aspect-ratio: 4 / 3; }
 /* 6 rotation */
 .rot-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
-.rot-list li { display: grid; grid-template-columns: 44px 1fr; gap: 12px; align-items: center; }
+.rot-list li { display: grid; grid-template-columns: 72px 1fr; gap: 16px; align-items: center; }
 .rot-list b { display: block; font: 600 15px/1.3 var(--display); }
 .rot-list span span { font-size: 13px; color: var(--steel); }
-.rot-cover { aspect-ratio: 3 / 4; border-radius: 6px; background: var(--night); color: var(--white); display: grid; place-items: center; font: 400 20px/1 var(--display); }
+.rot-cover { width: 100%; aspect-ratio: 3 / 4; border-radius: 6px; background: var(--night); color: var(--white); display: grid; place-items: center; font: 400 20px/1 var(--display); }
+.rot-art { display: block; height: auto; object-fit: cover; background: var(--panel); box-shadow: 0 8px 18px -10px rgba(20,20,20,.45); }
 /* 7 rabbit hole */
 .rh-sub { font-size: 13px; line-height: 1.5; color: #A1A1A6; margin: -6px 0 0; }
 .rh-pics { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
@@ -718,8 +719,9 @@ h3 { font-weight: 600; font-size: clamp(18px, 1.5vw, 21px); letter-spacing: -0.0
 @keyframes spirit-float { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-8px) rotate(2deg); } }
 @keyframes spirit-shadow { 0%, 100% { transform: scaleX(1); opacity: 1; } 50% { transform: scaleX(.82); opacity: .7; } }
 /* A2UI card parts */
-.a2-top { display: flex; justify-content: space-between; gap: 12px; font: 500 11px/1 ui-monospace, "SF Mono", Menlo, monospace; letter-spacing: .08em; color: #8E8E93; }
-.a2-name { text-transform: uppercase; }
+.a2-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font: 500 11px/1 ui-monospace, "SF Mono", Menlo, monospace; letter-spacing: .08em; color: #8E8E93; }
+/* card titles share the light cards' h3 (My spirit animal, Where I wander), in white */
+.a2-name { color: var(--white); margin: 0; }
 .a2-to { text-decoration: none; letter-spacing: 0; font-variant-numeric: tabular-nums; }
 a.a2-to:hover { color: var(--white); }
 .a2-q { font: 400 17px/1.35 var(--display); margin: 0; }

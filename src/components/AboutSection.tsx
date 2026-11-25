@@ -123,11 +123,10 @@ function Tabs<T extends { key: string; label: string }>({ items, value, onChange
 export function AboutSection() {
   const [big, setBig] = useState<Enlarge | null>(null);
   const one = (p: Photo) => setBig({ set: [p], i: 0 });
-  const [portrait, setPortrait] = useState(0);
   const [joke, setJoke] = useState(0);
   const [tab, setTab] = useState(rotation.tabs[0].key);
 
-  const pt = intro.portraits[portrait];
+  const pt = intro.portrait;
   const rt = rotation.tabs.find((t) => t.key === tab) ?? rotation.tabs[0];
   const jk = comic.examples[joke];
 
@@ -140,23 +139,18 @@ export function AboutSection() {
         </header>
 
         <div className="bento">
-          {/* 1 · introduction, with a small switchable portrait */}
+          {/* 1 · introduction, with one portrait (Nov 25) */}
           {intro.show && (
             <article className="bc b-intro">
               <div className="intro-pic">
-                <button type="button" className="pic-btn" onClick={() => setBig({ set: intro.portraits.filter((q) => q.src), i: Math.max(0, intro.portraits.filter((q) => q.src).indexOf(pt)) })} aria-label={`Enlarge: ${pt.alt}`}>
-                  <Pic p={pt} key={portrait} className="fade" />
+                <button type="button" className="pic-btn" onClick={() => one(pt)} aria-label={`Enlarge: ${pt.alt}`}>
+                  <Pic p={pt} />
                 </button>
-                <div className="dots" role="radiogroup" aria-label="Portraits">
-                  {intro.portraits.map((p, i) => (
-                    <button key={i} type="button" role="radio" aria-checked={i === portrait} aria-label={`Portrait ${i + 1}`} onClick={() => setPortrait(i)} />
-                  ))}
-                </div>
               </div>
               <div>
                 <h3>{intro.name}</h3>
                 <p className="bc-line">{intro.line}</p>
-                {pt.caption && <p className="bc-cap" key={`c${portrait}`}>{pt.caption}</p>}
+                {pt.caption && <p className="bc-cap">{pt.caption}</p>}
               </div>
             </article>
           )}
@@ -183,7 +177,12 @@ export function AboutSection() {
               <Tabs items={rotation.tabs} value={tab} onChange={setTab} label="Currently" />
               <ul className="rot-list xfade" key={tab}>
                 {rt.picks.map((p, i) => (
-                  <li key={i}><span className="rot-cover" aria-hidden="true">{p.title.replace(/^PLACEHOLDER\s*/, "").slice(0, 1) || "·"}</span><span><b>{p.title}</b>{p.by && <span>{p.by}</span>}</span></li>
+                  <li key={i}>{p.cover?.src ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img className="rot-cover rot-art" src={p.cover.src} alt={p.cover.alt} style={{ aspectRatio: p.cover.ratio }} loading="lazy" decoding="async" />
+                  ) : (
+                    <span className="rot-cover" aria-hidden="true">{p.title.replace(/^PLACEHOLDER\s*/, "").slice(0, 1) || "·"}</span>
+                  )}<span><b>{p.title}</b>{p.by && <span>{p.by}</span>}</span></li>
                 ))}
               </ul>
               {rotation.updated && <p className="bc-cap">Updated {rotation.updated}</p>}
@@ -196,7 +195,7 @@ export function AboutSection() {
           {/* 6 · some comic relief */}
           {comic.show && (
             <article className="a2 b-comic">
-              <header className="a2-top"><span className="a2-name">{comic.title}</span><span className="a2-to">{joke + 1}/{comic.examples.length}</span></header>
+              <header className="a2-top"><h3 className="a2-name">{comic.title}</h3><span className="a2-to">{joke + 1}/{comic.examples.length}</span></header>
               <p className="a2-q">{comic.line}</p>
               <div className="joke" key={joke} aria-live="polite">
                 {jk.photo && <button type="button" className="pic-btn" onClick={() => one(jk.photo!)} aria-label={`Enlarge: ${jk.photo.alt}`}><Pic p={jk.photo} /></button>}
@@ -209,7 +208,7 @@ export function AboutSection() {
           {/* 7 · down this rabbit hole */}
           {rabbitHole.show && (
             <article className="a2 b-rabbit">
-              <header className="a2-top"><span className="a2-name">{rabbitHole.title}</span>{rabbitHole.link ? <a className="a2-to" href={rabbitHole.link.href}>→ {rabbitHole.link.label}</a> : <span className="a2-to">→ trail</span>}</header>
+              <header className="a2-top"><h3 className="a2-name">{rabbitHole.title}</h3>{rabbitHole.link ? <a className="a2-to" href={rabbitHole.link.href}>→ {rabbitHole.link.label}</a> : <span className="a2-to">→ trail</span>}</header>
               <p className="a2-q">{rabbitHole.topic}</p>
               {rabbitHole.sub && <p className="rh-sub">{rabbitHole.sub}</p>}
               {rabbitHole.photos.length > 0 && (
