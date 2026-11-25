@@ -14,8 +14,8 @@ export const intro = {
   show: true,
   name: "Scott Galetto",
   line: "Designer, compulsive experimenter, and Bella’s on-call staff.",
-  /** One portrait for now (Nov 25): Scott's mural photo, his placeholder. The card shows a 4:5 crop; the enlarged view shows the whole square photo. */
-  portrait: { src: "/about/scott-mural-320.webp", big: "/about/scott-mural-big.webp", alt: "Scott Galetto in a hat, headphones and a leather vest, sitting in front of a huge yellow cartoon mural on a brick wall", ratio: 1 } as Photo,
+  /** One portrait (Nov 25): Scott's pencil-sketch illustration of himself. The card shows a 4:5 crop; the enlarged view shows the whole square drawing. */
+  portrait: { src: "/about/scott-sketch-320.webp", big: "/about/scott-sketch-big.webp", alt: "Pencil sketch of Scott Galetto in a cap and a fleece-collared jacket, eyebrows up and lips pursed", ratio: 1 } as Photo,
   /** Earlier portraits from humanbuiltai.work, not shown. Files are still in public/about/. */
   laterPortraits: [
     { src: "/about/scott-studio-320.webp", big: "/about/scott-studio-big.webp", alt: "Black and white studio portrait of Scott Galetto in a dark sweater, half smiling", ratio: 3 / 4 },
@@ -89,7 +89,7 @@ export const bella = {
 
 /**
  * Where I wander (Nov 24): Scott's Chicago photos, merged with the old "Things I stop for" card.
- * 19 photos: the 9 from PR 11 plus 10 more Scott sent. No captions on purpose; add a `caption`
+ * 18 photos (the Loop collage was removed Nov 25). No captions on purpose; add a `caption`
  * to any photo to show a line under it. Files are WebP, EXIF stripped: 160 (filmstrip),
  * 640 (stage on small screens), 1200 (stage and enlarged view).
  */
@@ -115,7 +115,6 @@ export const wander = {
     { src: "/about/chicago/12-quick-bite-640.webp", big: "/about/chicago/12-quick-bite-1200.webp", thumb: "/about/chicago/12-quick-bite-160.webp", alt: "A red and white striped Quick Bite carry-out stand on a snowy corner", ratio: 1 },
     { src: "/about/chicago/13-red-brick-640.webp", big: "/about/chicago/13-red-brick-1200.webp", thumb: "/about/chicago/13-red-brick-160.webp", alt: "A dark red brick tower with deep window bays under a grey sky", ratio: 1 },
     { src: "/about/chicago/14-dark-tower-640.webp", big: "/about/chicago/14-dark-tower-1200.webp", thumb: "/about/chicago/14-dark-tower-160.webp", alt: "A dark glass and steel tower against a clear blue sky, one edge catching orange light", ratio: 1 },
-    { src: "/about/chicago/15-collage-640.webp", big: "/about/chicago/15-collage-1200.webp", thumb: "/about/chicago/15-collage-160.webp", alt: "Six photos of glass and steel towers in the Loop, looking up", ratio: 2 / 3 },
     { src: "/about/chicago/16-grid-tower-640.webp", big: "/about/chicago/16-grid-tower-1200.webp", thumb: "/about/chicago/16-grid-tower-160.webp", alt: "Looking up at a pale gridded office tower, a curved street lamp in the foreground", ratio: 3 / 4 },
     { src: "/about/chicago/17-lit-windows-640.webp", big: "/about/chicago/17-lit-windows-1200.webp", thumb: "/about/chicago/17-lit-windows-160.webp", alt: "A dark office tower at dusk, scattered windows lit, a green-lit plaza and orange street below", ratio: 1 },
     { src: "/about/chicago/18-reflection-640.webp", big: "/about/chicago/18-reflection-1200.webp", thumb: "/about/chicago/18-reflection-160.webp", alt: "A black steel and glass tower whose windows reflect the building across the street", ratio: 1 },
