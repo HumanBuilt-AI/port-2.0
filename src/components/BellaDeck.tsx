@@ -48,7 +48,7 @@ export function BellaDeck({ onEnlarge }: { onEnlarge: (p: Photo) => void }) {
 
   return (
     <article className="a2 b-bella">
-      <header className="a2-top"><span className="a2-name">{bella.title}</span><span className="a2-to" aria-hidden="true">{String(idx + 1).padStart(2, "0")}/{String(n).padStart(2, "0")}</span></header>
+      <header className="a2-top"><h3 className="a2-name">{bella.title}</h3><span className="a2-to" aria-hidden="true">{String(idx + 1).padStart(2, "0")}/{String(n).padStart(2, "0")}</span></header>
       <p className="a2-q">{bella.line}</p>
       <div
         className={`deck${dx ? " dragging" : ""}`}

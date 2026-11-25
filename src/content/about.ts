@@ -14,8 +14,10 @@ export const intro = {
   show: true,
   name: "Scott Galetto",
   line: "Designer, compulsive experimenter, and Bella’s on-call staff.",
-  /** Scott's own portraits from humanbuiltai.work (Nov 25). No captions: add a `caption` only with Scott's words. */
-  portraits: [
+  /** One portrait for now (Nov 25): Scott's mural photo, his placeholder. The card shows a 4:5 crop; the enlarged view shows the whole square photo. */
+  portrait: { src: "/about/scott-mural-320.webp", big: "/about/scott-mural-big.webp", alt: "Scott Galetto in a hat, headphones and a leather vest, sitting in front of a huge yellow cartoon mural on a brick wall", ratio: 1 } as Photo,
+  /** Earlier portraits from humanbuiltai.work, not shown. Files are still in public/about/. */
+  laterPortraits: [
     { src: "/about/scott-studio-320.webp", big: "/about/scott-studio-big.webp", alt: "Black and white studio portrait of Scott Galetto in a dark sweater, half smiling", ratio: 3 / 4 },
     { src: "/about/scott-rose-320.webp", big: "/about/scott-rose-big.webp", alt: "Portrait of Scott Galetto in a bird-print shirt and suspenders, toned dusty rose", ratio: 4 / 5 },
     { src: "/about/scott-cafe-big.webp", alt: "Scott Galetto in a bird-print shirt and suspenders, sitting in a warmly lit café", ratio: 345 / 439 },
@@ -94,10 +96,10 @@ export const bella = {
 export const wander = {
   show: true,
   title: "Where I wander",
-  /** Scott's own copy about Chicago. */
-  line: "I love the city, but Lincoln Park—the actual park—is one of my favorite places. Along with the big cemeteries in fall. Excellent places to wander.",
-  /** From the old "Things I stop for" card. */
-  stopFor: { title: "Things I stop for", line: "Buildings, street graphics, people, and things that become more interesting next to each other." },
+  /** Scott's own copy about Chicago (Nov 25, verbatim). */
+  line: "Some of my best thinking happens at three miles an hour with nowhere particular to be. I love the visual friction of the city—sharp modernist glass across from a turn-of-the-century turret, or a mint-condition 1970s red Ford stealing the show in the Loop. Slow down and look up, and Chicago is basically an open-air museum.",
+  /** Scott's own copy (Nov 25, verbatim). */
+  stopFor: { title: "Things I stop for", line: "Vintage iron, heavy masonry, street-level typography, and anything that’s outlived its era without losing its character." },
   photos: [
     { src: "/about/chicago/01-upward-640.webp", big: "/about/chicago/01-upward-1200.webp", thumb: "/about/chicago/01-upward-160.webp", alt: "Looking straight up between two downtown towers, a curved street lamp hanging into a blue sky", ratio: 1 },
     { src: "/about/chicago/02-red-ford-640.webp", big: "/about/chicago/02-red-ford-1200.webp", thumb: "/about/chicago/02-red-ford-160.webp", alt: "A red vintage Ford pickup parked head-on in a downtown street", ratio: 1 },
@@ -140,16 +142,19 @@ export const comic = {
   ] as { text: string; photo?: Photo }[],
 };
 
-/** Scott's picks (Nov 24). */
+/**
+ * Scott's picks (Nov 24), with the cover art he sent (Nov 25). Third-party artwork:
+ * PRE-LAUNCH RIGHTS CHECK, like the Raccoon Mario image.
+ */
 export const rotation = {
   show: true,
   title: "Currently in rotation",
   updated: "Nov 2026",
   tabs: [
-    { key: "reading", label: "Reading", picks: [{ title: "The AGI Race", by: "Kevin Roose" }] },
-    { key: "watching", label: "Watching", picks: [{ title: "War", by: "HBO Max" }] },
-    { key: "listening", label: "Listening", picks: [{ title: "Good Hang", by: "Amy Poehler’s podcast" }] },
-  ],
+    { key: "reading", label: "Reading", picks: [{ title: "The AGI Chronicles", by: "Kevin Roose", cover: { src: "/about/rotation/agi-chronicles-240.webp", alt: "Cover of The AGI Chronicles by Kevin Roose", ratio: 1303 / 2000 } }] },
+    { key: "watching", label: "Watching", picks: [{ title: "War", by: "HBO Max", cover: { src: "/about/rotation/war-240.webp", alt: "Poster for the HBO series War", ratio: 1296 / 1920 } }] },
+    { key: "listening", label: "Listening", picks: [{ title: "Good Hang", by: "Amy Poehler’s podcast", cover: { src: "/about/rotation/good-hang-240.webp", alt: "Cover art for the Good Hang podcast with Amy Poehler", ratio: 1 } }] },
+  ] as { key: string; label: string; picks: { title: string; by?: string; cover?: Photo }[] }[],
 };
 
 /** Scott's rabbit hole (Nov 25): his text, lightly tidied, and his two photos. */
