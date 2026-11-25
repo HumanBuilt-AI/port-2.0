@@ -1001,50 +1001,47 @@ a.a2-to:hover { color: var(--white); }
 .case-foot { margin-top: auto; padding-top: 4px; }
 
 
-/* ALT HERO (preview route /hero-preview): "I am a ___ creative technologist." + line illustration.
-   --hi-tint is set per word by HeroIntro and shared by the word highlight and the art panel. */
-.hi { --hi-tint: #E4E3DE; margin: var(--gut) var(--gut) 0; border-radius: var(--card-r); background: var(--white); overflow: clip; }
-.hi-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(32px, 5vw, 88px); align-items: center; padding: clamp(40px, 6vw, 96px) var(--margin) clamp(40px, 5vw, 72px); min-height: min(calc(100svh - 96px), 700px); box-sizing: border-box; }
-.hi-copy { display: grid; gap: clamp(20px, 2.4vw, 32px); justify-items: start; }
-.hi-who { font: 600 13px/1 var(--text); color: var(--steel); }
-.hi h1 { margin: 0; font: 400 clamp(40px, 4.4vw, 68px)/1.06 var(--display); letter-spacing: -0.035em; color: var(--ink); }
-.hi-word { color: var(--ink); background: transparent; border-radius: 6px; padding: 0 .06em; margin: 0 -.06em; box-shadow: inset 0 -.12em 0 var(--hi-tint); transition: background .15s; }
-.hi-word.sel { background: var(--hi-tint); box-shadow: none; }
-.hi-caret { display: inline-block; width: .06em; min-width: 2px; height: .9em; margin-left: .04em; vertical-align: -.08em; background: var(--ink); animation: hi-blink 1s steps(1) infinite; }
-@keyframes hi-blink { 50% { opacity: 0; } }
-.hi-lede { margin: 0; max-width: 40ch; font: 400 clamp(17px, 1.4vw, 20px)/1.45 var(--text); color: #5E5D59; }
-.hi-ctas { display: flex; flex-wrap: wrap; gap: 10px; }
-.hi-ctas .btn { padding: 14px 22px; }
-.hi-figure { min-width: 0; }
-.hi-art { display: block; width: 100%; height: auto; overflow: visible; }
-.hi-panel { fill: var(--hi-tint); transition: fill .6s ease; }
-.hi-pulses path { stroke-dasharray: 5 100; stroke-dashoffset: 105; animation: hi-pulse 3.9s linear infinite; }
-@keyframes hi-pulse { to { stroke-dashoffset: 0; } }
-.hi-scribble { stroke-dasharray: 100; stroke-dashoffset: 100; animation: hi-draw 3.9s ease-in-out infinite; }
-@keyframes hi-draw { 0% { stroke-dashoffset: 100; opacity: 1; } 45%, 80% { stroke-dashoffset: 0; opacity: 1; } 95%, 100% { stroke-dashoffset: 0; opacity: 0; } }
-.hi-pencil { animation: hi-write 3.9s ease-in-out infinite; }
-@keyframes hi-write { 0% { transform: translate(0, 0); } 15% { transform: translate(24px, -10px); } 25% { transform: translate(48px, 0); } 35% { transform: translate(72px, -10px); } 45% { transform: translate(96px, 0); } 80% { transform: translate(96px, 0); } 100% { transform: translate(0, 0); } }
-.hi-h2, .hi-h3 { transition: transform .8s cubic-bezier(.3, .7, .2, 1); }
-.hi-heads .hi-h3 { animation: hi-drift3 6s ease-in-out infinite; }
-.hi-heads .hi-h2 { animation: hi-drift2 6s ease-in-out infinite; }
-@keyframes hi-drift3 { 0%, 100% { transform: translate(-84px, -4px); } 50% { transform: translate(-96px, -8px); } }
-@keyframes hi-drift2 { 0%, 100% { transform: translate(-42px, -2px); } 50% { transform: translate(-50px, -4px); } }
-.hi-heads .hi-h3 { transform: translate(-84px, -4px); }
-.hi-heads .hi-h2 { transform: translate(-42px, -2px); }
-.hi-rays path { animation: hi-ray 2.4s ease-in-out infinite; }
-.hi-rays path:nth-child(2) { animation-delay: .4s; }
-.hi-rays path:nth-child(3) { animation-delay: .8s; }
-@keyframes hi-ray { 0%, 100% { opacity: .15; } 50% { opacity: 1; } }
-.hi-eye { transform-box: fill-box; transform-origin: center; animation: hi-eye 5s infinite; }
-@keyframes hi-eye { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(.15); } }
+/* ALT HERO (preview route /hero-preview), from Scott's Figma frame: dark card, split-flap word,
+   big title, and a deck of project shots on the right. */
+.hi { --hi-bg: #1E1E1E; --hi-fg: #EFEEEA; --hi-pop: #F2A7A4; margin: var(--gut) var(--gut) 0; border-radius: var(--card-r); background: var(--hi-bg); color: var(--hi-fg); overflow: clip; }
+.hi-in { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(32px, 4vw, 72px); align-items: center; padding: clamp(48px, 7vw, 116px) clamp(20px, 4.6vw, 66px); min-height: min(calc(100svh - 120px), 620px); box-sizing: border-box; }
+.hi-copy { display: grid; gap: clamp(14px, 1.4vw, 20px); }
+.hi-kicker { margin: 0; font: 400 clamp(18px, 1.7vw, 24px)/1.4 var(--display); letter-spacing: -0.02em; }
+.hi h1 { margin: 0; font: 400 clamp(52px, 7vw, 100px)/.98 var(--display); letter-spacing: -0.045em; max-width: 11ch; color: var(--hi-fg); }
+.hi-lede { margin: 6px 0 0; max-width: 40ch; font: 400 clamp(17px, 1.7vw, 24px)/1.62 var(--text); color: #C7C7C7; }
+
+/* split-flap word */
+.flap { display: inline-flex; gap: .02em; color: var(--hi-pop); font-weight: 600; vertical-align: baseline; perspective: 300px; }
+.flap-c { position: relative; display: inline-block; min-width: .5em; padding: 0 .02em; text-align: center; background: #2A2A2A; border-radius: .14em; line-height: 1.25; animation: flap .16s ease-out both; transform-origin: 50% 50%; }
+.flap-c::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: rgba(0, 0, 0, .55); }
+@keyframes flap { from { transform: rotateX(-80deg); filter: brightness(.55); } to { transform: none; filter: none; } }
+
+/* deck of project cards */
+.hi-deck { position: relative; aspect-ratio: 16 / 11; width: 100%; }
+.hi-card { position: absolute; inset: 0; display: block; border-radius: 16px; overflow: hidden; background: #111; color: #fff; text-decoration: none; box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .7); transition: transform .9s cubic-bezier(.2, .7, .2, 1), opacity .9s, filter .9s; }
+.hi-card[data-pos="0"] { z-index: 3; transform: none; }
+.hi-card[data-pos="1"] { z-index: 2; transform: translate(4%, -9%) scale(.92); filter: brightness(.6); }
+.hi-card[data-pos="2"] { z-index: 1; transform: translate(8%, -18%) scale(.84); filter: brightness(.38); }
+.hi-frame { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.02); transition: opacity .8s ease; }
+.hi-frame.on { opacity: 1; }
+.hi-card[data-pos="0"] .hi-frame.on { animation: hi-push 3.6s linear both; }
+@keyframes hi-push { from { transform: scale(1.02); } to { transform: scale(1.1); } }
+.hi-cap { position: absolute; left: 14px; right: 14px; bottom: 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 14px; border-radius: 999px; background: rgba(20, 20, 20, .72); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); font: 600 14px/1 var(--text); opacity: 0; transition: opacity .5s; }
+.hi-card[data-pos="0"] .hi-cap { opacity: 1; }
+.hi-bars { display: flex; gap: 4px; }
+.hi-bars i { position: relative; width: 22px; height: 3px; border-radius: 2px; background: rgba(255, 255, 255, .28); overflow: hidden; }
+.hi-bars i::after { content: ""; position: absolute; inset: 0; background: #fff; transform-origin: left; transform: scaleX(0); }
+.hi-bars i.full::after { transform: none; }
+.hi-bars i.run::after { animation: hi-bar 3.2s linear both; }
+@keyframes hi-bar { to { transform: none; } }
+.hi-card:focus-visible { outline: 2px solid var(--hi-pop); outline-offset: 4px; }
+
 @media (max-width: 860px) {
-  .hi-in { grid-template-columns: minmax(0, 1fr); min-height: 0; gap: 36px; padding-top: 40px; }
-  .hi h1 { font-size: clamp(28px, 8.4vw, 52px); }
-  .hi-ctas .btn { font-size: 16px; padding: 12px 18px; }
-  .hi-figure { order: 2; }
+  .hi-in { grid-template-columns: minmax(0, 1fr); min-height: 0; gap: 40px; padding-top: 44px; }
+  .hi h1 { font-size: clamp(44px, 12vw, 64px); }
+  .hi-deck { margin: 8% 8% 0 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hi-caret, .hi-pulses, .hi-pencil, .hi-heads .hi-h2, .hi-heads .hi-h3, .hi-rays path, .hi-eye { animation: none; }
-  .hi-pulses { display: none; }
-  .hi-scribble { animation: none; stroke-dashoffset: 0; }
+  .flap-c, .hi-card[data-pos="0"] .hi-frame.on, .hi-bars i.run::after { animation: none; }
+  .hi-card, .hi-frame { transition: none; }
 }
