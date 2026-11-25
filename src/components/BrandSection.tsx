@@ -42,7 +42,6 @@ export function BrandSection() {
                   <div className="rate">Rate your booking experience ★★★★★</div>
                   <button type="button" className="cta" id="s-cta"><i className="ring"></i><span id="s-cta-t">Check in</span></button>
                 </div>
-                <span className="tag" id="phone-tag"><i></i>generic</span>
               </div>
             </div>
           </div>

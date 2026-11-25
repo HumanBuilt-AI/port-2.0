@@ -107,7 +107,6 @@ export function startStory(gsap, ScrollTrigger) {
       $('s-note').textContent = 'Room Seven, third floor. Nobody saw a thing.';
     }
     $('s-cta-t').textContent = open ? 'You’re in' : comps ? 'Hold to open' : voice ? 'Take me upstairs' : 'Check in';
-    $('phone-tag').lastChild.textContent = k >= 5 ? 'on brand' : k === 0 ? 'generic' : 'getting there';
   }
   function barFrame() {
     var past = index.getBoundingClientRect().bottom < 0;
