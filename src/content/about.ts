@@ -151,10 +151,10 @@ export const rotation = {
   title: "Currently in rotation",
   updated: "Nov 2026",
   tabs: [
-    { key: "reading", label: "Reading", picks: [{ title: "The AGI Chronicles", by: "Kevin Roose", cover: { src: "/about/rotation/agi-chronicles-240.webp", alt: "Cover of The AGI Chronicles by Kevin Roose", ratio: 1303 / 2000 } }] },
-    { key: "watching", label: "Watching", picks: [{ title: "War", by: "HBO Max", cover: { src: "/about/rotation/war-240.webp", alt: "Poster for the HBO series War", ratio: 1296 / 1920 } }] },
-    { key: "listening", label: "Listening", picks: [{ title: "Good Hang", by: "Amy Poehler’s podcast", cover: { src: "/about/rotation/good-hang-240.webp", alt: "Cover art for the Good Hang podcast with Amy Poehler", ratio: 1 } }] },
-  ] as { key: string; label: string; picks: { title: string; by?: string; cover?: Photo }[] }[],
+    { key: "reading", label: "Reading", word: "READ", picks: [{ title: "The AGI Chronicles", by: "Kevin Roose", cover: { src: "/about/rotation/agi-chronicles-240.webp", alt: "Cover of The AGI Chronicles by Kevin Roose", ratio: 1303 / 2000 } }] },
+    { key: "watching", label: "Watching", word: "WATCH", picks: [{ title: "War", by: "HBO Max", cover: { src: "/about/rotation/war-240.webp", alt: "Poster for the HBO series War", ratio: 1296 / 1920 } }] },
+    { key: "listening", label: "Listening", word: "LISTEN", picks: [{ title: "Good Hang", by: "Amy Poehler’s podcast", cover: { src: "/about/rotation/good-hang-240.webp", alt: "Cover art for the Good Hang podcast with Amy Poehler", ratio: 1 } }] },
+  ] as { key: string; label: string; /** up to 6 letters, shown on the dot-matrix screen */ word: string; picks: { title: string; by?: string; cover?: Photo }[] }[],
 };
 
 /** Scott's rabbit hole (Nov 25): his text, lightly tidied, and his two photos. */
@@ -180,5 +180,7 @@ export const spiritAnimal = {
   show: true,
   title: "My spirit animal",
   name: "Raccoon Mario.",
+  /** Scott's copy (Nov 25, verbatim). */
+  line: "Just a guy in a cozy suit who knows when to sprint, when to float gently down to earth, and how to find the secret bonus level everyone else walked right past.",
   photo: { src: "/about/spirit-animal-480.webp", alt: "Raccoon Mario in his brown raccoon suit, arms out, mid-wave" } as Photo,
 };

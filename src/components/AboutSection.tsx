@@ -2,6 +2,7 @@
 import { SectionBadge } from "@/components/SectionBadge";
 import { BellaDeck } from "@/components/BellaDeck";
 import { WanderGallery } from "@/components/WanderGallery";
+import { RotationTuner } from "@/components/RotationTuner";
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { intro, bella, wander, comic, rotation, rabbitHole, spiritAnimal, type Photo } from "@/content/about";
@@ -110,24 +111,12 @@ function Lightbox({ view, onClose }: { view: Enlarge | null; onClose: () => void
   );
 }
 
-function Tabs<T extends { key: string; label: string }>({ items, value, onChange, label, dark }: { items: T[]; value: string; onChange: (k: string) => void; label: string; dark?: boolean }) {
-  return (
-    <div className={`chips${dark ? " on-dark" : ""}`} role="radiogroup" aria-label={label}>
-      {items.map((t) => (
-        <button key={t.key} type="button" role="radio" aria-checked={t.key === value} className="chip" onClick={() => onChange(t.key)}>{t.label}</button>
-      ))}
-    </div>
-  );
-}
-
 export function AboutSection() {
   const [big, setBig] = useState<Enlarge | null>(null);
   const one = (p: Photo) => setBig({ set: [p], i: 0 });
   const [joke, setJoke] = useState(0);
-  const [tab, setTab] = useState(rotation.tabs[0].key);
 
   const pt = intro.portrait;
-  const rt = rotation.tabs.find((t) => t.key === tab) ?? rotation.tabs[0];
   const jk = comic.examples[joke];
 
   return (
@@ -163,6 +152,7 @@ export function AboutSection() {
             <article className="bc b-just b-spirit">
               <h3>{spiritAnimal.title}</h3>
               <p className="just-p">{spiritAnimal.name}</p>
+              {spiritAnimal.line && <p className="bc-line">{spiritAnimal.line}</p>}
               <div className="spirit">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img className="spirit-img" src={spiritAnimal.photo.src} alt={spiritAnimal.photo.alt} width={402} height={480} loading="lazy" decoding="async" />
@@ -170,24 +160,8 @@ export function AboutSection() {
               </div>
             </article>
           )}
-          {/* 4 · currently in rotation (provisional) */}
-          {rotation.show && (
-            <article className="bc b-rot">
-              <h3>{rotation.title}</h3>
-              <Tabs items={rotation.tabs} value={tab} onChange={setTab} label="Currently" />
-              <ul className="rot-list xfade" key={tab}>
-                {rt.picks.map((p, i) => (
-                  <li key={i}>{p.cover?.src ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img className="rot-cover rot-art" src={p.cover.src} alt={p.cover.alt} style={{ aspectRatio: p.cover.ratio }} loading="lazy" decoding="async" />
-                  ) : (
-                    <span className="rot-cover" aria-hidden="true">{p.title.replace(/^PLACEHOLDER\s*/, "").slice(0, 1) || "·"}</span>
-                  )}<span><b>{p.title}</b>{p.by && <span>{p.by}</span>}</span></li>
-                ))}
-              </ul>
-              {rotation.updated && <p className="bc-cap">Updated {rotation.updated}</p>}
-            </article>
-          )}
+          {/* 4 · currently in rotation: a dot-matrix tuner (Nov 25) */}
+          {rotation.show && <RotationTuner />}
 
           {/* 5 · where I wander: Scott's Chicago photos (merged with "Things I stop for", Nov 24) */}
           {wander.show && <WanderGallery onEnlarge={setBig} />}
