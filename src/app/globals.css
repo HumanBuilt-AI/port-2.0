@@ -600,6 +600,10 @@ h3 { font-weight: 600; font-size: clamp(18px, 1.5vw, 21px); letter-spacing: -0.0
 .b-wander { grid-column: span 8; grid-row: span 2; }
 .b-comic { grid-column: span 4; }
 .b-rabbit { grid-column: span 4; }
+/* with the comic and rabbit-hole cards hidden, the gallery takes the full row */
+.bento:not(:has(.b-comic, .b-rabbit)) .b-wander { grid-column: 1 / -1; }
+/* with only the comic card hidden, the rabbit hole sits beside the gallery at full height */
+.bento:not(:has(.b-comic)) .b-rabbit { grid-row: span 2; }
 /* photos + placeholders */
 .pic-btn { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; border-radius: 14px; overflow: hidden; text-align: left; }
 .pic-img, .pic-ph { display: block; width: 100%; height: 100%; border-radius: inherit; }
@@ -697,6 +701,9 @@ h3 { font-weight: 600; font-size: clamp(18px, 1.5vw, 21px); letter-spacing: -0.0
 .rot-list span span { font-size: 13px; color: var(--steel); }
 .rot-cover { aspect-ratio: 3 / 4; border-radius: 6px; background: var(--night); color: var(--white); display: grid; place-items: center; font: 400 20px/1 var(--display); }
 /* 7 rabbit hole */
+.rh-sub { font-size: 13px; line-height: 1.5; color: #A1A1A6; margin: -6px 0 0; }
+.rh-pics { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.rh-pics .pic-btn { aspect-ratio: 4 / 3; border-radius: 12px; }
 .trail { list-style: none; margin: 0; padding: 0; display: grid; }
 .trail li { display: grid; grid-template-columns: 32px 1fr; gap: 10px; padding: 10px 0; border-top: 1px solid #262624; position: relative; }
 .trail-n { font: 500 11px/1.6 ui-monospace, "SF Mono", Menlo, monospace; color: #8E8E93; }
@@ -739,6 +746,7 @@ a.a2-to:hover { color: var(--white); }
   .b-bella, .b-just, .b-comic, .b-rabbit { grid-column: span 6; }
   .b-intro, .b-rot, .b-wander { grid-column: span 12; }
   .b-bella, .b-just, .b-wander { grid-row: auto; }
+  .bento:not(:has(.b-comic)) .b-rabbit { grid-column: 1 / -1; grid-row: auto; }
 }
 @media (max-width: 680px) {
   .bento > * { grid-column: 1 / -1 !important; grid-row: auto !important; }
@@ -791,11 +799,10 @@ a.a2-to:hover { color: var(--white); }
 .contact h2 { font-size: clamp(44px, 6vw, 92px); line-height: .96; letter-spacing: -0.035em; max-width: 11ch; }
 .contact-lede { margin-top: 22px; max-width: 34ch; }
 .contact-icons { list-style: none; display: flex; gap: 6px; margin: 30px 0 0 -10px; padding: 0; }
-.contact-icons a, .contact-icons .is-soon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; color: #3D3D3B; transition: color .2s, background .2s, transform .2s; }
+.contact-icons a { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; color: #3D3D3B; transition: color .2s, background .2s, transform .2s; }
 .contact-icons svg { width: 24px; height: 24px; display: block; }
 .contact-icons a:hover { color: var(--ink); background: rgba(0,0,0,.06); transform: translateY(-2px); }
 .contact-icons a:focus-visible { outline: 1.5px solid var(--ink); outline-offset: 2px; border-radius: 50%; color: var(--ink); }
-.contact-icons .is-soon { color: var(--faint, #B4B3AF); cursor: default; }
 @media (prefers-reduced-motion: reduce) { .contact-icons a { transition: none; } .contact-icons a:hover { transform: none; } }
 .contact-clock { display: flex; align-items: center; gap: 10px; margin-top: 26px; font-size: 14px; color: var(--steel); }
 .contact-clock b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }

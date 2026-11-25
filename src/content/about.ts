@@ -1,7 +1,7 @@
 /**
  * About me (Section 04): seven cards about Scott's life, not his work.
  * Copy marked as quoted below comes from Scott's brief. Anything marked PLACEHOLDER is a
- * stand-in to be replaced (or the card hidden) before launch. Never fill these with invented
+ * stand-in; cards that still hold placeholders stay hidden (`show: false`) until filled. Never fill these with invented
  * anecdotes, picks or biography.
  *
  * Photos: put files in /public/about/ and set `src` (e.g. "/about/bella-01.jpg"). `ratio` is
@@ -14,10 +14,11 @@ export const intro = {
   show: true,
   name: "Scott Galetto",
   line: "Designer, compulsive experimenter, and Bella’s on-call staff.",
+  /** Scott's own portraits from humanbuiltai.work (Nov 25). No captions: add a `caption` only with Scott's words. */
   portraits: [
-    { alt: "Portrait of Scott", caption: "PLACEHOLDER caption 1", ratio: 4 / 5 },
-    { alt: "Portrait of Scott", caption: "PLACEHOLDER caption 2", ratio: 4 / 5 },
-    { alt: "Portrait of Scott", caption: "PLACEHOLDER caption 3", ratio: 4 / 5 },
+    { src: "/about/scott-studio-320.webp", big: "/about/scott-studio-big.webp", alt: "Black and white studio portrait of Scott Galetto in a dark sweater, half smiling", ratio: 3 / 4 },
+    { src: "/about/scott-rose-320.webp", big: "/about/scott-rose-big.webp", alt: "Portrait of Scott Galetto in a bird-print shirt and suspenders, toned dusty rose", ratio: 4 / 5 },
+    { src: "/about/scott-cafe-big.webp", alt: "Scott Galetto in a bird-print shirt and suspenders, sitting in a warmly lit café", ratio: 345 / 439 },
   ] as Photo[],
 };
 
@@ -126,8 +127,9 @@ export const wander = {
   },
 };
 
+/** Hidden (Nov 25) until Scott sends real examples. Set `show: true` once `examples` holds them. */
 export const comic = {
-  show: true,
+  show: false,
   title: "Some comic relief",
   line: "I’m usually looking for a way to make you laugh. The circumstances don’t always cooperate. I proceed anyway.",
   // PLACEHOLDER: real examples from Scott. Each can be text, a photo, or both.
@@ -150,16 +152,20 @@ export const rotation = {
   ],
 };
 
-/** Provisional. Topic ideas from the brief: parcel boundaries, unusual interfaces,
- *  film camera movements, connections between actors. PLACEHOLDER steps. */
+/** Scott's rabbit hole (Nov 25): his text, lightly tidied, and his two photos. */
 export const rabbitHole = {
   show: true,
   title: "Down this rabbit hole",
-  topic: "PLACEHOLDER topic",
+  topic: "Why every grocery receipt still uses the same blocky pixel font",
+  sub: "A 1980s firmware bottleneck is the reason receipt type hasn’t changed in 40 years.",
+  photos: [
+    { src: "/about/rabbit-magnifier-640.webp", big: "/about/rabbit-magnifier-1200.webp", alt: "A brass magnifier over a thermal receipt, showing the dotted pixels of a 7, a slashed zero and a dollar sign", ratio: 1200 / 896 },
+    { src: "/about/rabbit-receipts-640.webp", big: "/about/rabbit-receipts-1200.webp", alt: "A drugstore receipt and a hardware store receipt side by side on a wooden table, printed in the same blocky font", ratio: 1200 / 896 },
+  ] as Photo[],
   steps: [
-    { label: "What caught my attention", text: "PLACEHOLDER" },
-    { label: "What I discovered", text: "PLACEHOLDER" },
-    { label: "What I’m trying next", text: "PLACEHOLDER" },
+    { label: "What caught my attention", text: "A hardware store receipt and a pharmacy receipt shared the exact same clunky, flat-topped 7 and wide letter spacing." },
+    { label: "What I discovered", text: "Receipt printers don’t render vector fonts. They use monospace bitmaps burned into the printer’s ROM chip, so the thermal head can fire fast without overheating or lagging." },
+    { label: "What I’m trying next", text: "Hunting down the oldest thermal printer firmware still printing tickets at a local diner." },
   ],
   link: null as null | { label: string; href: string },
 };

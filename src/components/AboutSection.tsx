@@ -141,11 +141,19 @@ export function AboutSection() {
             </article>
           )}
 
-          {/* 7 · down this rabbit hole (provisional) */}
+          {/* 7 · down this rabbit hole */}
           {rabbitHole.show && (
             <article className="a2 b-rabbit">
               <header className="a2-top"><span className="a2-name">{rabbitHole.title}</span>{rabbitHole.link ? <a className="a2-to" href={rabbitHole.link.href}>→ {rabbitHole.link.label}</a> : <span className="a2-to">→ trail</span>}</header>
               <p className="a2-q">{rabbitHole.topic}</p>
+              {rabbitHole.sub && <p className="rh-sub">{rabbitHole.sub}</p>}
+              {rabbitHole.photos.length > 0 && (
+                <div className="rh-pics">
+                  {rabbitHole.photos.map((p, i) => (
+                    <button key={i} type="button" className="pic-btn" onClick={() => setBig(p)} aria-label={`Enlarge: ${p.alt}`}><Pic p={p} /></button>
+                  ))}
+                </div>
+              )}
               <ol className="trail">
                 {rabbitHole.steps.map((s, i) => (
                   <li key={i}><span className="trail-n">{String(i + 1).padStart(2, "0")}</span><span><b>{s.label}</b><span>{s.text}</span></span></li>
