@@ -918,6 +918,7 @@ a.a2-to:hover { color: var(--white); }
 .sb-kind { font: 600 9px/1 var(--text); letter-spacing: .16em; text-transform: uppercase; color: var(--k); }
 .sb-label { font: 500 14px/1 var(--text); letter-spacing: -0.005em; white-space: nowrap; }
 .cs-hero-top .sbadge { margin: 0; }
+.fh-copy .sbadge { justify-self: start; margin-bottom: 6px; }
 @media (max-width: 640px) { .sbadge { height: 42px; gap: 10px; padding-right: 16px; } .sb-num { height: 30px; padding: 0 10px; } .sb-num svg { height: 18px; } }
 @media (prefers-reduced-motion: reduce) { .sb-num .on { transition: none; } }
 

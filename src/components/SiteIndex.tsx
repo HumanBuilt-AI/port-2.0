@@ -1,13 +1,14 @@
 /**
- * Top-of-page menu: a small gold robot (home) with the six sections on one row beside it.
+ * Top-of-page menu: a small gold robot (home) with the sections on one row beside it.
  * Each section's sub-links stay hidden and slide down on hover or keyboard focus.
  */
 const LI = "https://www.linkedin.com/in/scottgaletto";
+// Studio is hidden for now. To restore it, add this back to `sections` (after work):
+// { icon: "studio", label: "studio", href: "#work", subs: [["side projects", "#work"], ["experiments", "#work"]] },
 const sections: { icon: string; label: string; href: string; subs: [string, string][] }[] = [
-  { icon: "approach", label: "approach", href: "#flow", subs: [["the flow", "#flow"], ["the brief", "#brand"]] },
-  { icon: "specs", label: "specs", href: "/work/specs", subs: [["case study", "/work/specs"], ["try it", "https://specs.humanbuiltai.work"]] },
   { icon: "work", label: "work", href: "#work", subs: [["specs", "/work/specs"], ["aon", "#work"], ["creditninja", "#work"], ["verizon", "#work"], ["chipotle", "#work"]] },
-  { icon: "studio", label: "studio", href: "#work", subs: [["side projects", "#work"], ["experiments", "#work"]] },
+  { icon: "specs", label: "specs", href: "/work/specs", subs: [["case study", "/work/specs"], ["try it", "https://specs.humanbuiltai.work"]] },
+  { icon: "approach", label: "approach", href: "#flow", subs: [["the flow", "#flow"], ["the brief", "#brand"]] },
   { icon: "about", label: "about", href: "#about", subs: [["who i am", "#about"], ["toolkit", "#about"]] },
   { icon: "contact", label: "contact", href: "#contact", subs: [["email", "#contact"], ["linkedin", LI], ["résumé", "#contact"]] },
 ];
