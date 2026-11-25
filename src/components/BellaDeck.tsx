@@ -1,13 +1,14 @@
 "use client";
 import { useRef, useState } from "react";
-import { bella, type Photo } from "@/content/about";
+import { bella } from "@/content/about";
+import type { Enlarge } from "@/components/AboutSection";
 
 /**
  * The Bella report as a stacked photo deck. The top photo shuffles to the back when you tap it,
  * swipe it (left = next, right = back), or press the arrow keys while the deck has focus.
  * The dots jump straight to a photo. Under reduced motion the stack still works, without tilt or slide.
  */
-export function BellaDeck({ onEnlarge }: { onEnlarge: (p: Photo) => void }) {
+export function BellaDeck({ onEnlarge }: { onEnlarge: (v: Enlarge) => void }) {
   const n = bella.states.length;
   const [idx, setIdx] = useState(0);
   const [dx, setDx] = useState(0);
@@ -79,7 +80,7 @@ export function BellaDeck({ onEnlarge }: { onEnlarge: (p: Photo) => void }) {
             </div>
           );
         })}
-        <button type="button" className="deck-zoom" onClick={() => onEnlarge(cur.photo)} aria-label={`Enlarge: ${cur.photo.alt}`}>
+        <button type="button" className="deck-zoom" onClick={() => onEnlarge({ set: bella.states.map((s) => s.photo), i: idx })} aria-label={`Enlarge: ${cur.photo.alt}`}>
           <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
         </button>
       </div>
