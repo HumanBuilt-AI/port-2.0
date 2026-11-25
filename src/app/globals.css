@@ -744,6 +744,25 @@ a.a2-to:hover { color: var(--white); }
 .lightbox .pic-ph, .lightbox .pic-img { border-radius: 16px; height: 100%; }
 .lightbox figcaption { color: #B9B9B5; font-size: 14px; padding-top: 10px; }
 .lb-close { position: absolute; top: -14px; right: -14px; width: 40px; height: 40px; border-radius: 50%; border: 0; background: var(--white); color: var(--ink); font-size: 22px; line-height: 1; cursor: pointer; }
+/* lightbox, sets of 2+: arrows sit either side of the photo, count below; on phones all three sit in a row below */
+.lightbox.lb-multi figure { width: min(92vw - 136px, 1100px, calc(80vh * var(--r, 1.33))); max-height: 80vh; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+.lb-fig { animation: a2fade .35s ease; }
+.lb-nav { display: flex; justify-content: center; align-items: center; padding-top: 14px; }
+.lb-arrow { position: absolute; top: calc(50% - 22px - 18px); width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,.22); background: rgba(255,255,255,.06); color: #EDEDEA; display: grid; place-items: center; cursor: pointer; padding: 0; transition: background .25s, color .25s, border-color .25s, transform .2s; }
+.lb-prev { left: -68px; } .lb-next { right: -68px; }
+.lb-arrow svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.lb-arrow:hover { background: var(--white); color: var(--ink); border-color: var(--white); }
+.lb-arrow:active { transform: scale(.94); }
+.lb-arrow:focus-visible, .lb-close:focus-visible { outline: 2px solid var(--white); outline-offset: 3px; }
+.lb-count { font: 500 12px/1 ui-monospace, "SF Mono", Menlo, monospace; letter-spacing: .08em; color: #8A8A86; font-variant-numeric: tabular-nums; }
+.lb-count b { color: #EDEDEA; font-weight: 500; }
+@media (max-width: 680px) {
+  .lightbox.lb-multi figure { width: min(92vw, calc(74vh * var(--r, 1.33))); max-height: 74vh; }
+  .lb-nav { gap: 18px; }
+  .lb-arrow { position: static; }
+  .lb-prev { order: 0; } .lb-count { order: 1; } .lb-next { order: 2; }
+}
+@media (prefers-reduced-motion: reduce) { .lb-fig { animation: none; } .lb-arrow { transition: none; } }
 @media (max-width: 1000px) {
   .b-bella, .b-just, .b-comic, .b-rabbit { grid-column: span 6; }
   .b-intro, .b-rot, .b-wander { grid-column: span 12; }
