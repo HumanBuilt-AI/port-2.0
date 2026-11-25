@@ -1,19 +1,24 @@
 "use client";
 
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 
 /**
  * Home hero, from Scott's Figma frame.
- * Left: "I'm Scott. A [word] human living and working in Chicago." The word changes like a
- * split-flap board: each letter riffles through a few characters, then lands, left to right.
+ * Left: "I'm Scott. A [word] human living and working in Chicago." The word types out letter by
+ * letter in its own colour (from the Approach storyboard palette), holds, deletes letter by letter,
+ * and the next one types.
  * Right: a deck of real project shots. The front card steps through a project's three frames
  * with a slow push-in; after the third it slides away and the next project comes forward.
  * Reduced motion: first word and first frame, no movement.
  */
-const WORDS = ["passionate", "multifaceted", "empathetic", "mindful", "practical"];
-const FLAP_CHARS = "abcdefghijklmnopqrstuvwxyz";
-const FLAP_MS = 55;
-const WORD_MS = 3200;
+const WORDS: { w: string; c: string }[] = [
+  { w: "passionate", c: "#FF8970" },
+  { w: "multifaceted", c: "#D4BEFC" },
+  { w: "empathetic", c: "#FDD5DD" },
+  { w: "mindful", c: "#FEE68C" },
+  { w: "practical", c: "#F7C81E" },
+];
+const TYPE_MS = 85, DELETE_MS = 45, HOLD_MS = 1800, GAP_MS = 350;
 
 const PROJECTS = [
   { name: "Verizon / IndyCar", slug: "verizon-indycar", key: "indycar", alts: ["Four Nokia phones showing the IndyCar app screens", "A hand holding a phone with the track map", "A finger tapping a stop on the track map"] },
@@ -33,60 +38,54 @@ function useReducedMotion() {
   );
 }
 
-/** One word on a split-flap board. Cells riffle through letters, then settle in order. */
-function FlapWord({ word }: { word: string }) {
-  const [cells, setCells] = useState<string[]>(word.split(""));
-  const shown = useRef(word);
+/** Types each word out, holds, deletes it letter by letter, then types the next. */
+function useTypedWord(reduce: boolean) {
+  const [i, setI] = useState(0);
+  const [n, setN] = useState(WORDS[0].w.length);
   useEffect(() => {
-    if (shown.current === word) return;
-    const from = shown.current;
-    shown.current = word;
-    const len = Math.max(from.length, word.length);
-    let tick = 0;
-    const id = window.setInterval(() => {
-      tick++;
-      const next: string[] = [];
-      let done = true;
-      for (let i = 0; i < len; i++) {
-        const settleAt = 3 + i; // later letters land later
-        if (tick >= settleAt) { if (i < word.length) next.push(word[i]); }
-        else { done = false; next.push(FLAP_CHARS[(tick * 7 + i * 3) % FLAP_CHARS.length]); }
+    if (reduce) return;
+    let alive = true;
+    const timers: number[] = [];
+    const wait = (ms: number) => new Promise<void>((r) => { timers.push(window.setTimeout(r, ms)); });
+    (async () => {
+      let k = 0;
+      await wait(HOLD_MS);
+      while (alive) {
+        for (let c = WORDS[k].w.length - 1; c >= 0 && alive; c--) { setN(c); await wait(DELETE_MS); }
+        await wait(GAP_MS);
+        if (!alive) return;
+        k = (k + 1) % WORDS.length; setI(k);
+        for (let c = 1; c <= WORDS[k].w.length && alive; c++) { setN(c); await wait(TYPE_MS); }
+        await wait(HOLD_MS);
       }
-      setCells(next);
-      if (done) window.clearInterval(id);
-    }, FLAP_MS);
-    return () => window.clearInterval(id);
-  }, [word]);
-  return (
-    <span className="flap" aria-hidden="true">
-      {cells.map((c, i) => <span className="flap-c" key={`${i}-${c}`}>{c}</span>)}
-    </span>
-  );
+    })();
+    return () => { alive = false; timers.forEach((t) => window.clearTimeout(t)); };
+  }, [reduce]);
+  return { word: WORDS[i], typed: WORDS[i].w.slice(0, n) };
 }
 
 export function HeroIntro() {
   const reduce = useReducedMotion();
-  const [w, setW] = useState(0);
+  const { word, typed } = useTypedWord(reduce);
   const [step, setStep] = useState(0); // 0..8 across all projects
 
   useEffect(() => {
     if (reduce) return;
-    const a = window.setInterval(() => setW((x) => (x + 1) % WORDS.length), WORD_MS);
     const b = window.setInterval(() => setStep((x) => (x + 1) % (PROJECTS.length * 3)), FRAME_MS);
-    return () => { window.clearInterval(a); window.clearInterval(b); };
+    return () => window.clearInterval(b);
   }, [reduce]);
 
-  const word = WORDS[w];
   const p = Math.floor(step / 3), f = step % 3;
-  const label = `I’m Scott. A ${WORDS.slice(0, -1).join(", ")} and ${WORDS[WORDS.length - 1]} human living and working in Chicago.`;
+  const all = WORDS.map((x) => x.w);
+  const label = `I’m Scott. A ${all.slice(0, -1).join(", ")} and ${all[all.length - 1]} human living and working in Chicago.`;
 
   return (
     <section className="hi" id="hero" aria-labelledby="hi-h">
       <div className="hi-in">
         <div className="hi-copy">
           <p className="hi-kicker" aria-label={label}>
-            <span aria-hidden="true">I’m Scott. {article(word)} </span>
-            <FlapWord word={word} />
+            <span aria-hidden="true">I’m Scott. {article(word.w)} </span>
+            <span className="hi-type" aria-hidden="true" style={{ color: word.c }}>{typed}<span className="hi-caret" style={{ background: word.c }} /></span>
             <span aria-hidden="true"> human living and working in Chicago.</span>
           </p>
           <h1 id="hi-h">AI-fluent creative technologist.</h1>
