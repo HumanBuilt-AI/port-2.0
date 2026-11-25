@@ -51,12 +51,13 @@ export function startStory(gsap, ScrollTrigger) {
     $('hb-prompt').setAttribute('aria-label', 'A prompt that reads: ' + promptText);
     try { sessionStorage.setItem('hb-prompt', i); } catch (e) {}
   }
-  if ($('hb-prompt')) setPrompt(pi);
+  var hasPromptHero = !!$('hb-prompt');
+  if (hasPromptHero) setPrompt(pi);
   var files = Array.prototype.slice.call(document.querySelectorAll('#files li'));
   var screen = $('screen');
 
   function heroFrame(p) {
-    if (!hero) return; // preview route swaps in a different hero
+    if (!hasPromptHero) return; // the old prompt hero is gone; nothing to drive
     // once the draft has been struck out, the next pass (back at an empty box) gets a new prompt
     if (p > .5) played = true;
     else if (played && p < .02) { played = false; setPrompt((pi + 1) % PROMPTS.length); }
