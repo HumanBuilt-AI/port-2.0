@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 /**
- * Alternative hero (preview only, see /hero-preview), from Scott's Figma frame.
+ * Home hero, from Scott's Figma frame.
  * Left: "I'm Scott. A [word] human living and working in Chicago." The word changes like a
  * split-flap board: each letter riffles through a few characters, then lands, left to right.
  * Right: a deck of real project shots. The front card steps through a project's three frames
@@ -81,7 +81,7 @@ export function HeroIntro() {
   const label = `I’m Scott. A ${WORDS.slice(0, -1).join(", ")} and ${WORDS[WORDS.length - 1]} human living and working in Chicago.`;
 
   return (
-    <section className="hi" id="hero-intro" aria-labelledby="hi-h">
+    <section className="hi" id="hero" aria-labelledby="hi-h">
       <div className="hi-in">
         <div className="hi-copy">
           <p className="hi-kicker" aria-label={label}>

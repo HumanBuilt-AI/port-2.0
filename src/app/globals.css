@@ -1001,7 +1001,7 @@ a.a2-to:hover { color: var(--white); }
 .case-foot { margin-top: auto; padding-top: 4px; }
 
 
-/* ALT HERO (preview route /hero-preview), from Scott's Figma frame: dark card, split-flap word,
+/* HOME HERO, from Scott's Figma frame: dark card, split-flap word,
    big title, and a deck of project shots on the right. */
 .hi { --hi-bg: #1E1E1E; --hi-fg: #EFEEEA; --hi-pop: #F2A7A4; margin: var(--gut) var(--gut) 0; border-radius: var(--card-r); background: var(--hi-bg); color: var(--hi-fg); overflow: clip; }
 .hi-in { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(32px, 4vw, 72px); align-items: center; padding: clamp(48px, 7vw, 116px) clamp(20px, 4.6vw, 66px); min-height: min(calc(100svh - 120px), 620px); box-sizing: border-box; }

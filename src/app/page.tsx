@@ -1,7 +1,7 @@
 import { IconSprite } from "@/components/IconSprite";
 import { SiteIndex } from "@/components/SiteIndex";
 import { StickyBar } from "@/components/StickyBar";
-import { Hero } from "@/components/Hero";
+import { HeroIntro } from "@/components/HeroIntro";
 import { FlowSection } from "@/components/flow/FlowSection";
 import { BrandSection } from "@/components/BrandSection";
 import { CaseStudies } from "@/components/CaseStudies";
@@ -17,7 +17,7 @@ export default function Home() {
       <SiteIndex />
       <StickyBar />
       <main id="top">
-        <Hero />
+        <HeroIntro />
         <CaseStudies />
         <FlowSection />
         <BrandSection />
