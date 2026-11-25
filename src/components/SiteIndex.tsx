@@ -18,6 +18,7 @@ export function SiteIndex() {
     <header className="index" id="index">
       <div className="in">
         <a className="wordmark robot" href="#top" aria-label="Scott Galetto, back to the top"><canvas width="180" height="180" aria-hidden="true"></canvas><span className="rb-fallback">scott<br />galetto</span></a>
+        <a className="idx-brand" href="#top" aria-hidden="true" tabIndex={-1}>HumanBuiltAI</a>
         <nav className="idx-row" aria-label="Sections">
           {sections.map((s) => (
             <div className="idx" key={s.label}>

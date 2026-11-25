@@ -1001,20 +1001,19 @@ a.a2-to:hover { color: var(--white); }
 .case-foot { margin-top: auto; padding-top: 4px; }
 
 
-/* HOME HERO, from Scott's Figma frame: dark card, split-flap word,
+/* HOME HERO, from Scott's Figma frame: dark card, typed word,
    big title, and a deck of project shots on the right. */
 .hi { --hi-bg: #1E1E1E; --hi-fg: #EFEEEA; --hi-pop: #F2A7A4; margin: var(--gut) var(--gut) 0; border-radius: var(--card-r); background: var(--hi-bg); color: var(--hi-fg); overflow: clip; }
-.hi-in { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(32px, 4vw, 72px); align-items: center; padding: clamp(48px, 7vw, 116px) clamp(20px, 4.6vw, 66px); min-height: min(calc(100svh - 120px), 620px); box-sizing: border-box; }
+.hi-in { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(32px, 4vw, 72px); align-items: center; padding: clamp(48px, 7vw, 116px) max(var(--gr), var(--margin)) clamp(48px, 7vw, 116px) max(var(--gl), var(--margin)); max-width: 1360px; margin: 0 auto; min-height: min(calc(100svh - 120px), 620px); box-sizing: border-box; }
 .hi-copy { display: grid; gap: clamp(14px, 1.4vw, 20px); }
 .hi-kicker { margin: 0; font: 400 clamp(18px, 1.7vw, 24px)/1.4 var(--display); letter-spacing: -0.02em; }
 .hi h1 { margin: 0; font: 400 clamp(52px, 7vw, 100px)/.98 var(--display); letter-spacing: -0.045em; max-width: 11ch; color: var(--hi-fg); }
-.hi-lede { margin: 6px 0 0; max-width: 40ch; font: 400 clamp(17px, 1.7vw, 24px)/1.62 var(--text); color: #C7C7C7; }
+.hi-lede { margin: 6px 0 0; max-width: 44ch; font: 400 clamp(15px, 1.45vw, 20px)/1.45 var(--text); color: #C7C7C7; }
 
-/* split-flap word */
-.flap { display: inline-flex; gap: .02em; color: var(--hi-pop); font-weight: 600; vertical-align: baseline; perspective: 300px; }
-.flap-c { position: relative; display: inline-block; min-width: .5em; padding: 0 .02em; text-align: center; background: #2A2A2A; border-radius: .14em; line-height: 1.25; animation: flap .16s ease-out both; transform-origin: 50% 50%; }
-.flap-c::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: rgba(0, 0, 0, .55); }
-@keyframes flap { from { transform: rotateX(-80deg); filter: brightness(.55); } to { transform: none; filter: none; } }
+/* typed word: each word in its own colour from the Approach palette */
+.hi-type { font-weight: 600; white-space: nowrap; }
+.hi-caret { display: inline-block; width: 2px; height: .95em; margin-left: 2px; vertical-align: -.1em; animation: hi-blink 1s steps(1) infinite; }
+@keyframes hi-blink { 50% { opacity: 0; } }
 
 /* deck of project cards */
 .hi-deck { position: relative; aspect-ratio: 16 / 11; width: 100%; }
@@ -1042,6 +1041,21 @@ a.a2-to:hover { color: var(--white); }
   .hi-deck { margin: 8% 8% 0 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .flap-c, .hi-card[data-pos="0"] .hi-frame.on, .hi-bars i.run::after { animation: none; }
+  .hi-caret, .hi-card[data-pos="0"] .hi-frame.on, .hi-bars i.run::after { animation: none; }
   .hi-card, .hi-frame { transition: none; }
 }
+
+/* HumanBuiltAI wordmark beside the robot, same treatment as the humanbuiltai.work header:
+   ink text that sweeps into the rainbow on hover. */
+.index .idx-brand { flex: none; margin-right: auto; font: 600 19px/1 var(--text); letter-spacing: -0.03em; text-decoration: none; white-space: nowrap;
+  background-image: linear-gradient(90deg, var(--ink) 0%, var(--ink) 42%, #E8603C 52%, #F2B33D 61%, #5DB37E 70%, #3A78C3 80%, #8B5CC7 90%, #E85C9A 100%);
+  background-size: 240% 100%; background-position: 0 0; -webkit-background-clip: text; background-clip: text; color: transparent;
+  transition: background-position 1100ms cubic-bezier(.2,.7,.2,1); }
+.index .wordmark.robot:hover + .idx-brand, .index .idx-brand:hover { background-position: 100% 0; }
+.index .in { gap: clamp(10px, 1.4vw, 20px); }
+.index .idx-row { margin-left: auto; }
+@media (max-width: 900px) { .index .idx-brand { display: none; } }
+@media (prefers-reduced-motion: reduce) { .index .idx-brand { transition: none; } }
+/* robot sits on the grid: its drawn edge (not the canvas box) lines up with the hero text */
+.index .wordmark.robot { margin-left: -10px; }
+@media (max-width: 760px) { .index .wordmark.robot { margin-left: -9px; } }
