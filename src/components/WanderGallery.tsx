@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { wander, type Photo } from "@/content/about";
+import { wander } from "@/content/about";
+import type { Enlarge } from "@/components/AboutSection";
 
 /**
  * Where I wander: Scott's Chicago photos as a featured stage plus a filmstrip.
@@ -15,7 +16,7 @@ const reduced = () => typeof window !== "undefined" && window.matchMedia("(prefe
 
 type Layer = { i: number; id: number; dir: number };
 
-export function WanderGallery({ onEnlarge }: { onEnlarge: (p: Photo) => void }) {
+export function WanderGallery({ onEnlarge }: { onEnlarge: (v: Enlarge) => void }) {
   const [idx, setIdx] = useState(0);
   const [layers, setLayers] = useState<Layer[]>([{ i: 0, id: 0, dir: 1 }]);
   const [dx, setDx] = useState(0);
@@ -139,7 +140,7 @@ export function WanderGallery({ onEnlarge }: { onEnlarge: (p: Photo) => void }) 
               className={`wg-slide${top ? " on" : " off"}${l.id === 0 ? " first" : ""}`}
               data-kb={l.i % 4}
               style={{ "--from": `${l.dir * 3}%` } as React.CSSProperties}
-              onClick={() => onEnlarge(p)}
+              onClick={() => onEnlarge({ set: wander.photos, i: l.i })}
               aria-label={`Enlarge photo ${l.i + 1} of ${n}: ${p.alt}`}
               aria-hidden={!top}
               tabIndex={top ? 0 : -1}
