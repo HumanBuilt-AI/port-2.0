@@ -18,9 +18,9 @@ export default function Home() {
       <StickyBar />
       <main id="top">
         <Hero />
+        <CaseStudies />
         <FlowSection />
         <BrandSection />
-        <CaseStudies />
         <AboutSection />
         <ContactSection />
       </main>

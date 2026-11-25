@@ -9,7 +9,7 @@ export function BrandSection() {
           <div className="stage">
             <div className="in grid">
               <div>
-                <SectionBadge num="02" label="The brief" onDark />
+                <SectionBadge num="03" label="The brief" onDark />
                 <h2 id="brand-h" className="h2">Same prompt.<br /><span className="soft">Better brief.</span></h2>
                 <p className="brief">Same prompt, same AI. The only thing that changes is what the agent can read. Each brand file adds a little more taste, until generic turns into something that feels like it belongs.</p>
                 <div className="folders">
