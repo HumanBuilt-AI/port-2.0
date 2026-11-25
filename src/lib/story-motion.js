@@ -51,11 +51,12 @@ export function startStory(gsap, ScrollTrigger) {
     $('hb-prompt').setAttribute('aria-label', 'A prompt that reads: ' + promptText);
     try { sessionStorage.setItem('hb-prompt', i); } catch (e) {}
   }
-  setPrompt(pi);
+  if ($('hb-prompt')) setPrompt(pi);
   var files = Array.prototype.slice.call(document.querySelectorAll('#files li'));
   var screen = $('screen');
 
   function heroFrame(p) {
+    if (!hero) return; // preview route swaps in a different hero
     // once the draft has been struck out, the next pass (back at an empty box) gets a new prompt
     if (p > .5) played = true;
     else if (played && p < .02) { played = false; setPrompt((pi + 1) % PROMPTS.length); }
@@ -114,7 +115,7 @@ export function startStory(gsap, ScrollTrigger) {
     bar.setAttribute('aria-hidden', past ? 'false' : 'true');
     bar.querySelectorAll('a').forEach(function (a) { a.tabIndex = past ? 0 : -1; });
     var br = brand.getBoundingClientRect();
-    var hr = hero.getBoundingClientRect();
+    var hr = hero ? hero.getBoundingClientRect() : { top: 1, bottom: 0 };
     var flr = flow.getBoundingClientRect();
     bar.classList.toggle('on-coral', (window.__flowFlood || 0) > .35 && flr.top <= 56 && flr.bottom > 56);
     bar.classList.toggle('on-night', (br.top <= 56 && br.bottom > 56) || (hr.top <= 56 && hr.bottom > 56));
@@ -226,7 +227,7 @@ export function startStory(gsap, ScrollTrigger) {
   var ticking = false;
   function frame() {
     ticking = false;
-    heroFrame(prog(hero)); brandFrame(prog(brand)); barFrame();
+    heroFrame(hero ? prog(hero) : 0); brandFrame(prog(brand)); barFrame();
   }
   function req() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
   window.addEventListener('scroll', req, { passive: true });
