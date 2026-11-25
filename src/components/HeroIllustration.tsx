@@ -1,12 +1,14 @@
 /**
  * Hero illustration for the "I am a ___ creative technologist" intro (preview route).
- * Original artwork: three stacked profile heads (hatched, dotted, line), a pencil whose
+ * Original artwork: Scott in profile (cap, raised brow, stubble, fleece collar) over two echo heads (hatched, dotted, line), a pencil whose
  * scribble turns into circuit traces running into the head, and idea rays at the crown.
  * Bold black-and-white line style; the panel tint is driven by --hi-tint from HeroIntro.
  * Motion lives in globals.css (.hi-art …) and switches off under prefers-reduced-motion.
  */
 const HEAD =
-  "M250 560 C250 522 290 500 340 494 L352 494 L352 440 C300 410 286 330 310 260 C335 180 410 130 480 140 C545 150 580 200 584 262 L584 318 L606 350 L586 360 L586 372 L596 380 L586 390 L586 412 C586 426 576 434 562 434 L516 434 L516 490 C580 496 640 520 640 560 Z";
+  "M250 560 C250 522 290 500 340 494 L352 494 L352 440 C300 410 286 330 310 260 C335 180 410 130 480 140 C545 150 580 200 586 262 L590 316 Q600 322 598 332 L624 370 Q627 380 615 381 L602 381 Q598 386 602 390 L607 396 Q606 401 600 402 L605 408 Q604 417 596 418 L600 432 Q601 448 584 452 C562 458 540 458 522 454 L518 490 C580 496 640 520 640 560 Z";
+// Scott's cap: crown over the skull, brim out past the brow
+const CAP = "M298 306 C288 204 374 122 474 122 C556 122 604 184 604 258 L676 270 Q686 282 672 290 L590 294 L330 312 Z";
 
 const TRACES = [
   "M24 250 H100 Q120 250 120 270 V316 Q120 336 140 336 H300",
@@ -17,7 +19,7 @@ const TRACES = [
 
 export function HeroIllustration() {
   return (
-    <svg className="hi-art" viewBox="0 0 640 560" role="img" aria-label="Illustration: three layered profile heads, a pencil whose scribble turns into circuit lines running into the head">
+    <svg className="hi-art" viewBox="0 0 640 560" role="img" aria-label="Illustration: Scott in profile, in his cap, with two echo outlines behind him and a pencil whose scribble turns into circuit lines running into the head">
       <defs>
         <pattern id="hi-hatch" width="8" height="8" patternUnits="userSpaceOnUse">
           <rect width="8" height="8" fill="var(--white)" />
@@ -26,6 +28,10 @@ export function HeroIllustration() {
         <pattern id="hi-dots" width="9" height="9" patternUnits="userSpaceOnUse">
           <rect width="9" height="9" fill="var(--white)" />
           <circle cx="4.5" cy="4.5" r="1.7" fill="var(--ink)" />
+        </pattern>
+        <pattern id="hi-stubble" width="7" height="7" patternUnits="userSpaceOnUse">
+          <circle cx="2" cy="2" r="1.2" fill="var(--ink)" />
+          <circle cx="5.5" cy="5.5" r="1.2" fill="var(--ink)" />
         </pattern>
         <pattern id="hi-steps" width="6" height="6" patternUnits="userSpaceOnUse">
           <path d="M0 3 H6" stroke="var(--ink)" strokeWidth="1.4" />
@@ -70,18 +76,33 @@ export function HeroIllustration() {
         <g className="hi-h1">
           <path d={HEAD} fill="var(--white)" />
           <g clipPath="url(#hi-front)">
-            {/* hair cap */}
-            <path d="M240 100 H600 V214 C560 196 520 196 486 214 C446 236 430 270 436 306 C442 344 424 380 384 412 L240 412 Z" fill="var(--ink)" />
+            {/* stubble: stippled jaw, chin and moustache */}
+            <path d="M462 392 Q508 428 566 388 L600 384 L640 378 L640 470 L420 470 Z" fill="url(#hi-stubble)" />
+            {/* short hair at the nape, under the cap */}
+            <path d="M300 300 L392 300 C392 322 386 340 372 352 L300 352 Z" fill="var(--ink)" />
             {/* concentric ear, like a scroll */}
             <circle cx="446" cy="350" r="22" fill="var(--white)" stroke="var(--ink)" strokeWidth="3" />
             <circle cx="446" cy="350" r="13" fill="none" stroke="var(--ink)" strokeWidth="2" />
             <circle cx="446" cy="350" r="5" fill="var(--ink)" />
-            {/* parallel collar lines */}
+            {/* striped jacket */}
             <path d="M330 520 H640 M330 530 H640 M330 540 H640 M330 550 H640" stroke="var(--ink)" strokeWidth="2" />
           </g>
           <path d={HEAD} fill="none" stroke="var(--ink)" strokeWidth="3.5" strokeLinejoin="round" />
-          <circle className="hi-eye" cx="552" cy="292" r="6" fill="var(--ink)" />
-          <path d="M538 272 Q552 264 566 270" fill="none" stroke="var(--ink)" strokeWidth="3" strokeLinecap="round" />
+          {/* fleece collar */}
+          <path d="M456 506 Q458 482 482 484 Q494 466 514 476 Q532 466 548 482 Q570 482 572 504 Q540 494 514 496 Q484 494 456 506 Z" fill="var(--white)" stroke="var(--ink)" strokeWidth="3" strokeLinejoin="round" />
+          {/* cap, with stitch lines */}
+          <path d={CAP} fill="var(--ink)" />
+          <g fill="none" stroke="var(--white)" strokeWidth="1.6" strokeDasharray="4 4" strokeLinecap="round">
+            <path d="M330 296 C322 210 392 142 474 140 C548 140 588 196 588 258" />
+            <path d="M470 124 C452 180 446 240 452 302" />
+            <path d="M606 268 L630 272" />
+            <path d="M600 280 L628 282" />
+          </g>
+          {/* eye and a raised, sceptical brow */}
+          <circle className="hi-eye" cx="560" cy="324" r="6.5" fill="var(--ink)" />
+          <path d="M540 304 Q560 292 580 300" fill="none" stroke="var(--ink)" strokeWidth="6" strokeLinecap="round" />
+          {/* mouth */}
+          <path d="M582 398 L600 398" stroke="var(--ink)" strokeWidth="2.5" strokeLinecap="round" />
         </g>
       </g>
 
