@@ -1000,3 +1000,48 @@ a.a2-to:hover { color: var(--white); }
 .case { flex: 1; }
 .case-foot { margin-top: auto; padding-top: 4px; }
 
+
+/* ALT HERO (preview route /hero-preview), from Scott's Figma frame: dark card, split-flap word,
+   big title, and a deck of project shots on the right. */
+.hi { --hi-bg: #1E1E1E; --hi-fg: #EFEEEA; --hi-pop: #F2A7A4; margin: var(--gut) var(--gut) 0; border-radius: var(--card-r); background: var(--hi-bg); color: var(--hi-fg); overflow: clip; }
+.hi-in { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(32px, 4vw, 72px); align-items: center; padding: clamp(48px, 7vw, 116px) clamp(20px, 4.6vw, 66px); min-height: min(calc(100svh - 120px), 620px); box-sizing: border-box; }
+.hi-copy { display: grid; gap: clamp(14px, 1.4vw, 20px); }
+.hi-kicker { margin: 0; font: 400 clamp(18px, 1.7vw, 24px)/1.4 var(--display); letter-spacing: -0.02em; }
+.hi h1 { margin: 0; font: 400 clamp(52px, 7vw, 100px)/.98 var(--display); letter-spacing: -0.045em; max-width: 11ch; color: var(--hi-fg); }
+.hi-lede { margin: 6px 0 0; max-width: 40ch; font: 400 clamp(17px, 1.7vw, 24px)/1.62 var(--text); color: #C7C7C7; }
+
+/* split-flap word */
+.flap { display: inline-flex; gap: .02em; color: var(--hi-pop); font-weight: 600; vertical-align: baseline; perspective: 300px; }
+.flap-c { position: relative; display: inline-block; min-width: .5em; padding: 0 .02em; text-align: center; background: #2A2A2A; border-radius: .14em; line-height: 1.25; animation: flap .16s ease-out both; transform-origin: 50% 50%; }
+.flap-c::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: rgba(0, 0, 0, .55); }
+@keyframes flap { from { transform: rotateX(-80deg); filter: brightness(.55); } to { transform: none; filter: none; } }
+
+/* deck of project cards */
+.hi-deck { position: relative; aspect-ratio: 16 / 11; width: 100%; }
+.hi-card { position: absolute; inset: 0; display: block; border-radius: 16px; overflow: hidden; background: #111; color: #fff; text-decoration: none; box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .7); transition: transform .9s cubic-bezier(.2, .7, .2, 1), opacity .9s, filter .9s; }
+.hi-card[data-pos="0"] { z-index: 3; transform: none; }
+.hi-card[data-pos="1"] { z-index: 2; transform: translate(4%, -9%) scale(.92); filter: brightness(.6); }
+.hi-card[data-pos="2"] { z-index: 1; transform: translate(8%, -18%) scale(.84); filter: brightness(.38); }
+.hi-frame { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.02); transition: opacity .8s ease; }
+.hi-frame.on { opacity: 1; }
+.hi-card[data-pos="0"] .hi-frame.on { animation: hi-push 3.6s linear both; }
+@keyframes hi-push { from { transform: scale(1.02); } to { transform: scale(1.1); } }
+.hi-cap { position: absolute; left: 14px; right: 14px; bottom: 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 14px; border-radius: 999px; background: rgba(20, 20, 20, .72); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); font: 600 14px/1 var(--text); opacity: 0; transition: opacity .5s; }
+.hi-card[data-pos="0"] .hi-cap { opacity: 1; }
+.hi-bars { display: flex; gap: 4px; }
+.hi-bars i { position: relative; width: 22px; height: 3px; border-radius: 2px; background: rgba(255, 255, 255, .28); overflow: hidden; }
+.hi-bars i::after { content: ""; position: absolute; inset: 0; background: #fff; transform-origin: left; transform: scaleX(0); }
+.hi-bars i.full::after { transform: none; }
+.hi-bars i.run::after { animation: hi-bar 3.2s linear both; }
+@keyframes hi-bar { to { transform: none; } }
+.hi-card:focus-visible { outline: 2px solid var(--hi-pop); outline-offset: 4px; }
+
+@media (max-width: 860px) {
+  .hi-in { grid-template-columns: minmax(0, 1fr); min-height: 0; gap: 40px; padding-top: 44px; }
+  .hi h1 { font-size: clamp(44px, 12vw, 64px); }
+  .hi-deck { margin: 8% 8% 0 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flap-c, .hi-card[data-pos="0"] .hi-frame.on, .hi-bars i.run::after { animation: none; }
+  .hi-card, .hi-frame { transition: none; }
+}
