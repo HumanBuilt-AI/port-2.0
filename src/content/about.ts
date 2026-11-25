@@ -1,7 +1,7 @@
 /**
  * About me (Section 04): seven cards about Scott's life, not his work.
  * Copy marked as quoted below comes from Scott's brief. Anything marked PLACEHOLDER is a
- * stand-in to be replaced (or the card hidden) before launch. Never fill these with invented
+ * stand-in; cards that still hold placeholders stay hidden (`show: false`) until filled. Never fill these with invented
  * anecdotes, picks or biography.
  *
  * Photos: put files in /public/about/ and set `src` (e.g. "/about/bella-01.jpg"). `ratio` is
@@ -14,10 +14,11 @@ export const intro = {
   show: true,
   name: "Scott Galetto",
   line: "Designer, compulsive experimenter, and Bella’s on-call staff.",
+  /** Scott's own portraits from humanbuiltai.work (Nov 25). No captions: add a `caption` only with Scott's words. */
   portraits: [
-    { alt: "Portrait of Scott", caption: "PLACEHOLDER caption 1", ratio: 4 / 5 },
-    { alt: "Portrait of Scott", caption: "PLACEHOLDER caption 2", ratio: 4 / 5 },
-    { alt: "Portrait of Scott", caption: "PLACEHOLDER caption 3", ratio: 4 / 5 },
+    { src: "/about/scott-studio-320.webp", big: "/about/scott-studio-big.webp", alt: "Black and white studio portrait of Scott Galetto in a dark sweater, half smiling", ratio: 3 / 4 },
+    { src: "/about/scott-rose-320.webp", big: "/about/scott-rose-big.webp", alt: "Portrait of Scott Galetto in a bird-print shirt and suspenders, toned dusty rose", ratio: 4 / 5 },
+    { src: "/about/scott-cafe-big.webp", alt: "Scott Galetto in a bird-print shirt and suspenders, sitting in a warmly lit café", ratio: 345 / 439 },
   ] as Photo[],
 };
 
@@ -126,8 +127,9 @@ export const wander = {
   },
 };
 
+/** Hidden (Nov 25) until Scott sends real examples. Set `show: true` once `examples` holds them. */
 export const comic = {
-  show: true,
+  show: false,
   title: "Some comic relief",
   line: "I’m usually looking for a way to make you laugh. The circumstances don’t always cooperate. I proceed anyway.",
   // PLACEHOLDER: real examples from Scott. Each can be text, a photo, or both.
@@ -152,8 +154,9 @@ export const rotation = {
 
 /** Provisional. Topic ideas from the brief: parcel boundaries, unusual interfaces,
  *  film camera movements, connections between actors. PLACEHOLDER steps. */
+/** Hidden (Nov 25) until Scott picks a topic and writes the three steps. Set `show: true` to restore. */
 export const rabbitHole = {
-  show: true,
+  show: false,
   title: "Down this rabbit hole",
   topic: "PLACEHOLDER topic",
   steps: [

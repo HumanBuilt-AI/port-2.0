@@ -33,11 +33,9 @@ export function ContactIcons() {
       <li><a href={`mailto:${EMAIL}`} aria-label={`Email Scott at ${EMAIL}`} title="Email"><Glyph>{Mail}</Glyph></a></li>
       <li><a href={LINKEDIN_URL} {...ext} aria-label="Scott on LinkedIn (opens in a new tab)" title="LinkedIn"><Glyph>{LinkedIn}</Glyph></a></li>
       <li><a href={THREADS_URL} {...ext} aria-label="Scott on Threads (opens in a new tab)" title="Threads"><Glyph>{Threads}</Glyph></a></li>
-      <li>
-        {RESUME_PDF
-          ? <a href={RESUME_PDF} {...ext} aria-label="Scott's résumé, PDF (opens in a new tab)" title="Résumé"><Glyph>{Resume}</Glyph></a>
-          : <span className="is-soon" role="img" aria-label="Résumé, coming soon" title="Résumé coming soon"><Glyph>{Resume}</Glyph></span>}
-      </li>
+      {RESUME_PDF && (
+        <li><a href={RESUME_PDF} {...ext} aria-label="Scott's résumé, PDF (opens in a new tab)" title="Résumé"><Glyph>{Resume}</Glyph></a></li>
+      )}
     </ul>
   );
 }
