@@ -25,7 +25,7 @@ const fragment=`precision highp float; varying vec3 N; varying vec3 P; uniform f
 // High-contrast studio reflections: crisp softboxes and narrow light strips.
 vec3 studio(vec3 r){
  float up=smoothstep(-.45,.8,r.y);
- vec3 c=mix(vec3(.025,.022,.018),vec3(.48,.51,.57),up);
+ vec3 c=mix(vec3(.14,.1,.05),vec3(.78,.7,.56),up);
  float a=pow(max(0.,dot(r,normalize(vec3(-.8,.45,1.)))),65.);
  float b=pow(max(0.,dot(r,normalize(vec3(.9,.65,.4)))),110.);
  float strip=(1.-smoothstep(.035,.075,abs(r.x+.34)))*smoothstep(-.55,-.3,r.y);
@@ -35,13 +35,13 @@ vec3 studio(vec3 r){
 }
 void main(){
  vec3 n=normalize(N),v=normalize(-P);if(!gl_FrontFacing)n=-n;
- vec3 r=reflect(-v,n);vec3 gold=vec3(1.,.72,.28);
+ vec3 r=reflect(-v,n);vec3 gold=vec3(1.,.76,.24);
  float fres=pow(1.-max(dot(n,v),0.),5.);
- vec3 f=mix(gold,vec3(1.),fres);
- float diffuse=.065+.045*max(dot(n,normalize(vec3(-.5,1.,1.))),0.);
- vec3 c=studio(r)*f*1.12+gold*diffuse;
+ vec3 f=mix(gold,vec3(1.,.93,.8),fres);
+ float diffuse=.2+.16*max(dot(n,normalize(vec3(-.5,1.,1.))),0.);
+ vec3 c=studio(r)*f*1.3+gold*diffuse;
  c*=mix(1.,.13,dark);
- c=c/(c+vec3(.6));c=pow(c,vec3(.9));
+ c=c/(c+vec3(.45));c=pow(c,vec3(.95));
  gl_FragColor=vec4(c,1.);
 }`;
 document.querySelectorAll('.robot:not([data-ready])').forEach(root=>{
