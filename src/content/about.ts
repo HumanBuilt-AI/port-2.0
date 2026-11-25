@@ -152,17 +152,20 @@ export const rotation = {
   ],
 };
 
-/** Provisional. Topic ideas from the brief: parcel boundaries, unusual interfaces,
- *  film camera movements, connections between actors. PLACEHOLDER steps. */
-/** Hidden (Nov 25) until Scott picks a topic and writes the three steps. Set `show: true` to restore. */
+/** Scott's rabbit hole (Nov 25): his text, lightly tidied, and his two photos. */
 export const rabbitHole = {
-  show: false,
+  show: true,
   title: "Down this rabbit hole",
-  topic: "PLACEHOLDER topic",
+  topic: "Why every grocery receipt still uses the same blocky pixel font",
+  sub: "A 1980s firmware bottleneck is the reason receipt type hasn’t changed in 40 years.",
+  photos: [
+    { src: "/about/rabbit-magnifier-640.webp", big: "/about/rabbit-magnifier-1200.webp", alt: "A brass magnifier over a thermal receipt, showing the dotted pixels of a 7, a slashed zero and a dollar sign", ratio: 1200 / 896 },
+    { src: "/about/rabbit-receipts-640.webp", big: "/about/rabbit-receipts-1200.webp", alt: "A drugstore receipt and a hardware store receipt side by side on a wooden table, printed in the same blocky font", ratio: 1200 / 896 },
+  ] as Photo[],
   steps: [
-    { label: "What caught my attention", text: "PLACEHOLDER" },
-    { label: "What I discovered", text: "PLACEHOLDER" },
-    { label: "What I’m trying next", text: "PLACEHOLDER" },
+    { label: "What caught my attention", text: "A hardware store receipt and a pharmacy receipt shared the exact same clunky, flat-topped 7 and wide letter spacing." },
+    { label: "What I discovered", text: "Receipt printers don’t render vector fonts. They use monospace bitmaps burned into the printer’s ROM chip, so the thermal head can fire fast without overheating or lagging." },
+    { label: "What I’m trying next", text: "Hunting down the oldest thermal printer firmware still printing tickets at a local diner." },
   ],
   link: null as null | { label: string; href: string },
 };
