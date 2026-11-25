@@ -181,10 +181,10 @@ svg { overflow: visible; }
 .folder ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
 .folder li { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 12px; align-items: center; padding: 9px 0; border-top: 1px solid #2A2A28; color: #8A8A86; transition: color .35s; font: 400 16px/1.25 var(--text); }
 .folder li small { display: block; font-size: 13px; color: #75756F; }
-.sw { width: 34px; height: 18px; border: 1.25px solid currentColor; border-radius: 999px; position: relative; transition: border-color .35s; }
+.sw { --go: #30D158; width: 34px; height: 18px; border: 1.25px solid currentColor; border-radius: 999px; position: relative; transition: border-color .35s, background .35s; }
 .sw::after { content: ""; position: absolute; top: 2.5px; left: 3px; width: 11px; height: 11px; border-radius: 50%; border: 1.25px solid currentColor; box-sizing: border-box; transition: transform .35s ease, background .35s, border-color .35s; }
 .folder li.on { color: var(--white); }
-.folder li.on .sw { border-color: var(--white); }
+.folder li.on .sw { border-color: var(--go); background: var(--go); }
 .folder li.on .sw::after { transform: translateX(14px); background: var(--sun); border-color: var(--sun); }
 .folder.people li { text-decoration: line-through; text-decoration-thickness: 1px; text-decoration-color: #55554F; }
 .folder.people .sw { opacity: .45; }
@@ -253,7 +253,6 @@ button.cta { border: 0; width: 100%; font: inherit; cursor: default; -webkit-use
 .screen.open .cta { background: var(--brass); color: var(--nv); }
 .screen.open .s-key .k-dot { background: #8FB08A; box-shadow: 0 0 0 .3em rgba(143,176,138,.18); }
 .screen.comps .cta:focus-visible { outline: 1px solid var(--sand); outline-offset: 3px; }
-.phone .tag { position: absolute; right: -10px; top: -12px; background: var(--night); color: var(--white); }
 .brand-foot { margin-top: 26px; padding-bottom: clamp(32px, 4vw, 56px); display: flex; gap: 12px; align-items: center; flex-wrap: wrap; font-size: 14px; color: var(--night-text); }
 .brand-foot a { color: inherit; text-decoration: underline; text-decoration-color: var(--sun); text-underline-offset: 3px; }
 .brand-foot a:hover { color: var(--sun); }
@@ -397,7 +396,7 @@ h3 { font-weight: 600; font-size: clamp(18px, 1.5vw, 21px); letter-spacing: -0.0
 .tag i { background: var(--pop); }
 .seg7 { background: #111; }
 .brief { border-left-color: #3A3A38; }
-.folder li.on .sw::after { background: var(--white); border-color: var(--white); }
+.folder li.on .sw::after { background: var(--white); border-color: var(--white); } /* knob stays white on the green track */
 .kp-list i.warn { background: var(--pop); }
 .flow .bars i { background: #2B2B29; }
 .flow .bars i.on { background: var(--led); }
