@@ -25,11 +25,14 @@ export const metadata: Metadata = {
   title: "Scott Galetto, AI-fluent design technologist",
   description:
     "Scott Galetto helps teams figure out what to build, then brings it to life through design, prototyping, and AI.",
+  // the design is light only: ask dark-mode extensions (Dark Reader and others that read these) to leave it alone
+  other: { "darkreader-lock": "true" },
 };
 
 export const viewport: Viewport = {
   viewportFit: "cover",
   themeColor: "#FAFAF8",
+  colorScheme: "only light",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
