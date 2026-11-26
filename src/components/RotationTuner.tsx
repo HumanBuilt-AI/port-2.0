@@ -25,7 +25,7 @@ const GLYPHS: Record<string, string[]> = {
 };
 const CELLS = 6; // the screen always shows six characters, so unlit dots stay put between words
 const P = 4;
-const R = 1.5;
+const R = 1.2; // smaller dots, more gap: reads calmer on the card
 
 function DotWord({ word }: { word: string }) {
   const w = word.toUpperCase().slice(0, CELLS).padEnd(CELLS, " ");
