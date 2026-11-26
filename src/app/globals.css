@@ -446,6 +446,9 @@ h3 { font-weight: 600; font-size: clamp(18px, 1.5vw, 21px); letter-spacing: -0.0
 .case-art { position: relative; display: block; aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden; background: var(--white); margin-bottom: 8px; transition: transform .5s cubic-bezier(.2,.7,.2,1); }
 .case-art img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .case-name { position: absolute; top: clamp(14px, 4.5%, 22px); left: clamp(16px, 5%, 26px); max-width: 62%; font: 600 clamp(16px, 1.4vw, 20px)/1.15 var(--display); letter-spacing: -0.01em; color: var(--ink); text-wrap: balance; }
+/* client logo, bottom-right corner, inset to mirror the study name's top-left inset (Figma 7:771) */
+/* the card-coloured padding masks any line art the logo lands on (CreditNinja's chart, Chipotle's ticket) without reading as a box */
+.case-art .case-logo { position: absolute; right: calc(clamp(14px, 4.5%, 22px) - 6px); bottom: calc(clamp(12px, 4%, 20px) - 4px); box-sizing: content-box; width: var(--logo-w, 16%); height: auto; padding: 4px 6px; border-radius: 8px; background: var(--white); object-fit: contain; pointer-events: none; }
 .case-meta { display: flex; justify-content: space-between; gap: 12px; font: 600 10px/1.4 var(--text); letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
 .case-meta span:last-child { text-align: right; }
 .case h3 { margin: 0; text-wrap: balance; }
