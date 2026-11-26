@@ -1,14 +1,15 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore } from "react";
+import React, { useEffect, useState, useSyncExternalStore } from "react";
 
 /**
  * Home hero, from Scott's Figma frame.
  * Left: "I'm Scott. A [word] human living and working in Chicago." The word types out letter by
  * letter in its own colour (from the Approach storyboard palette), holds, deletes letter by letter,
  * and the next one types.
- * Right: a deck of real project shots. The front card steps through a project's three frames
- * with a slow push-in; after the third it slides away and the next project comes forward.
+ * Right: a deck of real project shots, each with a black logo tag in the top-right corner. The
+ * front card steps through a project's three frames with a push-in; after the third it tips back
+ * into the pile (tilt, blur, fade) while the next card rises forward and its tag drops in.
  * Reduced motion: first word and first frame, no movement.
  */
 const WORDS: { w: string; c: string }[] = [
@@ -21,11 +22,15 @@ const WORDS: { w: string; c: string }[] = [
 const TYPE_MS = 85, DELETE_MS = 45, HOLD_MS = 1800, GAP_MS = 350;
 
 const PROJECTS = [
-  { name: "Verizon / IndyCar", slug: "verizon-indycar", key: "indycar", alts: ["Four Nokia phones showing the IndyCar app screens", "A hand holding a phone with the track map", "A finger tapping a stop on the track map"] },
-  { name: "Chipotle / RAINCHECK", slug: "chipotle-raincheck", key: "raincheck", alts: ["A phone showing the 'Our doors are closed' screen", "The free burrito offer on a phone", "The free burrito pass being added to Apple Wallet"] },
-  { name: "Aon / Horizon", slug: "aon-horizon", key: "aon", alts: ["The Horizon site climate risk tabs", "The climate risk map dashboard on a laptop", "A hand-drawn sketch of the dashboard"] },
+  { name: "Verizon / IndyCar", slug: "verizon-indycar", key: "indycar", logo: "Verizon", alts: ["Four Nokia phones showing the IndyCar app screens", "A hand holding a phone with the track map", "A finger tapping a stop on the track map"] },
+  { name: "Chipotle / RAINCHECK", slug: "chipotle-raincheck", key: "raincheck", logo: "Chipotle", alts: ["A phone showing the 'Our doors are closed' screen", "The free burrito offer on a phone", "The free burrito pass being added to Apple Wallet"] },
+  { name: "Aon / Horizon", slug: "aon-horizon", key: "aon", logo: "Aon", alts: ["The Horizon site climate risk tabs", "The climate risk map dashboard on a laptop", "A hand-drawn sketch of the dashboard"] },
+  { name: "Sauza / Lasso", slug: "sauza-lasso", key: "sauza", logo: "Sauza", alts: ["A cowboy in a hat looking into the camera", "A rider at sunset behind four Sauza sparkling margarita bottles", "A tablet showing the Lasso Up With a Cowboy game"] },
+  { name: "CreditNinja", slug: "creditninja", key: "creditninja", logo: "CreditNinja", alts: ["A man on the couch with his dog, checking his phone", "The CreditNinja app offering a $1,500 loan", "A 'Great news! You're approved.' notification"] },
+  // Specs goes here once its strip and logo arrive: add public/hero/specs-{1,2,3}-{640,1200}.webp and public/hero/logos/specs.svg.
 ];
-const FRAME_MS = 3200;
+/** Time on each picture. The progress bars and push-in read it from --hi-frame. */
+const FRAME_MS = 2200;
 
 const article = (w: string) => (/^[aeiou]/i.test(w) ? "An" : "A");
 
@@ -67,11 +72,13 @@ function useTypedWord(reduce: boolean) {
 export function HeroIntro() {
   const reduce = useReducedMotion();
   const { word, typed } = useTypedWord(reduce);
-  const [step, setStep] = useState(0); // 0..8 across all projects
+  const [tick, setTick] = useState(0); // frames shown since load
+  const step = tick % (PROJECTS.length * 3); // 0..(3 * PROJECTS.length - 1)
+  const moved = tick >= 3; // a card has left the front at least once (no recede on first paint)
 
   useEffect(() => {
     if (reduce) return;
-    const b = window.setInterval(() => setStep((x) => (x + 1) % (PROJECTS.length * 3)), FRAME_MS);
+    const b = window.setInterval(() => setTick((x) => x + 1), FRAME_MS);
     return () => window.clearInterval(b);
   }, [reduce]);
 
@@ -92,18 +99,23 @@ export function HeroIntro() {
           <p className="hi-lede">Designer by trade, technologist by instinct. I find the idea worth building and prototype it into something real, with AI in the loop.</p>
         </div>
 
-        <div className="hi-deck" aria-label="Recent work">
+        <div className="hi-deck" aria-label="Recent work" style={{ "--hi-frame": `${FRAME_MS}ms` } as React.CSSProperties}>
           {PROJECTS.map((proj, i) => {
             const pos = (i - p + PROJECTS.length) % PROJECTS.length; // 0 = front
+            const out = moved && pos === PROJECTS.length - 1; // the card that just left the front
             return (
-              <a key={proj.key} href={`/work/${proj.slug}`} className="hi-card" data-pos={pos} tabIndex={pos === 0 ? 0 : -1} aria-hidden={pos === 0 ? undefined : true}>
+              <a key={proj.key} href={`/work/${proj.slug}`} className={`hi-card${out ? " out" : ""}`} data-pos={Math.min(pos, 3)} tabIndex={pos === 0 ? 0 : -1} aria-hidden={pos === 0 ? undefined : true}>
                 {[0, 1, 2].map((k) => {
-                  const on = pos === 0 ? k === f : k === 0;
+                  const on = pos === 0 ? k === f : out ? k === 2 : k === 0; // a leaving card holds its last frame
                   return (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img key={k} className={`hi-frame${on ? " on" : ""}`} src={`/hero/${proj.key}-${k + 1}-1200.webp`} srcSet={`/hero/${proj.key}-${k + 1}-640.webp 640w, /hero/${proj.key}-${k + 1}-1200.webp 1200w`} sizes="(max-width: 860px) 92vw, 46vw" alt={on && pos === 0 ? proj.alts[k] : ""} loading={i === 0 && k === 0 ? "eager" : "lazy"} decoding="async" />
                   );
                 })}
+                <span className="hi-tag">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={`/hero/logos/${proj.key}.svg`} alt="" className={`hi-logo hi-logo-${proj.key}`} />
+                </span>
                 <span className="hi-cap">
                   <b>{proj.name}</b>
                   <span className="hi-bars" aria-hidden="true" key={pos === 0 ? step : "idle"}>{[0, 1, 2].map((k) => <i key={k} className={pos === 0 && k < f ? "full" : pos === 0 && k === f ? "run" : ""} />)}</span>
