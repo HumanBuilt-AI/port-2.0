@@ -247,13 +247,13 @@ export function startStory(gsap, ScrollTrigger) {
   function fitBrand() {
     if (!bStage || !bGrid) return;
     if (window.innerWidth <= 820) {
-      // phones: size the phone so roughly its top 60% fits under the copy; the rest runs off the bottom edge
+      // phones: size the phone so roughly its top half fits under the copy; the rest runs off the bottom edge
       bGrid.style.transform = '';
       var phone = bGrid.querySelector('.phone'), copy = bGrid.firstElementChild;
       if (!phone || !copy) return;
       var gap = parseFloat(getComputedStyle(bGrid).rowGap) || 18;
       var left = bStage.getBoundingClientRect().bottom - copy.getBoundingClientRect().bottom - gap;
-      var pw = Math.max(220, Math.min(window.innerWidth * .8, 300, left / (2.0556 * .6)));
+      var pw = Math.max(220, Math.min(window.innerWidth * .8, 300, left / (2.0556 * .55)));
       phone.style.setProperty('--pw', pw.toFixed(1) + 'px');
       return;
     }

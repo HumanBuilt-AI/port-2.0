@@ -279,7 +279,8 @@ button.cta { border: 0; width: 100%; font: inherit; cursor: default; -webkit-use
   .folder li { font-size: 13px; padding: 6px 0; grid-template-columns: 30px minmax(0, 1fr); gap: 8px; }
   .sw { width: 28px; height: 15px; } .sw::after { width: 9px; height: 9px; top: 2px; left: 2.5px; } .folder li.on .sw::after { transform: translateX(11px); }
   /* phones: copy on top, a bigger phone centred along the bottom; fitBrand() sets --pw so its lower part runs off the section's bottom edge */
-  .brand .stage { align-items: stretch; }
+  /* the stage runs to the large viewport, so the crop sits at the screen's bottom edge even after Safari's toolbar collapses */
+  .brand .stage { align-items: stretch; height: 100lvh; }
   .brand .grid { display: flex; flex-direction: column; gap: 18px; }
   .phone { --pw: 240px; width: var(--pw); flex: none; margin-top: auto; align-self: center; border-radius: calc(var(--pw) * .15); padding: calc(var(--pw) * .036); }
   .phone::before { top: calc(var(--pw) * .068); width: calc(var(--pw) * .19); margin-left: calc(var(--pw) * -.095); height: 5px; }
@@ -287,7 +288,7 @@ button.cta { border: 0; width: 100%; font: inherit; cursor: default; -webkit-use
   /* stack the screen's content at the top so it stays in view above the crop */
   .screen { padding-top: 1.9em; }
   .screen .cta { margin-top: .2em; }
-  .screen.comps .s-photo { height: 8.5em; max-height: 8.5em; }
+  .screen.comps .s-photo { height: 7em; max-height: 7em; }
 }
 
 /* LATEST-style rhythm: wide margins, smaller images between */
