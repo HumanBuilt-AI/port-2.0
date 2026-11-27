@@ -25,8 +25,8 @@ export type Block = {
   points?: { k: string; v: string }[];
   stats?: { n: string; l: string }[];
   media?: Media[];
-  /** wide = one full-width tile, pair = two, row = three or more, phones = tall screens. */
-  layout?: "wide" | "pair" | "row" | "phones";
+  /** wide = one full-width tile, pair = two, row = three or more, phones = tall screens, boards = fixed three-up columns so a lone board matches a set, tablet = one iPad screen at a set size. */
+  layout?: "wide" | "pair" | "row" | "phones" | "boards" | "tablet";
   embed?: { src: string; title: string; note?: string; tall?: boolean; /** lay the page out at this desktop size, then scale it to the tile */ fit?: { w: number; h: number } };
   note?: string;
   dark?: boolean;
@@ -45,6 +45,8 @@ export type CasePage = {
   links?: { label: string; href: string }[];
   hero: Media;
   heroPair?: Media;
+  /** Hero layout when it is not the default wide tile. */
+  heroLayout?: "tablet";
   /** Several phone screens in place of the single hero image. */
   heroSet?: Media[];
   /** Every phone mockup on the page renders at one size with even gaps. Value is the phone images' aspect ratio, e.g. "492 / 1011". */
@@ -492,6 +494,7 @@ export const casePages: CasePage[] = [
     },
     links: [{ label: "Watch the promo", href: "https://vimeo.com/239687595" }],
     hero: { src: "ipad-attract.webp", alt: "Kiosk attract screen: a hand holds a phone with the lasso in front of the iPad", cap: "iPad kiosk · attract screen" },
+    heroLayout: "tablet",
     blocks: [
       {
         kicker: "Promo",
@@ -508,7 +511,7 @@ export const casePages: CasePage[] = [
           "As creative tech lead, I designed the interaction and the system behind it, and led front-end developers and graphic designers through the build.",
         ],
         media: [{ src: "ipad-age-gate.webp", alt: "Age gate on the kiosk iPad: a cowboy beside a blue bottle", cap: "Every session opens with an age gate" }],
-        layout: "wide",
+        layout: "tablet",
       },
       {
         kicker: "Pairing",
@@ -521,7 +524,7 @@ export const casePages: CasePage[] = [
           { k: "One session", v: "The socket stays open for all five throws." },
         ],
         media: [{ src: "wf-06.png", alt: "Wireframe: phone screen to enter the code and connect, iPad shows the code", cap: "Pair phone to iPad" }],
-        layout: "wide",
+        layout: "boards",
       },
       {
         kicker: "The throw",
@@ -536,7 +539,7 @@ export const casePages: CasePage[] = [
           { src: "wf-08.webp", alt: "Wireframe: phone shows Look at the iPad as the lasso leaves", cap: "Lasso crosses screens" },
           { src: "wf-09.png", alt: "Wireframe: result screens on phone and iPad", cap: "Result" },
         ],
-        layout: "row",
+        layout: "boards",
       },
       {
         kicker: "Reflection",
