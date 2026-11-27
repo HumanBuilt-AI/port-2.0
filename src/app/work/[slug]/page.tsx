@@ -12,7 +12,7 @@ import { CaseHeroArt, hasCaseHeroArt } from "@/components/CaseHeroArt";
 import { RobotInit } from "@/components/RobotInit";
 
 export function generateStaticParams() {
-  return casePages.map((p) => ({ slug: p.slug }));
+  return casePages.filter((p) => studies.some((s) => s.slug === p.slug)).map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps<"/work/[slug]">): Promise<Metadata> {

@@ -4,7 +4,7 @@ import { ArrowCircle } from "@/components/ArrowCircle";
 import { SectionBadge } from "@/components/SectionBadge";
 
 /**
- * Selected work: six case studies, copy from humanbuiltai.work.
+ * Selected work: the case studies, copy from humanbuiltai.work.
  * Each card shows a simplified, recoloured take on the case page header art
  * (public/work/<slug>/card.svg, 4:3) with the study name over it in HTML
  * and the client logo in the bottom-right corner (per Scott's Figma, node 7:771).
@@ -59,7 +59,7 @@ export function CaseStudies() {
         </ul>
       </div>
       <div className="in">
-        <p className="cap">Selected work · six case studies</p>
+        <p className="cap">Selected work · five case studies</p>
       </div>
     </section>
   );
