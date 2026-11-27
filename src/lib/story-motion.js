@@ -180,8 +180,13 @@ export function startStory(gsap, ScrollTrigger) {
       // keep 40px between the intro copy and the top of the step titles
       var fs = ft.querySelector('.fsteps'), mb = parseFloat(getComputedStyle(fs).marginBottom) || 0, bot = parseFloat(getComputedStyle(ft).bottom) || 0;
       var room = (ft.parentNode.clientHeight || window.innerHeight) - (head.bottom - stTop) - bot - mb - 40;
-      var ratio = 1 + (vw0() < 641 ? 190 : 170) / 496;
-      if (!reduce) ft.style.setProperty('--H', Math.max(220, Math.min(560, window.innerWidth * 1.18, room / ratio)).toFixed(1) + 'px');
+      if (vw0() < 641) {
+        // phones: captions have a fixed height, so the art gets exactly the room left under them (no floor that would push it into the intro)
+        if (!reduce) ft.style.setProperty('--H', Math.max(140, Math.min(560, window.innerWidth * 1.12, room + 12 - fs.offsetHeight)).toFixed(1) + 'px');
+      } else {
+        var ratio = 1 + 170 / 496;
+        if (!reduce) ft.style.setProperty('--H', Math.max(220, Math.min(560, window.innerWidth * 1.18, room / ratio)).toFixed(1) + 'px');
+      }
       vw = window.innerWidth; s = art.getBoundingClientRect().height / 496;
       start = vw / 2 - (PR[0] - PL[0]) * s / 2 - 20 * s;                 // first step centred
       var lastC = (PL[5] + PR[5]) / 2 + 5 * GAP;
@@ -241,6 +246,17 @@ export function startStory(gsap, ScrollTrigger) {
   var bStage = brand.querySelector('.stage'), bGrid = brand.querySelector('.grid');
   function fitBrand() {
     if (!bStage || !bGrid) return;
+    if (window.innerWidth <= 820) {
+      // phones: size the phone so roughly its top half fits under the copy; the rest runs off the bottom edge
+      bGrid.style.transform = '';
+      var phone = bGrid.querySelector('.phone'), copy = bGrid.firstElementChild;
+      if (!phone || !copy) return;
+      var gap = parseFloat(getComputedStyle(bGrid).rowGap) || 18;
+      var left = bStage.getBoundingClientRect().bottom - copy.getBoundingClientRect().bottom - gap;
+      var pw = Math.max(220, Math.min(window.innerWidth * .8, 300, left / (2.0556 * .55)));
+      phone.style.setProperty('--pw', pw.toFixed(1) + 'px');
+      return;
+    }
     var cs = getComputedStyle(bStage), room = bStage.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom) - 24;
     var k = Math.min(1, room / bGrid.offsetHeight);
     bGrid.style.transform = k < .995 ? 'scale(' + k.toFixed(3) + ')' : '';

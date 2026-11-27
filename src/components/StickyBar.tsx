@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BrandMark } from "@/components/BrandMark";
 
 /** Compact bar that slides in once the menu has scrolled away. StoryMotion toggles it. */
 export function StickyBar() {
@@ -6,7 +7,7 @@ export function StickyBar() {
     <>
       <header className="bar" id="bar" aria-hidden="true">
         <div className="in">
-          <a className="name robot" href="#top" tabIndex={-1} aria-label="Scott Galetto, back to the top"><canvas width="88" height="88" aria-hidden="true"></canvas><span className="rb-fallback">scott galetto</span></a>
+          <BrandMark className="name" href="#top" tabIndex={-1} label="humanbuiltAI, Scott Galetto, back to the top" tone="auto" canvas={88} />
           <nav aria-label="Sections">
             <a href="#work" tabIndex={-1}><svg aria-hidden="true"><use href="#i-work" /></svg><span>work</span></a>
             <Link href="/work/specs" tabIndex={-1}><svg aria-hidden="true"><use href="#i-specs" /></svg><span>specs</span></Link>
