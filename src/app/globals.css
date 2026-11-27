@@ -1048,7 +1048,7 @@ a.a2-to:hover { color: var(--white); }
 
 /* HOME HERO, from Scott's Figma frame: dark card, typed word,
    big title, and a deck of project shots on the right. */
-.hi { --hi-bg: #1E1E1E; --hi-fg: #EFEEEA; --hi-pop: #F2A7A4; margin: var(--gut) var(--gut) 0; border-radius: var(--card-r); background: var(--hi-bg); color: var(--hi-fg); overflow: clip; }
+.hi { --hi-bg: var(--night); --hi-fg: #EFEEEA; --hi-pop: #F2A7A4; margin: var(--gut) var(--gut) 0; border-radius: var(--card-r); background: var(--hi-bg); color: var(--hi-fg); overflow: clip; }
 .hi-in { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(32px, 4vw, 72px); align-items: center; padding: clamp(48px, 7vw, 116px) max(var(--gr), var(--margin)) clamp(48px, 7vw, 116px) max(var(--gl), var(--margin)); max-width: 1360px; margin: 0 auto; min-height: min(calc(100svh - 120px), 620px); box-sizing: border-box; }
 .hi-copy { display: grid; gap: clamp(14px, 1.4vw, 20px); }
 .hi-kicker { margin: 0; font: 400 clamp(18px, 1.7vw, 24px)/1.4 var(--display); letter-spacing: -0.02em; }
@@ -1062,7 +1062,15 @@ a.a2-to:hover { color: var(--white); }
 
 /* deck of project cards. The front card plays its three frames (--hi-frame each, set from
    HeroIntro), then tips back into the pile while the next one rises forward. */
-.hi-deck { position: relative; aspect-ratio: 16 / 11; width: 100%; perspective: 1600px; perspective-origin: 60% 0; --hi-ease: cubic-bezier(.16, 1, .3, 1); }
+.hi-deck { position: relative; aspect-ratio: 16 / 11; width: 100%; margin-top: 24px; perspective: 1600px; perspective-origin: 60% 0; --hi-ease: cubic-bezier(.16, 1, .3, 1); }
+/* line drawing of arches and steps behind the deck, in light lines on the dark card. Drawn on
+   once at load, one stroke after another; reduced motion shows it finished. Its right end meets
+   the hero's right edge: --hi-pad is the space between the deck and that edge. */
+.hi-art { --hi-pad: calc(max(var(--gr), var(--margin)) + max(0px, (100vw - 2 * var(--gut) - 1360px) / 2));
+  position: absolute; z-index: 0; right: calc(-1 * var(--hi-pad)); top: -37.7%; width: 126.3%; height: auto; overflow: visible; pointer-events: none; color: var(--hi-fg); }
+.hi-art path { fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1;
+  animation: hi-draw 1.5s calc(.35s + var(--i) * 90ms) cubic-bezier(.45, 0, .2, 1) forwards; }
+@keyframes hi-draw { to { stroke-dashoffset: 0; } }
 .hi-card { position: absolute; inset: 0; display: block; border-radius: 16px; overflow: hidden; background: #111; color: #fff; text-decoration: none; box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .7); transform-origin: 50% 100%;
   transition: transform 1s var(--hi-ease), opacity .7s ease, filter 1s ease; }
 .hi-card[data-pos="0"] { z-index: 4; transform: none; transition-delay: .16s; transition-timing-function: cubic-bezier(.22, 1.18, .36, 1), ease, ease; transition-duration: 1.15s, .7s, 1s; }
@@ -1109,9 +1117,11 @@ a.a2-to:hover { color: var(--white); }
 @media (max-width: 860px) {
   .hi-in { grid-template-columns: minmax(0, 1fr); min-height: 0; gap: 40px; padding-top: 44px; }
   .hi h1 { font-size: clamp(44px, 12vw, 64px); }
-  .hi-deck { margin: 8% 8% 0 0; }
+  .hi-deck { margin: 22% 8% 17% 0; }
+  .hi-art { --hi-pad: calc(max(var(--gr), var(--margin)) + 8.7%); top: -32.8%; width: 119.3%; }
 }
 @media (prefers-reduced-motion: reduce) {
+  .hi-art path { animation: none; stroke-dashoffset: 0; }
   .hi-caret, .hi-card[data-pos="0"] .hi-frame.on, .hi-bars i.run::after, .hi-card.out, .hi-card[data-pos="0"]::after { animation: none; }
   .hi-card, .hi-card[data-pos="0"], .hi-frame, .hi-tag, .hi-card[data-pos="0"] .hi-tag, .hi-cap, .hi-card[data-pos="0"] .hi-cap { transition: none; }
 }
