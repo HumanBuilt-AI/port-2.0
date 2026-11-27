@@ -568,6 +568,7 @@ export const casePages: CasePage[] = [
       result: "VR became the most-used feature. Ways to Win engagement rose 124% over the prior year, with 70%+ app installation reported.",
     },
     hero: { src: "four-phones-vr.webp", alt: "Four red Nokia phones showing the IndyCar experience", cap: "Home · weekend schedule · Ways to Win · track map" },
+    evenPhones: "370 / 650",
     blocks: [
       {
         kicker: "A little time travel",
