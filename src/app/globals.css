@@ -556,6 +556,11 @@ h3 { font-weight: 600; font-size: clamp(18px, 1.5vw, 21px); letter-spacing: -0.0
 .cs-tile { border-radius: var(--tile-r); overflow: hidden; background: var(--panel); }
 .cs-tile img, .cs-tile video { display: block; width: 100%; height: auto; }
 .cs-media.row .cs-tile { background: var(--white); }
+.cs-media.boards { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: clamp(20px, 3vw, 40px); }
+.cs-media.boards .cs-tile { background: var(--white); }
+.cs-media.boards .cs-fig:only-child { grid-column: 2; }
+.cs-media.tablet { justify-content: center; grid-template-columns: minmax(0, 760px); background: var(--panel); border-radius: var(--card-r); padding: clamp(20px, 3vw, 40px); }
+.cs-media.tablet .cs-tile { background: transparent; }
 .cs-media.phones .cs-tile { background: transparent; }
 .cs-embed { aspect-ratio: 16 / 10; background: var(--night); }
 /* One phone size for every mockup on the page, with even gaps. */
@@ -610,6 +615,9 @@ h3 { font-weight: 600; font-size: clamp(18px, 1.5vw, 21px); letter-spacing: -0.0
   .cs-links { justify-items: start; }
   .cs-media.pair { grid-template-columns: minmax(0, 1fr); }
   .cs-media.phones { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 16px; }
+  .cs-media.boards { grid-template-columns: minmax(0, 1fr); row-gap: 24px; }
+  .cs-media.boards .cs-fig:only-child { grid-column: 1; }
+  .cs-media.tablet { padding: 16px; }
   .cs-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .cs-meta > div { padding: 14px 16px; }
   .cs-points { grid-template-columns: minmax(0, 1fr); }

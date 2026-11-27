@@ -203,7 +203,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
               ))}
             </div>
           ) : (
-            <div className={`cs-media ${p.heroPair ? "phones" : "wide"} cs-lead`}>
+            <div className={`cs-media ${p.heroPair ? "phones" : (p.heroLayout ?? "wide")} cs-lead`}>
               <Pic m={p.hero} slug={slug} />
               {p.heroPair && <Pic m={p.heroPair} slug={slug} />}
             </div>
