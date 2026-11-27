@@ -37,6 +37,10 @@ export type CasePage = {
   links?: { label: string; href: string }[];
   hero: Media;
   heroPair?: Media;
+  /** Several phone screens in place of the single hero image. */
+  heroSet?: Media[];
+  /** Every phone mockup on the page renders at one size with even gaps. */
+  evenPhones?: boolean;
   blocks: Block[];
 };
 
@@ -281,6 +285,12 @@ export const casePages: CasePage[] = [
       result: "5.3 million requests in about five hours, more than double what Chipotle expected, with an estimated 67% redemption rate.",
     },
     hero: { src: "chipotle-flow-phones.webp", alt: "Three phones: the closed-store landing page, the ingredient reveal and the Wallet pass", cap: "Landing page · ingredient reveal · Apple Wallet pass" },
+    heroSet: [
+      { src: "phone-closed.webp", alt: "The closed-store landing page", cap: "Landing page" },
+      { src: "phone-reveal.webp", alt: "The ingredient reveal", cap: "Ingredient reveal" },
+      { src: "phone-wallet.webp", alt: "The Apple Wallet pass", cap: "Apple Wallet pass" },
+    ],
+    evenPhones: true,
     blocks: [
       {
         kicker: "The challenge",

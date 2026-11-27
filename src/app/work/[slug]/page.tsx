@@ -131,7 +131,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
         </div>
       </header>
 
-      <main className="cs" id="top">
+      <main className={`cs${p.evenPhones ? " even-phones" : ""}`} id="top">
         <div className="in">
           <section className="cs-hero on-dark" aria-labelledby="cs-h">
             <div className="cs-hero-top">
@@ -192,10 +192,18 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
             ))}
           </section>
 
-          <div className={`cs-media ${p.heroPair ? "phones" : "wide"} cs-lead`}>
-            <Pic m={p.hero} slug={slug} />
-            {p.heroPair && <Pic m={p.heroPair} slug={slug} />}
-          </div>
+          {p.heroSet ? (
+            <div className="cs-media phones cs-lead">
+              {p.heroSet.map((m) => (
+                <Pic key={m.src} m={m} slug={slug} />
+              ))}
+            </div>
+          ) : (
+            <div className={`cs-media ${p.heroPair ? "phones" : "wide"} cs-lead`}>
+              <Pic m={p.hero} slug={slug} />
+              {p.heroPair && <Pic m={p.heroPair} slug={slug} />}
+            </div>
+          )}
 
           {p.blocks.map((b, i) => (
             <Section key={b.kicker} b={b} i={i} slug={slug} />
