@@ -1108,3 +1108,13 @@ a.a2-to:hover { color: var(--white); }
 /* robot sits on the grid: its drawn edge (not the canvas box) lines up with the hero text */
 .index .wordmark.robot { margin-left: -10px; }
 @media (max-width: 760px) { .index .wordmark.robot { margin-left: -9px; } }
+
+/* humanbuiltAI logo (Nov 27) replaces the WebGL robot as the home link; the robot stays in the code (USE_ROBOT in BrandMark.tsx) */
+.hb-logo { display: block; flex: none; line-height: 0; text-decoration: none; -webkit-tap-highlight-color: transparent; }
+.hb-logo img { display: block; width: auto; height: 100%; }
+.index .wordmark.hb-logo { height: 46px; margin: -4px auto -4px 0; }
+.bar .name.hb-logo { height: 40px; }
+.hb-logo .hb-white, .bar.on-night .hb-logo .hb-ink { display: none; }
+.bar.on-night .hb-logo .hb-white { display: block; }
+.hb-logo:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; border-radius: 6px; }
+@media (max-width: 760px) { .index .wordmark.hb-logo { height: 34px; margin-block: -2px; } .bar .name.hb-logo { height: 32px; } }

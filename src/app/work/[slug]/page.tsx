@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BrandMark } from "@/components/BrandMark";
 import { notFound } from "next/navigation";
 import { studies } from "@/content/cases";
 import { casePage, casePages, type Block, type Media } from "@/content/case-pages";
@@ -117,14 +118,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
     <>
       <header className="index cs-top">
         <div className="in">
-          <Link className="wordmark robot" href="/" aria-label="Scott Galetto, back home">
-            <canvas width="180" height="180" aria-hidden="true"></canvas>
-            <span className="rb-fallback">
-              scott
-              <br />
-              galetto
-            </span>
-          </Link>
+          <BrandMark className="wordmark" href="/" label="humanbuiltAI, Scott Galetto, back home" />
           <Link className="cs-back" href="/#work">
             <ArrowCircle dir="w" />
             <span>All work</span>

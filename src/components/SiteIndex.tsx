@@ -1,3 +1,4 @@
+import { BrandMark, USE_ROBOT } from "@/components/BrandMark";
 /**
  * Top-of-page menu: a small gold robot (home) with the sections on one row beside it.
  * Each section's sub-links stay hidden and slide down on hover or keyboard focus.
@@ -17,8 +18,8 @@ export function SiteIndex() {
   return (
     <header className="index" id="index">
       <div className="in">
-        <a className="wordmark robot" href="#top" aria-label="Scott Galetto, back to the top"><canvas width="180" height="180" aria-hidden="true"></canvas><span className="rb-fallback">scott<br />galetto</span></a>
-        <a className="idx-brand" href="#top" aria-hidden="true" tabIndex={-1}>HumanBuiltAI</a>
+        <BrandMark className="wordmark" href="#top" label="humanbuiltAI, Scott Galetto, back to the top" />
+        {USE_ROBOT && <a className="idx-brand" href="#top" aria-hidden="true" tabIndex={-1}>HumanBuiltAI</a>}
         <nav className="idx-row" aria-label="Sections">
           {sections.map((s) => (
             <div className="idx" key={s.label}>
