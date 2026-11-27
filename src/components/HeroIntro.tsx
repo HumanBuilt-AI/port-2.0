@@ -10,14 +10,18 @@ import React, { useEffect, useState, useSyncExternalStore } from "react";
  * Right: a deck of real project shots, each with a black logo tag in the top-right corner. The
  * front card steps through a project's three frames with a push-in; after the third it tips back
  * into the pile (tilt, blur, fade) while the next card rises forward and its tag drops in.
- * Reduced motion: first word and first frame, no movement.
+ * Behind the deck, a thin line drawing of arches and steps draws itself on, stroke by stroke.
+ * Reduced motion: first word, first frame and the finished drawing, no movement.
  */
 const WORDS: { w: string; c: string }[] = [
-  { w: "passionate", c: "#FF8970" },
-  { w: "multifaceted", c: "#D4BEFC" },
-  { w: "empathetic", c: "#FDD5DD" },
-  { w: "mindful", c: "#FEE68C" },
-  { w: "practical", c: "#F7C81E" },
+  // Deeper shades of the Approach colours so each word stays readable on the cream card (3:1 or
+  // better). The first three are the wordmark gradient's coral, violet and pink; the two yellows
+  // are the original golds taken darker.
+  { w: "passionate", c: "#E8603C" },
+  { w: "multifaceted", c: "#8B5CC7" },
+  { w: "empathetic", c: "#E85C9A" },
+  { w: "mindful", c: "#A0892B" },
+  { w: "practical", c: "#B48200" },
 ];
 const TYPE_MS = 85, DELETE_MS = 45, HOLD_MS = 1800, GAP_MS = 350;
 
@@ -31,6 +35,25 @@ const PROJECTS = [
 ];
 /** Time on each picture. The progress bars and push-in read it from --hi-frame. */
 const FRAME_MS = 2200;
+
+/** Arches and steps behind the deck, in the mock's pixel space (front card at 163,210, 644x443). */
+const ART = [
+  "M170 212C172 105 255 36 380 32C470 30 540 48 580 80",
+  "M205 212C205 120 290 48 420 44C545 40 640 110 660 212",
+  "M330 212C332 150 385 108 455 108C535 108 605 150 612 205",
+  "M365 212C370 160 420 135 470 135C530 135 575 170 580 212",
+  "M597 105C630 45 690 15 755 15C840 15 895 80 895 190C895 280 860 340 808 352",
+  "M48 800L48 560C48 520 85 488 130 482L163 482",
+  "M85 800L85 580C85 545 115 515 163 512",
+  "M15 805L560 805",
+  "M48 792L215 757",
+  "M215 800L215 727L650 727",
+  "M215 727L420 682L860 650",
+  "M420 655L420 727",
+  "M790 598L900 598",
+  "M563 805L563 788C600 740 720 690 900 632",
+  "M575 805C640 770 740 700 900 648",
+];
 
 const article = (w: string) => (/^[aeiou]/i.test(w) ? "An" : "A");
 
@@ -100,6 +123,9 @@ export function HeroIntro() {
         </div>
 
         <div className="hi-deck" aria-label="Recent work" style={{ "--hi-frame": `${FRAME_MS}ms` } as React.CSSProperties}>
+          <svg className="hi-art" viewBox="0 0 904 830" aria-hidden="true" focusable="false">
+            {ART.map((d, i) => <path key={i} d={d} pathLength={1} style={{ "--i": i } as React.CSSProperties} />)}
+          </svg>
           {PROJECTS.map((proj, i) => {
             const pos = (i - p + PROJECTS.length) % PROJECTS.length; // 0 = front
             const out = moved && pos === PROJECTS.length - 1; // the card that just left the front
