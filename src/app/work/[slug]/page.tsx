@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { BrandMark } from "@/components/BrandMark";
+import { ScaledEmbed } from "@/components/ScaledEmbed";
 import { notFound } from "next/navigation";
 import { studies } from "@/content/cases";
 import { casePage, casePages, type Block, type Media } from "@/content/case-pages";
@@ -89,9 +90,13 @@ function Section({ b, i, slug }: { b: Block; i: number; slug: string }) {
       )}
       {b.embed && (
         <figure className="cs-fig">
-          <div className={`cs-tile cs-embed${b.embed.tall ? " tall" : ""}`}>
-            <iframe src={b.embed.src} title={b.embed.title} loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen />
-          </div>
+          {b.embed.fit ? (
+            <ScaledEmbed src={b.embed.src} title={b.embed.title} w={b.embed.fit.w} h={b.embed.fit.h} />
+          ) : (
+            <div className={`cs-tile cs-embed${b.embed.tall ? " tall" : ""}`}>
+              <iframe src={b.embed.src} title={b.embed.title} loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen />
+            </div>
+          )}
           {b.embed.note && (
             <figcaption className="fine">
               {b.embed.note}{" "}

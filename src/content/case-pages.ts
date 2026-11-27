@@ -19,7 +19,7 @@ export type Block = {
   media?: Media[];
   /** wide = one full-width tile, pair = two, row = three or more, phones = tall screens. */
   layout?: "wide" | "pair" | "row" | "phones";
-  embed?: { src: string; title: string; note?: string; tall?: boolean };
+  embed?: { src: string; title: string; note?: string; tall?: boolean; /** lay the page out at this desktop size, then scale it to the tile */ fit?: { w: number; h: number } };
   note?: string;
   dark?: boolean;
 };
@@ -252,7 +252,7 @@ export const casePages: CasePage[] = [
         title: "From data-heavy tool",
         soft: "to explorable system.",
         body: ["The prototype below is a recreation of the React.js and three.js build. The original stayed with Aon."],
-        embed: { src: "/work/aon-horizon/prototype/index.html", title: "Horizon live prototype", note: "Search a city · switch hazards · change the horizon · ask about the data. Best on desktop." },
+        embed: { src: "/work/aon-horizon/prototype/index.html", title: "Horizon live prototype", fit: { w: 1440, h: 900 }, note: "Search a city · switch hazards · change the horizon · ask about the data. Best on desktop." },
       },
       {
         kicker: "Reflection",
