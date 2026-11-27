@@ -15,7 +15,7 @@ export const intro = {
   name: "Scott Galetto",
   line: "Designer, compulsive experimenter, and Bella’s on-call staff.",
   /** One portrait (Nov 25): Scott's pencil-sketch illustration of himself. The card shows a 4:5 crop; the enlarged view shows the whole square drawing. */
-  portrait: { src: "/about/scott-sketch-320.webp", big: "/about/scott-sketch-big.webp", alt: "Pencil sketch of Scott Galetto in a cap and a fleece-collared jacket, eyebrows up and lips pursed", ratio: 1 } as Photo,
+  portrait: { src: "/about/scott-neon-320.webp", big: "/about/scott-neon-big.webp", alt: "Collage portrait of Scott Galetto in a cap and hood, glancing sideways, ringed by a neon orbit with the moon, an orange sun and clouds behind him", ratio: 1 } as Photo,
   /** Earlier portraits from humanbuiltai.work, not shown. Files are still in public/about/. */
   laterPortraits: [
     { src: "/about/scott-studio-320.webp", big: "/about/scott-studio-big.webp", alt: "Black and white studio portrait of Scott Galetto in a dark sweater, half smiling", ratio: 3 / 4 },
