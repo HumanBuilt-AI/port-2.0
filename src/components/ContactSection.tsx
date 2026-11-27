@@ -17,7 +17,7 @@ const readArt = () => {
   return q === "phone" || q === "typewriter" ? q : CONTACT_ART;
 };
 
-const LINKS: [string, string][] = [["approach", "#flow"], ["specs", "/work/specs"], ["work", "#work"], ["about", "#about"]];
+const LINKS: [string, string][] = [["approach", "#flow"], ["work", "#work"], ["about", "#about"]];
 
 /** Contact: a ringing phone on a coral splash that grows with scroll, plus the footer. */
 export function ContactSection() {

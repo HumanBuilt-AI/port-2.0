@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { SectionBadge } from "@/components/SectionBadge";
 /** Same prompt, better brief: brand files switch on and a generic hotel app becomes The Alibi. */
 export function BrandSection() {
@@ -28,7 +27,7 @@ export function BrandSection() {
                     </ul>
                   </div>
                 </div>
-                <div className="brand-foot"><span className="tag"><i></i>made-up brand</span> <span>The Alibi is fictional. The idea isn’t: set the system up once and every agent starts on brand. <Link href="/work/specs">Specs does that setup for small businesses.</Link></span></div>
+                <div className="brand-foot"><span className="tag"><i></i>made-up brand</span> <span>The Alibi is fictional. The idea isn’t: set the system up once and every agent starts on brand. {/* Specs hidden for now: <Link href="/work/specs">Specs does that setup for small businesses.</Link> */}</span></div>
               </div>
               <div className="phone" aria-label="Phone mockup of a hotel check-in screen" role="group">
                 <div className="screen" id="screen">

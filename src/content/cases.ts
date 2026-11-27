@@ -14,11 +14,14 @@ export type Study = {
   title: string;
   blurb: string;
   logoW: number;
+  /** Hidden studies keep their files but drop off the site (grid, case page, nav). */
+  hidden?: boolean;
 };
 
-export const studies: Study[] = [
+const allStudies: Study[] = [
   {
     slug: "specs",
+    hidden: true, // Nov 27: hidden until the app works the right way; it will get a new case study.
     name: "Specs",
     num: "01",
     tags: "AI product · Brand systems",
@@ -76,3 +79,8 @@ export const studies: Study[] = [
     logoW: 20,
   },
 ];
+
+/** The studies on the site, numbered in order after hidden ones drop out. */
+export const studies: Study[] = allStudies
+  .filter((s) => !s.hidden)
+  .map((s, i) => ({ ...s, num: String(i + 1).padStart(2, "0") }));

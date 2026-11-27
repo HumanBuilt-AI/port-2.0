@@ -1097,7 +1097,7 @@ a.a2-to:hover { color: var(--white); }
 .hi-card[data-pos="0"] .hi-frame.on { animation: hi-push calc(var(--hi-frame, 2200ms) + 600ms) linear both; }
 @keyframes hi-push { from { transform: scale(1.02); } to { transform: scale(1.09); } }
 /* black logo tag hanging from the top edge (Scott's Figma: 85x83 on a 659-wide card, 30px in) */
-.hi-tag { position: absolute; z-index: 2; top: 0; right: 4.55%; width: 12.9%; aspect-ratio: 85 / 83; display: grid; place-items: center; background: #000; border-radius: 0 0 8px 8px; transform: translateY(-102%); transition: transform .45s cubic-bezier(.5, 0, .75, 0); }
+.hi-tag { position: absolute; z-index: 2; top: 0; right: 4.55%; width: 14.8%; aspect-ratio: 85 / 83; display: grid; place-items: center; background: rgba(0, 0, 0, .9); border-radius: 0 0 8px 8px; transform: translateY(-102%); transition: transform .45s cubic-bezier(.5, 0, .75, 0); }
 .hi-card[data-pos="0"] .hi-tag { transform: none; transition: transform .7s .7s var(--hi-ease); }
 .hi-logo { display: block; width: 62%; height: auto; }
 .hi-logo-raincheck { width: 72%; }
