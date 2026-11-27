@@ -562,11 +562,11 @@ h3 { font-weight: 600; font-size: clamp(18px, 1.5vw, 21px); letter-spacing: -0.0
 .even-phones { --phone-w: 220px; }
 .even-phones .cs-media.phones { display: flex; flex-wrap: wrap; justify-content: center; column-gap: clamp(20px, 5vw, 70px); row-gap: 28px; }
 .even-phones .cs-media.phones .cs-fig { width: var(--phone-w); }
-.even-phones .cs-media.phones .cs-tile { aspect-ratio: 492 / 1011; }
+.even-phones .cs-media.phones .cs-tile { aspect-ratio: var(--phone-ar); }
 .even-phones .cs-media.phones .cs-tile img { height: 100%; object-fit: contain; }
 /* The animation recording has its phone inside a dark frame: crop to the phone so it matches the stills. */
 .even-phones .cs-media.phones .cs-tile:has(video) { border-radius: 34px; }
-.even-phones .cs-media.phones .cs-tile video { height: 100%; object-fit: cover; transform: scale(1.215); }
+.even-phones .cs-media.phones .cs-tile video { height: 100%; object-fit: cover; transform: scale(var(--zoom, 1)); }
 @media (max-width: 640px) {
   .even-phones { --phone-w: min(150px, calc(50% - 10px)); }
 }

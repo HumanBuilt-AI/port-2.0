@@ -26,7 +26,7 @@ function Pic({ m, slug }: { m: Media; slug: string }) {
   const src = `/work/${slug}/${m.src}`;
   return (
     <figure className="cs-fig">
-      <div className="cs-tile">
+      <div className="cs-tile" style={m.zoom ? ({ "--zoom": m.zoom } as React.CSSProperties) : undefined}>
         {m.video ? (
           <video src={src} poster={m.poster && `/work/${slug}/${m.poster}`} autoPlay muted loop playsInline aria-label={m.alt} />
         ) : (
@@ -131,7 +131,11 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
         </div>
       </header>
 
-      <main className={`cs${p.evenPhones ? " even-phones" : ""}`} id="top">
+      <main
+        className={`cs${p.evenPhones ? " even-phones" : ""}`}
+        id="top"
+        style={p.evenPhones ? ({ "--phone-ar": p.evenPhones } as React.CSSProperties) : undefined}
+      >
         <div className="in">
           <section className="cs-hero on-dark" aria-labelledby="cs-h">
             <div className="cs-hero-top">
