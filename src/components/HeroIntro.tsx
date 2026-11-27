@@ -14,14 +14,11 @@ import React, { useEffect, useState, useSyncExternalStore } from "react";
  * Reduced motion: first word, first frame and the finished drawing, no movement.
  */
 const WORDS: { w: string; c: string }[] = [
-  // Deeper shades of the Approach colours so each word stays readable on the cream card (3:1 or
-  // better). The first three are the wordmark gradient's coral, violet and pink; the two yellows
-  // are the original golds taken darker.
-  { w: "passionate", c: "#E8603C" },
-  { w: "multifaceted", c: "#8B5CC7" },
-  { w: "empathetic", c: "#E85C9A" },
-  { w: "mindful", c: "#A0892B" },
-  { w: "practical", c: "#B48200" },
+  { w: "passionate", c: "#FF8970" },
+  { w: "multifaceted", c: "#D4BEFC" },
+  { w: "empathetic", c: "#FDD5DD" },
+  { w: "mindful", c: "#FEE68C" },
+  { w: "practical", c: "#F7C81E" },
 ];
 const TYPE_MS = 85, DELETE_MS = 45, HOLD_MS = 1800, GAP_MS = 350;
 
