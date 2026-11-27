@@ -5,7 +5,15 @@
  * Media paths are file names inside `public/work/<slug>/`.
  */
 
-export type Media = { src: string; alt: string; cap?: string; video?: boolean; poster?: string };
+export type Media = {
+  src: string;
+  alt: string;
+  cap?: string;
+  video?: boolean;
+  poster?: string;
+  /** Phone pages only: how far to zoom a recording so its phone fills the tile like the stills. */
+  zoom?: number;
+};
 
 export type Block = {
   kicker: string;
@@ -37,6 +45,10 @@ export type CasePage = {
   links?: { label: string; href: string }[];
   hero: Media;
   heroPair?: Media;
+  /** Several phone screens in place of the single hero image. */
+  heroSet?: Media[];
+  /** Every phone mockup on the page renders at one size with even gaps. Value is the phone images' aspect ratio, e.g. "492 / 1011". */
+  evenPhones?: string;
   blocks: Block[];
 };
 
@@ -281,6 +293,12 @@ export const casePages: CasePage[] = [
       result: "5.3 million requests in about five hours, more than double what Chipotle expected, with an estimated 67% redemption rate.",
     },
     hero: { src: "chipotle-flow-phones.webp", alt: "Three phones: the closed-store landing page, the ingredient reveal and the Wallet pass", cap: "Landing page · ingredient reveal · Apple Wallet pass" },
+    heroSet: [
+      { src: "phone-closed.webp", alt: "The closed-store landing page", cap: "Landing page" },
+      { src: "phone-reveal.webp", alt: "The ingredient reveal", cap: "Ingredient reveal" },
+      { src: "phone-wallet.webp", alt: "The Apple Wallet pass", cap: "Apple Wallet pass" },
+    ],
+    evenPhones: "492 / 1011",
     blocks: [
       {
         kicker: "The challenge",
@@ -312,7 +330,7 @@ export const casePages: CasePage[] = [
         title: "Stop motion,",
         soft: "without a video.",
         body: ["Video would have been heavy and slow to start at the exact moment millions of people tapped the link. So the burrito was a sequence of small images, animated in the browser with GSAP. It played on every phone that tapped the link, and nothing heavy loaded before the coupon."],
-        media: [{ src: "burrito-anim.mp4", poster: "burrito-poster.jpg", alt: "The burrito animation", cap: "A recording made for this case study. The original ran live in the browser.", video: true }],
+        media: [{ src: "burrito-anim.mp4", poster: "burrito-poster.jpg", alt: "The burrito animation", cap: "A recording made for this case study. The original ran live in the browser.", video: true, zoom: 1.215 }],
         layout: "phones",
       },
       {
@@ -370,8 +388,9 @@ export const casePages: CasePage[] = [
       result: "Completion time fell to under five minutes. Completion rose 40%, drop-offs fell 27%, and confused service calls fell by 112 a month.",
     },
     links: [{ label: "Try the prototype", href: "/work/creditninja/prototype/index.html" }],
-    hero: { src: "before-loan-form.png", alt: "The original CreditNinja loan application: a long single-page form", cap: "Before" },
+    hero: { src: "before-phone.webp", alt: "The original CreditNinja loan application: a long single-page form", cap: "Before" },
     heroPair: { src: "chat-01.webp", alt: "Chat opening: the CreditNinja ninja asks how much you need", cap: "After" },
+    evenPhones: "1242 / 2604",
     blocks: [
       {
         kicker: "The challenge",
@@ -383,7 +402,7 @@ export const casePages: CasePage[] = [
           { k: "02", v: "A confusing completion experience" },
           { k: "03", v: "Poor mobile usability" },
         ],
-        media: [{ src: "phone-flow.webm", alt: "Screen recording of the original form on a phone", cap: "The original form", video: true }],
+        media: [{ src: "phone-flow.webm", alt: "Screen recording of the original form on a phone", cap: "The original form", video: true, zoom: 1.144 }],
         layout: "phones",
       },
       {
@@ -549,6 +568,7 @@ export const casePages: CasePage[] = [
       result: "VR became the most-used feature. Ways to Win engagement rose 124% over the prior year, with 70%+ app installation reported.",
     },
     hero: { src: "four-phones-vr.webp", alt: "Four red Nokia phones showing the IndyCar experience", cap: "Home · weekend schedule · Ways to Win · track map" },
+    evenPhones: "370 / 650",
     blocks: [
       {
         kicker: "A little time travel",

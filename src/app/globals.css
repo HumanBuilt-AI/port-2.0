@@ -558,6 +558,18 @@ h3 { font-weight: 600; font-size: clamp(18px, 1.5vw, 21px); letter-spacing: -0.0
 .cs-media.row .cs-tile { background: var(--white); }
 .cs-media.phones .cs-tile { background: transparent; }
 .cs-embed { aspect-ratio: 16 / 10; background: var(--night); }
+/* One phone size for every mockup on the page, with even gaps. */
+.even-phones { --phone-w: 220px; }
+.even-phones .cs-media.phones { display: flex; flex-wrap: wrap; justify-content: center; column-gap: clamp(20px, 5vw, 70px); row-gap: 28px; }
+.even-phones .cs-media.phones .cs-fig { width: var(--phone-w); }
+.even-phones .cs-media.phones .cs-tile { aspect-ratio: var(--phone-ar); }
+.even-phones .cs-media.phones .cs-tile img { height: 100%; object-fit: contain; }
+/* The animation recording has its phone inside a dark frame: crop to the phone so it matches the stills. */
+.even-phones .cs-media.phones .cs-tile:has(video) { border-radius: 34px; }
+.even-phones .cs-media.phones .cs-tile video { height: 100%; object-fit: cover; transform: scale(var(--zoom, 1)); }
+@media (max-width: 640px) {
+  .even-phones { --phone-w: min(150px, calc(50% - 10px)); }
+}
 .cs-embed.tall { aspect-ratio: auto; height: min(860px, 90vh); max-width: 460px; justify-self: center; width: 100%; }
 .cs-embed iframe { width: 100%; height: 100%; border: 0; display: block; }
 .cs-embed.scaled { position: relative; }
