@@ -1151,3 +1151,73 @@ a.a2-to:hover { color: var(--white); }
 .bar.on-night .hb-logo .hb-white { display: block; }
 .hb-logo:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; border-radius: 6px; }
 @media (max-width: 760px) { .index .wordmark.hb-logo { height: 34px; margin-block: -2px; } .bar .name.hb-logo { height: 32px; } }
+
+
+/* TOOLKIT (Section 04): one radial map. Hub = Scott, six 60° sectors = stacks, three rings =
+   daily / regular / familiar, one translucent circle per tool. Click a sector to zoom in place. */
+.toolkit { padding-bottom: clamp(24px, 4vw, 48px); }
+.tk-head { margin-bottom: clamp(28px, 3.5vw, 48px); }
+.tk-lede { margin-top: 18px; max-width: 40ch; color: var(--steel); }
+.tm-card { position: relative; max-width: 1120px; margin: 0 auto; background: var(--white); border-radius: 28px; padding: clamp(16px, 3vw, 40px) clamp(12px, 3vw, 40px) clamp(18px, 2.4vw, 28px); box-shadow: 0 1px 0 rgba(0,0,0,.03), 0 22px 44px -30px rgba(20,20,20,.28); }
+.tm-map { display: block; width: 100%; max-width: 780px; aspect-ratio: 1; height: auto; margin: 0 auto; overflow: hidden; }
+.tm-ring { fill: none; stroke: #D6D5D0; stroke-width: 1; stroke-dasharray: 2 5; vector-effect: non-scaling-stroke; }
+.tm-ringlabel { font: 600 10px/1 var(--signal); letter-spacing: .12em; text-transform: uppercase; fill: var(--faint); }
+.tm-sector { cursor: pointer; transition: opacity .45s ease; outline: none; }
+.tm-sector.is-faded { opacity: .16; }
+.tm-wedge { fill: var(--c); fill-opacity: .2; stroke: none; transition: fill-opacity .3s; }
+.tm-sector.is-dark .tm-wedge { fill-opacity: .08; }
+.tm-sector:hover .tm-wedge, .tm-sector.is-sel .tm-wedge { fill-opacity: .32; }
+.tm-sector.is-dark:hover .tm-wedge, .tm-sector.is-dark.is-sel .tm-wedge { fill-opacity: .13; }
+.tm-sector:focus-visible .tm-wedge { stroke: var(--ink); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.tm-chain { fill: none; stroke: var(--ink); stroke-opacity: .38; stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 0 6; vector-effect: non-scaling-stroke; }
+.tm-disc { fill: var(--c); fill-opacity: .7; stroke: var(--ink); stroke-opacity: .22; stroke-width: 1; vector-effect: non-scaling-stroke; transform-box: fill-box; transform-origin: center; }
+.f-daily .tm-disc { fill-opacity: .9; }
+.tm-names { opacity: 0; transition: opacity .3s ease; pointer-events: none; }
+.tm-sector.is-sel .tm-names { opacity: 1; transition: opacity .4s ease .55s; }
+.tm-tool { font: 600 7.5px/1 var(--signal); fill: var(--ink); }
+.tm-stack { transition: opacity .3s ease; pointer-events: none; }
+.tm-stackname { font: 400 18px/1 var(--display); letter-spacing: -0.01em; fill: var(--ink); }
+.tm-stackn { font: 600 11px/1 var(--signal); fill: var(--steel); }
+.is-zoomed .tm-stack, .is-zoomed .tm-ringlabel { opacity: 0; }
+.tm-hub { cursor: pointer; }
+.tm-hub circle { fill: var(--night); }
+.tm-hub .on { fill: var(--white); }
+.tm-hub .off { fill: #3A3A38; }
+.tm-hubk { font: 600 8.5px/1 var(--text); letter-spacing: .16em; text-transform: uppercase; fill: #8F8E8A; }
+.tm-back { position: absolute; top: 18px; left: 18px; display: inline-flex; align-items: center; gap: 8px; border: 0; border-radius: 999px; background: var(--night); color: var(--white); padding: 10px 16px 10px 12px; font: 600 13px/1 var(--text); cursor: pointer; animation: tm-in .35s ease both .3s; }
+.tm-back svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+@keyframes tm-in { from { opacity: 0; transform: translateY(-4px); } }
+.tm-key { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: clamp(14px, 2vw, 22px); }
+.tm-pill { appearance: none; display: inline-flex; align-items: center; gap: 8px; border: 1px solid #DEDDD8; background: transparent; border-radius: 999px; padding: 8px 12px; font: 600 13px/1 var(--text); color: var(--ink); cursor: pointer; white-space: nowrap; transition: background .2s, color .2s, border-color .2s; }
+.tm-pill i { width: 10px; height: 10px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0,0,0,.18); }
+.tm-pill span { font: 600 11px/1 var(--signal); font-variant-numeric: tabular-nums; color: var(--faint); }
+.tm-pill:hover { border-color: var(--ink); }
+.tm-pill[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--white); }
+/* the zoomed stack as text: shown on phones, read by screen readers everywhere */
+.tm-detail { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.tm-detail p { font-size: 15px; line-height: 1.5; margin-top: 6px; }
+.tm-detail b { font: 600 11px/1 var(--text); letter-spacing: .12em; text-transform: uppercase; color: var(--steel); margin-right: 6px; }
+.tm-detail-h { font: 400 22px/1.1 var(--display) !important; margin-top: 0 !important; }
+/* first time on screen: circles pop out from the hub */
+.toolkit.armed .tm-disc { transform: scale(0); }
+.toolkit.armed .tm-ring, .toolkit.armed .tm-wedge { opacity: 0; }
+.toolkit.shown .tm-ring, .toolkit.shown .tm-wedge { animation: tm-fade .6s ease both; }
+.toolkit.shown .tm-disc { animation: tm-pop .55s cubic-bezier(.3,1.5,.5,1) both; animation-delay: calc(var(--i) * 32ms + 250ms); }
+@keyframes tm-pop { from { transform: scale(0); } }
+@keyframes tm-fade { from { opacity: 0; } }
+@media (max-width: 640px) {
+  .tm-card { border-radius: 22px; padding: 56px 8px 16px; }
+  .tm-stack { display: none; }
+  .tm-ringlabel { display: none; }
+  .tm-tool { font-size: 9.5px; }
+  .tm-back { top: 12px; left: 12px; }
+  .tm-key { gap: 5px; }
+  .tm-pill { padding: 7px 10px; font-size: 12px; }
+  .tm-detail { position: static; width: auto; height: auto; clip: auto; white-space: normal; padding: 0 10px; }
+  .tm-detail:not(:empty) { margin-top: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tm-sector, .tm-wedge, .tm-names, .tm-pill { transition: none; }
+  .tm-sector.is-sel .tm-names { transition: none; }
+  .toolkit.shown .tm-disc, .toolkit.shown .tm-ring, .toolkit.shown .tm-wedge, .tm-back { animation: none; }
+}

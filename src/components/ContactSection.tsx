@@ -60,7 +60,7 @@ export function ContactSection() {
       <div className="in">
         <div className="row">
           <div className="contact-copy">
-            <SectionBadge num="05" label="Contact" />
+            <SectionBadge num="06" label="Contact" />
             <h2 id="contact-h">The line is open. <span className="soft">Drop me a line.</span></h2>
             <p className="lede contact-lede">Half-formed idea, messy brief, a product that should exist and doesn’t yet. Those are my favorite emails to open.</p>
             <ContactIcons />

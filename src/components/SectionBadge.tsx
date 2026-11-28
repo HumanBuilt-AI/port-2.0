@@ -7,7 +7,7 @@ import { useEffect, useRef } from "react";
  * The dots light up column by column when the badge scrolls into view.
  * `onDark` flips it to a light widget for dark sections.
  */
-const GLYPHS: Record<string, string[]> = {
+export const GLYPHS: Record<string, string[]> = {
   "0": ["01110", "10001", "10001", "10001", "10001", "10001", "01110"],
   "1": ["00100", "01100", "00100", "00100", "00100", "00100", "01110"],
   "2": ["01110", "10001", "00001", "00010", "00100", "01000", "11111"],
