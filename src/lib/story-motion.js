@@ -129,8 +129,11 @@ export function startStory(gsap, ScrollTrigger) {
     var q = function (s) { return art.querySelectorAll(s); };
     var org = function (b, fx, fy) { return (b[0] + (b[2] - b[0]) * fx) + ' ' + (b[1] + (b[3] - b[1]) * fy); };
     threads.forEach(function (t) { var l = t.getTotalLength(); t.style.strokeDasharray = l + ' ' + l; t.style.strokeDashoffset = l; t._l = l; });
+    // each step's build timeline is made on demand (or in idle time after load): making all six at once
+    // parses ~300 SVG transforms in one go and froze phones for over a second on load
     var tl = [];
-    for (var k = 0; k < 6; k++) (function (k) {
+    function build(k) {
+      if (tl[k]) return tl[k];
       var t = G.timeline({ paused: true, defaults: { ease: 'back.out(1.7)', duration: .4 } });
       var key = function (o) { return '[data-o="' + k + '-' + o + '"]'; };
       t.from(lis[k], { y: 28, opacity: 0, duration: .35, ease: 'power2.out' }, 0);
@@ -140,10 +143,15 @@ export function startStory(gsap, ScrollTrigger) {
       objs.forEach(function (o, i) { var card = o.charAt(2) === 'k'; t.from(q(key(o.slice(2))), { scale: card ? .15 : .3, opacity: 0, rotation: card ? (i % 2 ? 70 : -70) : (i % 2 ? 8 : -8), svgOrigin: org(OB[o], .5, .5), duration: card ? .45 : .35 }, .22 + i * (.3 / Math.max(1, objs.length))); });
       var cb = OB[k + '-char'];
       if (cb) t.from(q(key('char')), k === 5 ? { scale: .2, opacity: 0, svgOrigin: org(cb, .2, 1), duration: .45 } : { scaleY: .1, scaleX: .6, opacity: 0, svgOrigin: org(cb, .5, 1), duration: .45, ease: 'back.out(2.2)' }, .4);
-      tl.push(t);
-    })(k);
-    var tw, hover, ambient = [];
-    if (!reduce) {
+      tl[k] = t;
+      return t;
+    }
+    var idle = window.requestIdleCallback || function (cb) { return setTimeout(cb, 60); };
+    (function next(k) { idle(function () { if (k < 6) { build(k); next(k + 1); } else if (!reduce) startAmbient(); }); })(0);
+    var tw, hover, ambient = [], ambientOn = false, flowOn = false;
+    // the idle wiggles are made in idle time too (or the first time the section comes near the screen, if that is sooner)
+    function startAmbient() {
+      if (ambientOn) return; ambientOn = true; var G = gsap;
       var G0 = G; G = { to: function (a, b) { var t = G0.to(a, b); ambient.push(t); return t; }, timeline: function (v) { var t = G0.timeline(v); ambient.push(t); return t; } };
       for (var k = 0; k < 6; k++) {
         if (OB[k + '-char']) tw = G.to(q('[data-o="' + k + '-char"]'), k === 5 ? { x: 10, y: -14, duration: 1.4, ease: 'sine.inOut', yoyo: true, repeat: -1 } : { y: -5, duration: .9 + k * .13, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: k * .2 });
@@ -161,12 +169,17 @@ export function startStory(gsap, ScrollTrigger) {
       G.to(q('[data-o="0-o157"],[data-o="0-o163"]'), { opacity: .2, duration: .3, ease: 'steps(1)', yoyo: true, repeat: -1, repeatDelay: .4 });
       G.to(q('[data-o="0-char"]'), { rotation: 4, svgOrigin: org(OB['0-char'], .5, 1), duration: 1.3, ease: 'sine.inOut', yoyo: true, repeat: -1 });
       q('.gold').forEach(function (g, i) { G.to(g, { opacity: .45, duration: .6, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: i * .21 }); });
-      G = G0;
+      if (window.__flowFlood > 0 && hover) hover.pause();
+      if (!flowOn && 'IntersectionObserver' in window) ambient.forEach(function (t) { t.pause(); });
+    }
+    if (!reduce) {
       // the idle wiggles repaint a very wide SVG every frame; let them sleep while the section is off-screen (iPad scroll jank)
       if ('IntersectionObserver' in window) new IntersectionObserver(function (es) {
-        var on = es[es.length - 1].isIntersecting;
+        var on = flowOn = es[es.length - 1].isIntersecting;
+        if (on) startAmbient();
         ambient.forEach(function (t) { if (t === hover && window.__flowFlood > 0) return; on ? t.resume() : t.pause(); });
       }, { rootMargin: '200px 0px' }).observe(flow);
+      else startAmbient();
     }
     var vw0 = function () { return window.innerWidth; };
     var rkfly = art.querySelector('#rkfly');
@@ -220,7 +233,8 @@ export function startStory(gsap, ScrollTrigger) {
       for (var k = 0; k < 6; k++) {
         var left = (PL[k] + k * GAP) * s - x, c = (left + (PR[k] + k * GAP) * s - x) / 2;
         var pr = reduce ? 1 : (k === 0 ? 1 : seg(c, vw * .98, vw * .55));
-        tl[k].progress(pr);
+        // step 01 is driven by its own trigger below; the rest build when they first need to move
+        if (tl[k] || reduce || (k && pr > 0)) build(k).progress(pr);
         if (pr > .5) idx = k + 1;
         if (k) { var th = threads[k - 1]; th.style.strokeDashoffset = th._l * (1 - (reduce ? 1 : seg(c, vw * 1.35, vw * .9))); }
       }
@@ -229,12 +243,11 @@ export function startStory(gsap, ScrollTrigger) {
     setSeg('flow-count', '1/6'); lastIdx = 1;
     layout(); render(0);
     if (!reduce) {
-      tl[0].progress(0);
       G.registerPlugin(ScrollTrigger);
       ScrollTrigger.addEventListener('refreshInit', layout);
       ScrollTrigger.create({ trigger: flow, start: 'top top', end: 'bottom bottom', scrub: .9, onUpdate: function (st) { render(st.progress); } });
       // step 01 builds as the section arrives
-      ScrollTrigger.create({ trigger: flow, start: 'top 75%', end: 'top 5%', scrub: .6, onUpdate: function (st) { tl[0].progress(st.progress); }, onLeave: function () { tl[0].progress(1); } });
+      ScrollTrigger.create({ trigger: flow, start: 'top 75%', end: 'top 5%', scrub: .6, onUpdate: function (st) { build(0).progress(st.progress); }, onLeave: function () { build(0).progress(1); } });
       // re-measure when the heading changes height (web fonts landing, the counter wrapping on narrow iPads)
       var headEl = document.querySelector('.flow-head'), headH = headEl.offsetHeight, rT;
       var reflow = function () { var h = headEl.offsetHeight; if (h === headH) return; headH = h; clearTimeout(rT); rT = setTimeout(function () { ScrollTrigger.refresh(); }, 120); };

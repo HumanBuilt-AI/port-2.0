@@ -109,6 +109,8 @@ export function HeroIntro() {
               <a key={proj.key} href={`/work/${proj.slug}`} className={`hi-card${out ? " out" : ""}${rise ? " in" : ""}`} data-pos={Math.min(pos, 3)} tabIndex={pos === 0 ? 0 : -1} aria-hidden={pos === 0 ? undefined : true}>
                 {[0, 1, 2].map((k) => {
                   const on = pos === 0 ? k === f : out ? k === 2 : k === 0; // a leaving card holds its last frame
+                  // cards in the pile only show their first frame; the other two load once the card is next up
+                  if (k > 0 && i > Math.floor(tick / 3) + 1) return null;
                   return (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img key={k} className={`hi-frame${on ? " on" : ""}`} src={`/hero/${proj.key}-${k + 1}-1200.webp`} srcSet={`/hero/${proj.key}-${k + 1}-640.webp 640w, /hero/${proj.key}-${k + 1}-1200.webp 1200w`} sizes="(max-width: 860px) 92vw, 46vw" alt={on && pos === 0 ? proj.alts[k] : ""} loading={i === 0 && k === 0 ? "eager" : "lazy"} decoding="async" />

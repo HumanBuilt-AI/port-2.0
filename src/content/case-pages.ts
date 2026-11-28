@@ -523,7 +523,7 @@ export const casePages: CasePage[] = [
           { k: "Right kiosk", v: "The code maps the phone to the right iPad." },
           { k: "One session", v: "The socket stays open for all five throws." },
         ],
-        media: [{ src: "wf-06.png", alt: "Wireframe: phone screen to enter the code and connect, iPad shows the code", cap: "Pair phone to iPad" }],
+        media: [{ src: "wf-06.webp", alt: "Wireframe: phone screen to enter the code and connect, iPad shows the code", cap: "Pair phone to iPad" }],
         layout: "boards",
       },
       {
@@ -537,7 +537,7 @@ export const casePages: CasePage[] = [
         media: [
           { src: "wf-07.webp", alt: "Wireframe: phone with lasso ready and chevrons hinting an upward swipe", cap: "Aim and flick" },
           { src: "wf-08.webp", alt: "Wireframe: phone shows Look at the iPad as the lasso leaves", cap: "Lasso crosses screens" },
-          { src: "wf-09.png", alt: "Wireframe: result screens on phone and iPad", cap: "Result" },
+          { src: "wf-09.webp", alt: "Wireframe: result screens on phone and iPad", cap: "Result" },
         ],
         layout: "boards",
       },
@@ -587,10 +587,10 @@ export const casePages: CasePage[] = [
         soft: "obvious.",
         body: ["Five questions a visitor brings to race day, each with its own destination, all one tap from home. Every screen shares one structure: a large heading, an angled panel for the content, and an arrow on every row."],
         media: [
-          { src: "wf-home.png", alt: "Home wireframe with an angled panel", cap: "Home" },
-          { src: "wf-schedule.png", alt: "Weekend schedule wireframe", cap: "Weekend schedule" },
-          { src: "wf-ways-to-win.png", alt: "Ways to Win wireframe", cap: "Ways to Win" },
-          { src: "wf-track-map.png", alt: "Track map wireframe", cap: "Track map" },
+          { src: "wf-home.webp", alt: "Home wireframe with an angled panel", cap: "Home" },
+          { src: "wf-schedule.webp", alt: "Weekend schedule wireframe", cap: "Weekend schedule" },
+          { src: "wf-ways-to-win.webp", alt: "Ways to Win wireframe", cap: "Ways to Win" },
+          { src: "wf-track-map.webp", alt: "Track map wireframe", cap: "Track map" },
         ],
         layout: "row",
       },

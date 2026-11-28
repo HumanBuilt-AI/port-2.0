@@ -17,7 +17,7 @@ import { intro, bella, wander, comic, rotation, rabbitHole, spiritAnimal, type P
 function Pic({ p, className, fit = "cover" }: { p: Photo; className?: string; fit?: "cover" | "contain" }) {
   return p.src ? (
     // eslint-disable-next-line @next/next/no-img-element
-    <img className={`pic-img ${className ?? ""}`} src={p.src} alt={p.alt} style={{ objectFit: fit }} />
+    <img className={`pic-img ${className ?? ""}`} src={p.src} alt={p.alt} style={{ objectFit: fit }} loading="lazy" decoding="async" />
   ) : (
     <span className={`pic-ph ${className ?? ""}`} role="img" aria-label={p.alt}>
       <span className="fine">{p.alt.replace(/^PLACEHOLDER:\s*/, "")}</span>
