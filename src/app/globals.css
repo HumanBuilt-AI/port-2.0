@@ -1168,7 +1168,7 @@ a.a2-to:hover { color: var(--white); }
 .tm-sector:hover .tm-wedge, .tm-sector.is-sel .tm-wedge { fill-opacity: .32; }
 .tm-sector.is-dark:hover .tm-wedge, .tm-sector.is-dark.is-sel .tm-wedge { fill-opacity: .13; }
 .tm-sector:focus-visible .tm-wedge { stroke: var(--ink); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
-.tm-spoke { stroke: var(--ink); stroke-opacity: .1; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.tm-chain { fill: none; stroke: var(--ink); stroke-opacity: .38; stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 0 6; vector-effect: non-scaling-stroke; }
 .tm-disc { fill: var(--c); fill-opacity: .7; stroke: var(--ink); stroke-opacity: .22; stroke-width: 1; vector-effect: non-scaling-stroke; transform-box: fill-box; transform-origin: center; }
 .f-daily .tm-disc { fill-opacity: .9; }
 .tm-names { opacity: 0; transition: opacity .3s ease; pointer-events: none; }
