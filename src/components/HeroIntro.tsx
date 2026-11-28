@@ -31,7 +31,7 @@ const PROJECTS = [
   // Specs goes here once its strip and logo arrive: add public/hero/specs-{1,2,3}-{640,1200}.webp and public/hero/logos/specs.svg.
 ];
 /** Time on each picture. The progress bars and push-in read it from --hi-frame. */
-const FRAME_MS = 2200;
+const FRAME_MS = 1800;
 
 const article = (w: string) => (/^[aeiou]/i.test(w) ? "An" : "A");
 
@@ -104,8 +104,9 @@ export function HeroIntro() {
           {PROJECTS.map((proj, i) => {
             const pos = (i - p + PROJECTS.length) % PROJECTS.length; // 0 = front
             const out = moved && pos === PROJECTS.length - 1; // the card that just left the front
+            const rise = moved && pos === 0; // the card that just came forward
             return (
-              <a key={proj.key} href={`/work/${proj.slug}`} className={`hi-card${out ? " out" : ""}`} data-pos={Math.min(pos, 3)} tabIndex={pos === 0 ? 0 : -1} aria-hidden={pos === 0 ? undefined : true}>
+              <a key={proj.key} href={`/work/${proj.slug}`} className={`hi-card${out ? " out" : ""}${rise ? " in" : ""}`} data-pos={Math.min(pos, 3)} tabIndex={pos === 0 ? 0 : -1} aria-hidden={pos === 0 ? undefined : true}>
                 {[0, 1, 2].map((k) => {
                   const on = pos === 0 ? k === f : out ? k === 2 : k === 0; // a leaving card holds its last frame
                   return (

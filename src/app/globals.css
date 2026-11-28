@@ -1062,13 +1062,24 @@ a.a2-to:hover { color: var(--white); }
 
 /* deck of project cards. The front card plays its three frames (--hi-frame each, set from
    HeroIntro), then tips back into the pile while the next one rises forward. */
-.hi-deck { position: relative; aspect-ratio: 16 / 11; width: 100%; perspective: 1600px; perspective-origin: 60% 0; --hi-ease: cubic-bezier(.16, 1, .3, 1); }
+.hi-deck { position: relative; aspect-ratio: 16 / 11; width: 100%; perspective: 1600px; perspective-origin: 60% 0; --hi-ease: cubic-bezier(.16, 1, .3, 1);
+  animation: hi-deck-in 1s .25s cubic-bezier(.16, 1, .3, 1) both; }
+/* on load the deck rises into place and fades in */
+@keyframes hi-deck-in { from { opacity: 0; transform: translateY(32px) scale(.96); } }
 .hi-card { position: absolute; inset: 0; display: block; border-radius: 16px; overflow: hidden; background: #111; color: #fff; text-decoration: none; box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .7); transform-origin: 50% 100%;
   transition: transform 1s var(--hi-ease), opacity .7s ease, filter 1s ease; }
 .hi-card[data-pos="0"] { z-index: 4; transform: none; transition-delay: .16s; transition-timing-function: cubic-bezier(.22, 1.18, .36, 1), ease, ease; transition-duration: 1.15s, .7s, 1s; }
 .hi-card[data-pos="1"] { z-index: 3; transform: translate(4%, -9%) scale(.92); filter: brightness(.6); }
 .hi-card[data-pos="2"] { z-index: 2; transform: translate(8%, -18%) scale(.84); filter: brightness(.38); }
 .hi-card[data-pos="3"] { z-index: 1; transform: translate(12%, -27%) scale(.76); filter: brightness(.25); opacity: 0; }
+/* the card coming forward: springs out of the pile past its resting size, then settles */
+.hi-card.in { animation: hi-rise .95s .12s cubic-bezier(.3, 0, .2, 1) both; }
+@keyframes hi-rise {
+  0% { transform: translate(4%, -9%) scale(.92); filter: brightness(.6); }
+  55% { transform: translate(-.5%, 1.5%) scale(1.04); filter: brightness(1.08); }
+  78% { transform: translate(0, -.3%) scale(.995); filter: none; }
+  100% { transform: none; filter: none; }
+}
 /* the card leaving the front: tilts back away from you, blurs and fades, revealing the next one
    rising behind it; once invisible it drops to the back of the pile */
 .hi-card.out { animation: hi-recede 1.3s cubic-bezier(.55, 0, .25, 1) both; }
@@ -1112,7 +1123,7 @@ a.a2-to:hover { color: var(--white); }
   .hi-deck { margin: 8% 8% 0 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hi-caret, .hi-card[data-pos="0"] .hi-frame.on, .hi-bars i.run::after, .hi-card.out, .hi-card[data-pos="0"]::after { animation: none; }
+  .hi-caret, .hi-card[data-pos="0"] .hi-frame.on, .hi-bars i.run::after, .hi-card.out, .hi-card.in, .hi-deck, .hi-card[data-pos="0"]::after { animation: none; }
   .hi-card, .hi-card[data-pos="0"], .hi-frame, .hi-tag, .hi-card[data-pos="0"] .hi-tag, .hi-cap, .hi-card[data-pos="0"] .hi-cap { transition: none; }
 }
 
