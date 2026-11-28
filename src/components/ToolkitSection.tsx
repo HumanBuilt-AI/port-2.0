@@ -1,162 +1,142 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import gsap from "gsap";
 import { GLYPHS, SectionBadge } from "@/components/SectionBadge";
-import { ArrowCircle } from "@/components/ArrowCircle";
-import { DISCIPLINES, FREQS, type Discipline, type Freq } from "@/content/toolkit";
+import { DISCIPLINES, FREQS, type Freq } from "@/content/toolkit";
 
 /**
- * Toolkit (Section 04): six stacks as six dashboard cards. Each card draws its tools as a
- * cluster of overlapping translucent circles, one per tool, sized by how often Scott uses it
- * (daily largest). Click a card to open the stack: the same cluster, numbered, with the list.
- * That's the only interaction. Bubbles pop in the first time the grid scrolls into view;
- * reduced motion skips that.
+ * Toolkit (Section 04): one radial map of everything. Scott is the hub; each discipline is a
+ * 60° sector; every tool is a translucent circle on one of three rings, so distance from the
+ * centre reads as how often (daily closest, then regular, then familiar). Bird's-eye shows all
+ * six stacks at once. Click a sector (or a key pill) and the map zooms into it in place, the
+ * other stacks fade, and tool names appear along the radii. Esc, the hub or "All stacks" zooms
+ * back out. Reduced motion: no zoom tween or pop-in, the view just switches.
  */
 
+const V = 1000; // viewBox is centred: -500..500
+const RING: Record<Freq, number> = { Daily: 192, Regular: 296, Familiar: 390 };
+const BR: Record<Freq, number> = { Daily: 29, Regular: 16, Familiar: 9.5 };
+const HUB = 52;
+const SPAN = 60;
+const COLOR: Record<string, string> = { ai: "#1A1A1A", design: "#DCF26A", dev: "#9C9B97", data: "#F7B7A3", auto: "#5C5C59", analytics: "#C3DB52" };
 const pad = (n: number) => String(n).padStart(2, "0");
-const R: Record<Freq, number> = { Daily: 15, Regular: 10.5, Familiar: 7 };
+const rad = (a: number) => (a * Math.PI) / 180;
+const pt = (a: number, r: number) => [Math.cos(rad(a)) * r, Math.sin(rad(a)) * r] as const;
+const f2 = (n: number) => +n.toFixed(2);
 
-/** Card look per stack, picked to read like the reference dashboards: mostly greys, one lime, one coral, one black. */
-const THEME: Record<string, string> = { dev: "t-white", design: "t-lime", ai: "t-black", data: "t-grey", auto: "t-coral", analytics: "t-white" };
-const SPAN: Record<string, string> = { dev: "s4", design: "s4", ai: "s4", data: "s4", auto: "s4", analytics: "s4" };
+type Tool = { name: string; f: Freq; a: number; x: number; y: number; r: number };
 
-type Bubble = { name: string; f: Freq; x: number; y: number; r: number; n: number };
-
-/** Pack a stack's tools into a loose cluster (deterministic, so server and client agree). */
-function pack(d: Discipline) {
-  const tools = [...d.tools].map(([name, f], i) => ({ name, f, i })).sort((a, b) => R[b.f] - R[a.f] || a.i - b.i);
-  const placed: Bubble[] = [];
-  tools.forEach((t, k) => {
-    const r = R[t.f];
-    if (k === 0) { placed.push({ name: t.name, f: t.f, x: 0, y: 0, r, n: k + 1 }); return; }
-    // walk out along a golden-angle spiral until the circle only overlaps its neighbours a little
-    for (let s = 0; s < 4000; s++) {
-      const a = s * 2.39996 + k * 0.7;
-      const dist = 2 + s * 0.12;
-      const x = Math.cos(a) * dist * 1.35, y = Math.sin(a) * dist * 0.8;
-      if (placed.every((p) => Math.hypot(p.x - x, p.y - y) > (p.r + r) * 0.78)) {
-        placed.push({ name: t.name, f: t.f, x, y, r, n: k + 1 });
-        return;
-      }
-    }
+const SECTORS = DISCIPLINES.map((d, i) => {
+  const mid = -90 + i * SPAN;
+  const tools: Tool[] = [];
+  FREQS.forEach((f) => {
+    const list = d.tools.filter((t) => t[1] === f);
+    const step = Math.min(50 / Math.max(list.length, 1), f === "Daily" ? 12 : 9);
+    list.forEach(([name], j) => {
+      const a = mid + (j - (list.length - 1) / 2) * step;
+      const [x, y] = pt(a, RING[f]);
+      tools.push({ name, f, a, x: f2(x), y: f2(y), r: BR[f] });
+    });
   });
-  const minX = Math.min(...placed.map((p) => p.x - p.r)), maxX = Math.max(...placed.map((p) => p.x + p.r));
-  const minY = Math.min(...placed.map((p) => p.y - p.r)), maxY = Math.max(...placed.map((p) => p.y + p.r));
-  const cx = (minX + maxX) / 2, cy = (minY + maxY) / 2;
-  const bubbles = placed.map((p) => ({ ...p, x: +(p.x - cx).toFixed(2), y: +(p.y - cy).toFixed(2) }));
-  return { bubbles, w: maxX - minX, h: maxY - minY };
-}
+  // annular wedge behind the tools
+  const a0 = mid - SPAN / 2 + 2, a1 = mid + SPAN / 2 - 2, ri = HUB + 18, ro = 432;
+  const [p1x, p1y] = pt(a0, ri), [p2x, p2y] = pt(a0, ro), [p3x, p3y] = pt(a1, ro), [p4x, p4y] = pt(a1, ri);
+  const wedge = `M${f2(p1x)} ${f2(p1y)} L${f2(p2x)} ${f2(p2y)} A${ro} ${ro} 0 0 1 ${f2(p3x)} ${f2(p3y)} L${f2(p4x)} ${f2(p4y)} A${ri} ${ri} 0 0 0 ${f2(p1x)} ${f2(p1y)} Z`;
+  const [lx, ly] = pt(mid, 462);
+  const counts = FREQS.map((f) => d.tools.filter((t) => t[1] === f).length);
+  return { d, i, mid, tools, wedge, label: { x: f2(lx), y: f2(ly) }, counts, color: COLOR[d.key] };
+});
+type Sector = (typeof SECTORS)[number];
+const TOTAL = DISCIPLINES.reduce((n, d) => n + d.tools.length, 0);
+const HOME = `${-V / 2} ${-V / 2} ${V} ${V}`;
+// zoomed, the picked wedge is turned to point right, so its names read left to right
+const ZOOM = "-52 -262 524 524";
+/** shortest turn that brings a sector's middle to 0° */
+const turnFor = (mid: number) => { let r = -mid % 360; if (r > 180) r -= 360; if (r <= -180) r += 360; return r; };
 
-const STACKS = DISCIPLINES.map((d) => ({ d, ...pack(d), counts: FREQS.map((f) => d.tools.filter((t) => t[1] === f).length) }));
-type Stack = (typeof STACKS)[number];
-// one scale for every card, so a circle means the same size everywhere
-const VW = Math.max(...STACKS.map((s) => s.w)) + 8, VH = Math.max(...STACKS.map((s) => s.h)) + 8;
-
-/** A number as a 5 × 7 dot matrix, same drawing as the section badges. */
-function DotNum({ n }: { n: number }) {
-  const P = 4, rr = 1.55;
+/** Dot-matrix number as an SVG group (same drawing as the section badges), centred on 0,0. */
+function DotNum({ n, scale = 1 }: { n: number; scale?: number }) {
+  const P = 4, R = 1.55;
   const chars = pad(n).split("");
+  const w = (chars.length * 6 - 1) * P, h = 7 * P;
   return (
-    <svg className="dotnum" viewBox={`0 0 ${(chars.length * 6 - 1) * P} ${7 * P}`} aria-hidden="true">
+    <g transform={`scale(${scale}) translate(${-w / 2} ${-h / 2})`}>
       {chars.map((c, ci) =>
         (GLYPHS[c] ?? GLYPHS["0"]).map((row, y) =>
           row.split("").map((bit, x) => (
-            <circle key={`${ci}${x}${y}`} cx={(ci * 6 + x) * P + P / 2} cy={y * P + P / 2} r={rr} className={bit === "1" ? "on" : "off"} />
+            <circle key={`${ci}${x}${y}`} cx={(ci * 6 + x) * P + P / 2} cy={y * P + P / 2} r={R} className={bit === "1" ? "on" : "off"} />
           )),
         ),
       )}
-    </svg>
+    </g>
   );
 }
 
-/** The cluster drawing. `numbered` adds the key numbers used in the open view. */
-function Cluster({ s, numbered = false, hot = -1 }: { s: Stack; numbered?: boolean; hot?: number }) {
-  const w = numbered ? s.w + 8 : VW, h = numbered ? s.h + 8 : VH;
+/** Tool name along its radius: daily names point in toward the hub, the others point out. */
+function Label({ t }: { t: Tool }) {
+  const out = t.f !== "Daily";
+  const off = t.r + 5;
+  const [x, y] = pt(t.a, RING[t.f] + (out ? off : -off));
+  const rot = t.a;
+  const anchor = out ? "start" : "end";
   return (
-    <svg className="tk-cluster" viewBox={`${-w / 2} ${-h / 2} ${w} ${h}`} aria-hidden="true">
-      {/* satellite lines from the biggest bubble out to each node */}
-      {s.bubbles.slice(1).map((b) => (
-        <line key={`l${b.n}`} x1={s.bubbles[0].x} y1={s.bubbles[0].y} x2={b.x} y2={b.y} className="tk-spoke" />
-      ))}
-      {s.bubbles.map((b, i) => (
-        <g key={b.name} className={`tk-b f-${b.f.toLowerCase()}${hot === b.n ? " hot" : ""}`} style={{ "--i": i } as React.CSSProperties} transform={`translate(${b.x} ${b.y})`}>
-          <g className="tk-bi">
-            <circle r={b.r} className="tk-disc" />
-            {numbered ? (
-              <text className="tk-num" y="0.35em" textAnchor="middle">{b.n}</text>
-            ) : (
-              <circle r={b.f === "Daily" ? 2.2 : b.f === "Regular" ? 1.5 : 1} className="tk-node" />
-            )}
-          </g>
-        </g>
-      ))}
-    </svg>
-  );
-}
-
-function Sheet({ s, onClose }: { s: Stack | null; onClose: () => void }) {
-  const ref = useRef<HTMLDialogElement>(null);
-  const [hot, setHot] = useState(-1);
-  useEffect(() => {
-    const d = ref.current;
-    if (!d) return;
-    if (s && !d.open) d.showModal();
-    if (!s && d.open) d.close();
-  }, [s]);
-  return (
-    <dialog
-      ref={ref}
-      className={`tk-sheet ${s ? THEME[s.d.key] : ""}`}
-      onClose={onClose}
-      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
-      aria-labelledby="tk-sheet-h"
-    >
-      {s && (
-        <div className="tk-sheet-in">
-          <div className="tk-sheet-art"><Cluster s={s} numbered hot={hot} /></div>
-          <div className="tk-sheet-copy">
-            <p className="tk-k">The stack</p>
-            <h3 id="tk-sheet-h">{s.d.name}</h3>
-            <p className="tk-sum">{s.d.tools.length} tools · {FREQS.map((f, i) => (s.counts[i] ? `${s.counts[i]} ${f.toLowerCase()}` : null)).filter(Boolean).join(" · ")}</p>
-            {FREQS.map((f) => {
-              const list = s.bubbles.filter((b) => b.f === f);
-              if (!list.length) return null;
-              return (
-                <div className="tk-group" key={f}>
-                  <p className="tk-k">{f}</p>
-                  <ol>
-                    {list.map((b) => (
-                      <li key={b.name} onPointerEnter={() => setHot(b.n)} onPointerLeave={() => setHot(-1)}>
-                        <span className="tk-ln">{pad(b.n)}</span>{b.name}
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-              );
-            })}
-          </div>
-          <button type="button" className="tk-close" onClick={onClose} aria-label="Close">×</button>
-        </div>
-      )}
-    </dialog>
+    <text className="tm-tool" x={f2(x)} y={f2(y)} textAnchor={anchor} dominantBaseline="central" transform={`rotate(${f2(rot)} ${f2(x)} ${f2(y)})`}>
+      {t.name}
+    </text>
   );
 }
 
 export function ToolkitSection() {
-  const [open, setOpen] = useState<Stack | null>(null);
+  const [sel, setSel] = useState<number | null>(null);
+  const [hov, setHov] = useState<number | null>(null);
   const root = useRef<HTMLElement>(null);
+  const svg = useRef<SVGSVGElement>(null);
+  const spin = useRef<SVGGElement>(null);
+  const hub = useRef<SVGGElement>(null);
+  const reduced = useRef(false);
 
   useEffect(() => {
+    reduced.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const el = root.current;
-    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
-    const grid = el.querySelector(".tk-grid");
-    if (!grid || grid.getBoundingClientRect().top < window.innerHeight * 0.9) return; // already on screen: leave it
+    if (!el || reduced.current || !("IntersectionObserver" in window)) return;
+    const map = el.querySelector(".tm-card");
+    if (!map || map.getBoundingClientRect().top < window.innerHeight * 0.85) return; // already on screen: leave it
     el.classList.add("armed");
     const io = new IntersectionObserver(([e]) => {
       if (e.isIntersecting) { el.classList.replace("armed", "shown"); io.disconnect(); }
-    }, { threshold: 0.15 });
-    io.observe(grid);
+    }, { threshold: 0.25 });
+    io.observe(map);
     return () => io.disconnect();
   }, []);
+
+  // zoom: tween the viewBox to the picked wedge (or back home)
+  useEffect(() => {
+    const s = svg.current, g = spin.current, h = hub.current;
+    if (!s || !g || !h) return;
+    const to = sel === null ? HOME : ZOOM;
+    const turn = sel === null ? 0 : turnFor(SECTORS[sel].mid);
+    if (reduced.current) {
+      s.setAttribute("viewBox", to);
+      gsap.set(g, { rotation: turn, svgOrigin: "0 0" });
+      gsap.set(h, { rotation: 0, svgOrigin: "0 0" });
+      return;
+    }
+    const tl = gsap.timeline({ defaults: { duration: 0.95, ease: "power3.inOut" } });
+    tl.to(s, { attr: { viewBox: to } }, 0).to(g, { rotation: turn, svgOrigin: "0 0" }, 0);
+    return () => { tl.kill(); };
+  }, [sel]);
+
+  const back = useCallback(() => setSel(null), []);
+  useEffect(() => {
+    if (sel === null) return;
+    const k = (e: KeyboardEvent) => { if (e.key === "Escape") back(); };
+    window.addEventListener("keydown", k);
+    return () => window.removeEventListener("keydown", k);
+  }, [sel, back]);
+
+  const pick = (i: number) => setSel((c) => (c === i ? null : i));
+  const cur: Sector | null = sel === null ? null : SECTORS[sel];
+  const focus = sel ?? hov;
 
   return (
     <section className="toolkit" id="toolkit" aria-labelledby="toolkit-h" ref={root}>
@@ -164,29 +144,105 @@ export function ToolkitSection() {
         <header className="about-head tk-head">
           <SectionBadge num="04" label="Toolkit" />
           <h2 id="toolkit-h" className="h2">The toolkit, <span className="soft">in daily use.</span></h2>
-          <p className="lede tk-lede">Six stacks, one circle per tool. The bigger the circle, the more often I reach for it. Open a stack to see what’s in it.</p>
+          <p className="lede tk-lede">Six stacks around one person. The closer a tool sits to the middle, the more often I reach for it. Click one to zoom in.</p>
         </header>
 
-        <div className="tk-grid">
-          {STACKS.map((s) => (
-            <button key={s.d.key} type="button" className={`tk-card ${THEME[s.d.key]} ${SPAN[s.d.key]}`} onClick={() => setOpen(s)} aria-haspopup="dialog">
-              <span className="tk-card-top">
-                <span className="tk-name">{s.d.name}</span>
-                <DotNum n={s.d.tools.length} />
-              </span>
-              <Cluster s={s} />
-              <span className="tk-card-foot">
-                <span className="tk-mix">
-                  {FREQS.map((f, i) => (s.counts[i] ? <span key={f}><i className={`k-${f.toLowerCase()}`} aria-hidden="true" />{s.counts[i]} {f.toLowerCase()}</span> : null))}
-                </span>
-                <ArrowCircle dir="ne" />
-              </span>
-              <span className="sr-only">{`, ${s.d.tools.length} tools. Open the stack.`}</span>
+        <div className={`tm-card${cur ? " is-zoomed" : ""}`}>
+          <svg ref={svg} className="tm-map" viewBox={HOME} role="group" aria-label="Toolkit map: six stacks of tools, by how often they're used">
+            <g ref={spin} className="tm-spin">
+            {/* frequency rings */}
+            <g className="tm-rings" aria-hidden="true">
+              {FREQS.map((f) => (
+                <g key={f}>
+                  <circle r={RING[f]} className="tm-ring" />
+                  <text className="tm-ringlabel" x={RING[f] + 8} y="0" dominantBaseline="central">{f}</text>
+                </g>
+              ))}
+            </g>
+
+            {SECTORS.map((s) => {
+              const on = focus === null || focus === s.i;
+              return (
+                <g
+                  key={s.d.key}
+                  className={`tm-sector${on ? "" : " is-faded"}${sel === s.i ? " is-sel" : ""}${s.d.key === "ai" || s.d.key === "auto" ? " is-dark" : ""}`}
+                  style={{ "--c": s.color } as React.CSSProperties}
+                  role="button"
+                  tabIndex={0}
+                  aria-pressed={sel === s.i}
+                  aria-label={`${s.d.name}: ${s.d.tools.length} tools. ${sel === s.i ? "Zoom out" : "Zoom in"}.`}
+                  onClick={() => pick(s.i)}
+                  onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(s.i); } }}
+                  onPointerEnter={(e) => { if (e.pointerType === "mouse") setHov(s.i); }}
+                  onPointerLeave={(e) => { if (e.pointerType === "mouse") setHov(null); }}
+                >
+                  <path d={s.wedge} className="tm-wedge" />
+                  {s.tools.map((t, j) => (
+                    <line key={`s${j}`} x1="0" y1="0" x2={t.x} y2={t.y} className="tm-spoke" />
+                  ))}
+                  {s.tools.map((t, j) => (
+                    <g key={t.name} className={`tm-b f-${t.f.toLowerCase()}`} transform={`translate(${t.x} ${t.y})`}>
+                      <circle r={t.r} className="tm-disc" style={{ "--i": j + s.i * 2 } as React.CSSProperties} />
+                    </g>
+                  ))}
+                  <g className="tm-names" aria-hidden="true">{s.tools.map((t) => <Label key={t.name} t={t} />)}</g>
+                  <g className="tm-stack" transform={`translate(${s.label.x} ${s.label.y})`} aria-hidden="true">
+                    <text className="tm-stackname" textAnchor="middle" y="-2">{s.d.name}</text>
+                    <text className="tm-stackn" textAnchor="middle" y="18">{pad(s.d.tools.length)} tools</text>
+                  </g>
+                </g>
+              );
+            })}
+
+            </g>
+
+            {/* hub: Scott, and the total (outside the turning group so it stays upright) */}
+            <g ref={hub} className="tm-hub" aria-hidden="true" onClick={back}>
+              <circle r={HUB} />
+              <g className="tm-hubnum" transform="translate(0 -6)"><DotNum n={TOTAL} scale={1.25} /></g>
+              <text y="30" textAnchor="middle" className="tm-hubk">tools</text>
+            </g>
+          </svg>
+
+          {cur && (
+            <button type="button" className="tm-back" onClick={back}>
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8 H3 M7 4 L3 8 L7 12" /></svg>
+              All stacks
             </button>
-          ))}
+          )}
+
+          {/* key: doubles as stack picker */}
+          <div className="tm-key" role="group" aria-label="Stacks">
+            {SECTORS.map((s) => (
+              <button
+                key={s.d.key}
+                type="button"
+                className="tm-pill"
+                aria-pressed={sel === s.i}
+                onClick={() => pick(s.i)}
+                onPointerEnter={(e) => { if (e.pointerType === "mouse") setHov(s.i); }}
+                onPointerLeave={(e) => { if (e.pointerType === "mouse") setHov(null); }}
+              >
+                <i style={{ background: s.color }} aria-hidden="true" />
+                {s.d.name}
+                <span>{pad(s.d.tools.length)}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* what's in the zoomed stack, readable on phones and for screen readers */}
+          <div className="tm-detail" aria-live="polite">
+            {cur && (
+              <>
+                <p className="tm-detail-h">{cur.d.name} · {cur.d.tools.length} tools</p>
+                {FREQS.map((f, fi) => (cur.counts[fi] ? (
+                  <p key={f}><b>{f}</b> {cur.d.tools.filter((t) => t[1] === f).map((t) => t[0]).join(", ")}</p>
+                ) : null))}
+              </>
+            )}
+          </div>
         </div>
       </div>
-      <Sheet s={open} onClose={() => setOpen(null)} />
     </section>
   );
 }
