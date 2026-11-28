@@ -8,7 +8,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { intro, bella, wander, comic, rotation, rabbitHole, spiritAnimal, type Photo } from "@/content/about";
 
 /**
- * About me (Section 04): seven cards about life outside work. Light cards and dark
+ * About me (Section 05): seven cards about life outside work. Light cards and dark
  * A2UI-style cards from the Specs catalog. Every control is a real button (touch and
  * keyboard), nothing depends on hover, and motion stops under reduced motion.
  */
@@ -123,7 +123,7 @@ export function AboutSection() {
     <section className="about" id="about" aria-labelledby="about-h">
       <div className="in">
         <header className="about-head">
-          <SectionBadge num="04" label="About" />
+          <SectionBadge num="05" label="About" />
           <h2 id="about-h" className="h2">Off the clock. <span className="soft">Still paying attention.</span></h2>
         </header>
 

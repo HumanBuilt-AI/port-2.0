@@ -11,7 +11,7 @@ const sections: { icon: string; label: string; href: string; subs: [string, stri
   { icon: "work", label: "work", href: "#work", subs: [["aon", "#work"], ["creditninja", "#work"], ["verizon", "#work"], ["chipotle", "#work"]] },
   // Specs hidden for now: { icon: "specs", label: "specs", href: "/work/specs", subs: [["case study", "/work/specs"], ["try it", "https://specs.humanbuiltai.work"]] },
   { icon: "approach", label: "approach", href: "#flow", subs: [["the flow", "#flow"], ["the brief", "#brand"]] },
-  { icon: "about", label: "about", href: "#about", subs: [["who i am", "#about"], ["toolkit", "#about"]] },
+  { icon: "about", label: "about", href: "#about", subs: [["who i am", "#about"], ["toolkit", "#toolkit"]] },
   { icon: "contact", label: "contact", href: "#contact", subs: [["email", "#contact"], ["linkedin", LI], ...(RESUME_PDF ? [["résumé", RESUME_PDF] as [string, string]] : [])] },
 ];
 

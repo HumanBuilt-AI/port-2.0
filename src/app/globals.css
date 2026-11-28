@@ -1150,3 +1150,109 @@ a.a2-to:hover { color: var(--white); }
 .bar.on-night .hb-logo .hb-white { display: block; }
 .hb-logo:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; border-radius: 6px; }
 @media (max-width: 760px) { .index .wordmark.hb-logo { height: 34px; margin-block: -2px; } .bar .name.hb-logo { height: 32px; } }
+
+/* TOOLKIT (Section 04): the toolkit crew. One character per discipline, one layer per tool.
+   Bolder than the rest of the site on purpose (cream paper, flat colour, black ink, from the
+   "funky brand" Taste collection), but on the same plate, radii and type. */
+.toolkit { --cream: #F7F0E2; --ink2: #1B1B1B; --tk-sun: #FFC83D; padding-bottom: clamp(24px, 4vw, 48px); }
+.tk-head { margin-bottom: clamp(28px, 3.5vw, 48px); }
+.tk-head .h2 { max-width: 18ch; }
+.tk-lede { margin-top: 18px; max-width: 44ch; color: var(--steel); }
+.tk-board { display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr); gap: 14px; max-width: 1120px; margin: 0 auto; }
+.tk-stage { background: var(--cream); border-radius: 28px; padding: clamp(20px, 3vw, 36px) clamp(16px, 2.4vw, 32px) 22px; display: flex; flex-direction: column; gap: 22px; min-width: 0; overflow: hidden; box-shadow: 0 1px 0 rgba(0,0,0,.03), 0 22px 44px -30px rgba(20,20,20,.28); }
+.tk-crew { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); align-items: start; padding-top: 8px; margin-block: auto; }
+.tk-char { appearance: none; background: none; border: 0; padding: 0; margin: 0; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 10px; min-width: 0; -webkit-tap-highlight-color: transparent; }
+.tk-char:focus-visible { outline: none; }
+.tk-char:focus-visible .tk-name { outline: 1.5px solid var(--ink); outline-offset: 3px; }
+.tk-svg { width: 100%; height: auto; display: block; overflow: visible; margin-inline: -4%; width: 108%; }
+.tk-svg .ink { fill: var(--ink2); }
+.tk-svg .paper, .tk-svg .eye { fill: #FFFDF8; }
+.tk-svg .eye { stroke: var(--ink2); stroke-width: 2; }
+.tk-line { fill: none; stroke: var(--ink2); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.tk-floor { stroke: var(--ink2); stroke-width: 1.5; }
+.tk-spot { fill: var(--c); opacity: 0; transform-box: fill-box; transform-origin: center; transform: scaleX(.5); transition: opacity .3s, transform .4s cubic-bezier(.3,.7,.4,1); }
+.tk-char.is-on .tk-spot { opacity: .55; transform: none; }
+.tk-slab { fill: var(--c); stroke: var(--ink2); stroke-width: 2; transform-box: fill-box; transform-origin: 50% 100%; transition: transform .45s cubic-bezier(.3,.7,.4,1), opacity .3s; }
+.tk-slab.off { transform: scaleY(0); opacity: 0; }
+.tk-layer, .tk-top, .tk-arms, .tk-keypos { transition: transform .45s cubic-bezier(.3,.7,.4,1); }
+.tk-hop { transform-box: view-box; transform-origin: 60px 186px; }
+.tk-bulb { fill: var(--tk-sun); stroke: var(--ink2); stroke-width: 2; }
+.tk-eyes { transform-box: fill-box; transform-origin: center; }
+.tk-eyes.blink { animation: tk-blink .19s ease-in-out; }
+@keyframes tk-blink { 50% { transform: scaleY(.1); } }
+.tk-pupils { transition: transform .12s linear; }
+.tk-arm-r, .tk-arm-l { transform-box: view-box; transition: transform .35s cubic-bezier(.3,.7,.4,1); }
+.tk-arm-r { transform-origin: 91px 0; }
+.tk-arm-l { transform-origin: 29px 0; }
+.tk-char:hover .tk-arm-r, .tk-char.is-on .tk-arm-r { transform: rotate(-115deg); }
+.tk-char.is-on .tk-arm-r { animation: tk-wave 1.6s ease-in-out .4s 2; }
+@keyframes tk-wave { 0%, 100% { transform: rotate(-115deg); } 25% { transform: rotate(-140deg); } 75% { transform: rotate(-95deg); } }
+.tk-key { transform-box: fill-box; transform-origin: 0 50%; }
+.toolkit.live .tk-key { animation: tk-spin 1.2s ease-in-out infinite; }
+@keyframes tk-spin { 50% { transform: scaleY(.15); } }
+.toolkit.live .tk-bulb { animation: tk-glow 1.8s ease-in-out infinite; }
+@keyframes tk-glow { 50% { fill: #FFF3C4; } }
+.tk-bob { transform-box: view-box; transform-origin: 60px 186px; }
+.toolkit.live .tk-bob { animation: tk-bob 2.6s ease-in-out infinite; animation-delay: calc(var(--ci) * -0.43s); }
+@keyframes tk-bob { 50% { transform: scale(1.012, .985); } }
+.tk-bubble text { font: 600 9.5px/1 var(--signal); fill: var(--ink2); }
+.tk-bubble-in { transform-box: fill-box; transform-origin: 50% 100%; animation: tk-pop .45s cubic-bezier(.34,1.6,.5,1) both .15s; }
+@keyframes tk-pop { from { transform: scale(0); } }
+.tk-name { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; font: 600 12px/1.2 var(--signal); color: var(--ink2); padding: 5px 9px 5px; border-radius: 999px; border: 1.5px solid transparent; text-align: center; transition: background .25s, color .25s, border-color .25s; }
+.tk-name i { font-style: normal; font-variant-numeric: tabular-nums; color: #8A857A; }
+.tk-char:hover .tk-name { border-color: var(--ink2); }
+.tk-char.is-on .tk-name { background: var(--ink2); color: var(--cream); border-color: var(--ink2); }
+.tk-char.is-on .tk-name i { color: var(--c); }
+
+/* drop-in, first time the board scrolls into view */
+.toolkit.armed .tk-drop { transform: translateY(-190px); opacity: 0; }
+.toolkit.armed .tk-pop { transform: scale(.2); opacity: 0; }
+.tk-pop { transform-box: fill-box; transform-origin: 50% 100%; }
+.toolkit.built .tk-drop { transition: transform .55s cubic-bezier(.34,1.4,.5,1) var(--d), opacity .2s linear var(--d); }
+.toolkit.built .tk-pop { transition: transform .5s cubic-bezier(.34,1.6,.5,1) calc(var(--d) + 120ms), opacity .2s linear calc(var(--d) + 120ms); }
+
+/* control strip: analog switches + readout */
+.tk-panel { display: flex; justify-content: space-between; align-items: center; gap: 14px 20px; flex-wrap: wrap; border-top: 1.5px dashed rgba(27,27,27,.25); padding-top: 18px; }
+.tk-switches { display: flex; gap: 8px; flex-wrap: wrap; }
+.tk-sw { appearance: none; display: inline-flex; align-items: center; gap: 10px; background: #FFFDF8; border: 1.5px solid var(--ink2); border-radius: 14px; padding: 8px 12px 8px 8px; cursor: pointer; font: 600 13px/1 var(--signal); color: var(--ink2); transition: transform .15s, box-shadow .15s; box-shadow: 0 3px 0 var(--ink2); }
+.tk-sw:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--ink2); }
+.tk-sw-track { width: 34px; height: 20px; border-radius: 999px; background: #D9D3C5; border: 1.5px solid var(--ink2); position: relative; transition: background .2s; }
+.tk-sw-knob { position: absolute; top: 1.5px; left: 1.5px; width: 14px; height: 14px; border-radius: 50%; background: #FFFDF8; border: 1.5px solid var(--ink2); transition: transform .25s cubic-bezier(.3,.7,.4,1); }
+.tk-sw[aria-checked="true"] .tk-sw-track { background: var(--tk-sun); }
+.tk-sw[aria-checked="true"] .tk-sw-knob { transform: translateX(14px); }
+.tk-sw[aria-checked="false"] .tk-sw-label { text-decoration: line-through; text-decoration-thickness: 1.5px; color: #8A857A; }
+.tk-thk { width: 18px; border-radius: 2px; background: var(--ink2); }
+.tk-readout { display: inline-flex; align-items: center; gap: 10px; background: var(--ink2); color: #B9B9B5; border-radius: 10px; padding: 7px 12px; font: 600 11px/1 var(--signal); letter-spacing: .02em; }
+.tk-readout b { font: 600 20px/1 var(--signal); color: var(--tk-sun); font-variant-numeric: tabular-nums; }
+
+/* the card: what's in the picked stack */
+.tk-card { background: var(--white); border-radius: 28px; padding: clamp(20px, 2.4vw, 30px); min-width: 0; display: flex; flex-direction: column; gap: 6px; box-shadow: 0 1px 0 rgba(0,0,0,.03), 0 22px 44px -30px rgba(20,20,20,.28); }
+.tk-eyebrow { display: flex; align-items: center; gap: 8px; font: 600 11px/1.2 var(--signal); letter-spacing: .12em; text-transform: uppercase; color: var(--steel); }
+.tk-eyebrow i { width: 10px; height: 10px; border-radius: 3px; border: 1.5px solid var(--ink2); }
+.tk-card h3 { margin-top: 4px; }
+.tk-sum { font-size: 14px; color: var(--steel); }
+.tk-list { list-style: none; margin: 12px 0 0; padding: 0; }
+.tk-list li { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid #E8E7E3; font-size: 15px; animation: tk-in .45s cubic-bezier(.3,.7,.4,1) both; animation-delay: calc(var(--i) * 40ms); transition: opacity .3s; }
+.tk-list li:last-child { border-bottom: 0; }
+.tk-list li.off { opacity: .32; }
+.tk-mini { width: 22px; border-radius: 3px; background: var(--c); border: 1.5px solid var(--ink2); }
+.tk-freq { font: 600 11px/1 var(--signal); color: var(--steel); text-transform: uppercase; letter-spacing: .06em; }
+@keyframes tk-in { from { opacity: 0; transform: translateX(-10px); } }
+
+@media (max-width: 899px) {
+  .tk-board { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 640px) {
+  .tk-stage { border-radius: 22px; padding: 18px 12px 18px; }
+  .tk-crew { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 14px; }
+  .tk-name { font-size: 11px; padding: 4px 7px; }
+  .tk-svg { max-width: 118px; }
+  .tk-panel { justify-content: center; }
+  .tk-sw { padding: 7px 10px 7px 7px; gap: 8px; font-size: 12px; }
+  .tk-thk { display: none; }
+  .tk-card { border-radius: 22px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tk-slab, .tk-layer, .tk-top, .tk-arms, .tk-keypos, .tk-spot, .tk-arm-r, .tk-arm-l, .tk-pupils, .tk-sw-knob { transition: none; }
+  .tk-char.is-on .tk-arm-r, .tk-list li, .tk-bubble-in { animation: none; }
+}

@@ -1,5 +1,5 @@
 /**
- * About me (Section 04): seven cards about Scott's life, not his work.
+ * About me (Section 05): seven cards about Scott's life, not his work.
  * Copy marked as quoted below comes from Scott's brief. Anything marked PLACEHOLDER is a
  * stand-in; cards that still hold placeholders stay hidden (`show: false`) until filled. Never fill these with invented
  * anecdotes, picks or biography.
